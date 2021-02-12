@@ -1,10 +1,17 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.com/docs/gatsby-config/
- */
-
 module.exports = {
-  /* Your site config here */
-  plugins: [],
+  plugins: [
+    "gatsby-transformer-json",
+    {
+      resolve: "gatsby-source-dynamodb",
+      options: {
+        typeName: "InformationItem",
+        accessKeyId: `${process.env.DB_ACCESS_ID}`,
+        secretAccessKey: `${process.env.DB_ACCESS_KEY}`,
+        region: `${process.env.DB_REGION}`,
+        params: {
+          TableName: "hwebs-info",
+        },
+      },
+    },
+  ],
 }
