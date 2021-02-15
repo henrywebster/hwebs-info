@@ -1,4 +1,5 @@
 import { shallow } from "enzyme"
+import React from "react"
 import { PersonalItem, InfoType } from "./PersonalItem"
 import PersonIcon from "@material-ui/icons/Person"
 import WorkRoundedIcon from "@material-ui/icons/WorkRounded"
