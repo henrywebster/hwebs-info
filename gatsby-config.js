@@ -1,6 +1,8 @@
 module.exports = {
   plugins: [
     "gatsby-transformer-json",
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
     {
       resolve: "gatsby-source-dynamodb",
       options: {
@@ -11,6 +13,13 @@ module.exports = {
         params: {
           TableName: "hwebs-info",
         },
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images/`,
       },
     },
   ],

@@ -47,6 +47,11 @@ const theme = createMuiTheme({
         color: "HoneyDew",
       },
     },
+    MuiListSubheader: {
+      root: {
+        color: "HoneyDew",
+      },
+    },
   },
 })
 
