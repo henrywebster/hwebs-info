@@ -1,39 +1,34 @@
 import { createMuiTheme } from "@material-ui/core/styles"
 
-const theme = createMuiTheme({
+const darkTheme = createMuiTheme({
   typography: {
-    fontFamily: ['"Signika"', '"Open Sans"', "sans-serif"].join(","),
+    fontFamily: [
+      '"Source Sans Pro"',
+      '"Roboto"',
+      '"Open Sans"',
+      'sans-serif',
+    ].join(','),
   },
   palette: {
-    //     text: {
-    //       primary: "white",
-    //     },
+    type: "dark",
     primary: {
-      main: "#000",
-      mainGradient: "linear-gradient(to bottom right, Tomato, DarkBlue)",
-      secondary: "#fff",
+      main: "#2ee779",
     },
-    background: {
-      default: "DarkBlue",
+    secondary: {
+      main: "#504fff"
     },
+    action: {
+      hover: "#504fff88",
+      selected: "#504fffdd"
+    }
   },
   overrides: {
-    MuiListItemIcon: {
-      root: {
-        color: "HoneyDew",
-      },
-    },
-    MuiListItem: {
-      root: {
-        color: "HoneyDew",
-      },
-    },
-    MuiListSubheader: {
-      root: {
-        color: "HoneyDew",
-      },
-    },
-  },
-})
+    MuiTypography: {        
+      h4: {
+        fontWeight: "900"
+      }
+    }
+  }
+});
 
-export default theme
+export { darkTheme }
