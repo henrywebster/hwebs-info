@@ -6,8 +6,8 @@ const darkTheme = createMuiTheme({
       '"Source Sans Pro"',
       '"Roboto"',
       '"Open Sans"',
-      'sans-serif',
-    ].join(','),
+      "sans-serif",
+    ].join(","),
   },
   palette: {
     type: "dark",
@@ -15,20 +15,20 @@ const darkTheme = createMuiTheme({
       main: "#2ee779",
     },
     secondary: {
-      main: "#504fff"
+      main: "#504fff",
     },
     action: {
       hover: "#504fff88",
-      selected: "#504fffdd"
-    }
+      selected: "#504fffdd",
+    },
   },
   overrides: {
-    MuiTypography: {        
+    MuiTypography: {
       h4: {
-        fontWeight: "900"
-      }
-    }
-  }
-});
+        fontWeight: "900",
+      },
+    },
+  },
+})
 
 export { darkTheme }

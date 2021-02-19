@@ -5,6 +5,8 @@ import { Box, Container, CssBaseline } from "@material-ui/core"
 import { ThemeProvider } from "@material-ui/core"
 import Sidebar from "../components/Sidebar"
 import { darkTheme } from "../../theme"
+import "@fontsource/source-sans-pro"
+import "@fontsource/source-sans-pro/900.css"
 
 export const query = graphql`
   query InformationQuery {
@@ -26,7 +28,7 @@ export default function Home({ data }) {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Sidebar />
+      <Sidebar selected="home" />
     </ThemeProvider>
   )
 }
