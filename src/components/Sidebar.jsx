@@ -21,10 +21,64 @@ import EmailIcon from "@material-ui/icons/Email"
 import computer from "../images/computer-animated-glow.gif"
 
 export default function Sidebar(props) {
-
   const navigationData = [
     { text: "Home", icon: <HomeIcon />, selected: props.selected === "home" },
-    { text: "About", icon: <EmojiPeopleIcon />, selected: props.selected === "about" }
+    {
+      text: "About",
+      icon: <EmojiPeopleIcon />,
+      selected: props.selected === "about",
+    },
+  ]
+
+  const sidebarData = [
+    {
+      subtitle: "Navigation",
+      component: navigationData.map(item => (
+        <ListItem button selected={item.selected}>
+          <ListItemIcon>{item.icon}</ListItemIcon>
+          <ListItemText primary={item.text} />
+        </ListItem>
+      )),
+    },
+    {
+      subtitle: "Control Panel",
+      component: [{ text: "Dark Mode" }].map(item => (
+        <ListItem>
+          <ListItemText primary={item.text} />
+          <Switch color="primary" />
+        </ListItem>
+      )),
+    },
+    {
+      subtitle: "Contact",
+      component: [
+        {
+          text: "Email",
+          icon: <EmailIcon />,
+          href: "mailto:hwebs@hwebs.info",
+        },
+        {
+          text: "GitHub",
+          icon: <GitHubIcon />,
+          href: "https://github.com/henrywebster",
+        },
+        {
+          text: "Twitter",
+          icon: <TwitterIcon />,
+          href: "https://twitter.com/hank29a",
+        },
+        {
+          text: "itch.io",
+          icon: <SportsEsportsIcon />,
+          href: "https://hank29a.itch.io/",
+        },
+      ].map(item => (
+        <ListItem button component="a" href={item.href} target="_blank">
+          <ListItemIcon>{item.icon}</ListItemIcon>
+          <ListItemText primary={item.text} />
+        </ListItem>
+      )),
+    },
   ]
 
   return (
@@ -36,40 +90,12 @@ export default function Sidebar(props) {
         </Typography>
       </Box>
       <List>
-        <Divider />
-        <ListSubheader>Navigation</ListSubheader>
-        {navigationData.map(item => (
-          <ListItem button selected={item.selected}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
-          </ListItem>
-        ))}
-        <Divider />
-        <ListSubheader>Control Panel</ListSubheader>
-        {[{ text: "Dark Mode" }].map(item => (
-          <ListItem>
-            <ListItemText primary={item.text} />
-            <Switch color="primary" />
-          </ListItem>
-        ))}
-        <Divider />
-        <ListSubheader>Contact</ListSubheader>
-        {[
-          {
-            text: "Email",
-            icon: <EmailIcon />,
-            href: "mailto:hwebs@hwebs.info",
-          },
-          {
-            text: "Twitter",
-            icon: <TwitterIcon />,
-            href: "https://twitter.com/hank29a",
-          },
-        ].map(item => (
-          <ListItem button component="a" href={item.href} target="_blank">
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
-          </ListItem>
+        {sidebarData.map(item => (
+          <>
+            <Divider />
+            <ListSubheader>{item.subtitle}</ListSubheader>
+            {item.component}
+          </>
         ))}
       </List>
     </Drawer>
