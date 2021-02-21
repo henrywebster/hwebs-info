@@ -40,18 +40,18 @@ const lightTheme = createMuiTheme({
   palette: {
     type: "light",
     primary: {
-      light: "#66ffa6",
-      main: "#00b248",
-      dark: "#00b248",
-    },
-    secondary: {
       light: "#8f7cff",
       main: "#504fff",
       dark: "#0025cb",
     },
+    secondary: {
+      light: "#66ffa6",
+      main: "#00e676",
+      dark: "#00b248",
+    },
     action: {
-      hover: "#8f7cff88",
-      selected: "#8f7cffbb",
+      hover: "#00e67688",
+      selected: "#00e676bb",
     },
   },
 })
