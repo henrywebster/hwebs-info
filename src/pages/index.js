@@ -1,7 +1,5 @@
 import React from "react"
-
 import {
-  Drawer,
   Typography,
   List,
   ListItem,
@@ -12,6 +10,11 @@ import {
   Box,
   CssBaseline,
   ThemeProvider,
+  Container,
+  Grid,
+  Paper,
+  makeStyles,
+  Hidden,
 } from "@material-ui/core"
 import HomeIcon from "@material-ui/icons/Home"
 import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople"
@@ -96,30 +99,65 @@ export default function Home({ data }) {
     },
   ]
 
+  // const theme === "dark" ? darkTheme : lightTheme
+
+  // TODO: Hacky
+  const activeTheme = theme === "dark" ? darkTheme : lightTheme
+
+  // Custom CSS to copy Drawer look
+  // TODO: find a better way
+  const useStyles = makeStyles({
+    paper: {
+      borderRight: `1px solid ${activeTheme.palette.divider}`,
+      overflowY: "auto",
+      display: "flex",
+      flexDirection: "column",
+      height: "100vh",
+      flex: "0 0 auto",
+      width: "320px",
+    },
+    content: {
+      marginLeft: "320px",
+    },
+  })
+
+  const classes = useStyles()
+
   return (
     <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
       <CssBaseline />
-      <Drawer
-        open={true}
-        BackdropProps={{ invisible: true }}
-        variant="permanent"
-      >
-        <Box component="span" m={2}>
-          <img src={computer} width="200px" />
-          <Typography variant="h4" component="h1" color="primary">
-            Henry J. Webster
-          </Typography>
-        </Box>
-        <List>
-          {sidebarData.map(item => (
-            <>
-              <Divider />
-              <ListSubheader>{item.subtitle}</ListSubheader>
-              {item.component}
-            </>
-          ))}
-        </List>
-      </Drawer>
+      <Grid container spacing={3} alignItems="center">
+        <Grid item md={4}>
+          <Hidden smDown>
+            <Box>
+              <Paper square elevation={0} className={classes.paper}>
+                <Box component="span" m={3}>
+                  <img src={computer} width="200px" />
+                  <Typography variant="h4" component="h2" color="primary">
+                    Henry J. Webster
+                  </Typography>
+                </Box>
+                <List>
+                  {sidebarData.map(item => (
+                    <>
+                      <Divider />
+                      <ListSubheader>{item.subtitle}</ListSubheader>
+                      {item.component}
+                    </>
+                  ))}
+                </List>
+              </Paper>
+            </Box>
+          </Hidden>
+        </Grid>
+        <Grid container item xs={12} md={8}>
+          <Container maxWidth="md">
+            <Typography variant="h2" component="h2" color="primary">
+              I make technology that works.
+            </Typography>
+          </Container>
+        </Grid>
+      </Grid>
     </ThemeProvider>
   )
 }

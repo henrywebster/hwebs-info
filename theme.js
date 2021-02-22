@@ -6,6 +6,9 @@ const typography = {
 
 const overrides = {
   MuiTypography: {
+    h2: {
+      fontWeight: "900",
+    },
     h4: {
       fontWeight: "900",
     },
