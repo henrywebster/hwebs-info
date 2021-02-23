@@ -47,6 +47,6 @@ describe("ControlPanelItem", () => {
       />
     )
     wrapper.find(Switch).simulate("change")
-    expect(a).toBeFalsy()
+    expect(a).toBeTruthy()
   })
 })
