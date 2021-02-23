@@ -1,7 +1,7 @@
 import React from "react"
 import { Typography, Link } from "@material-ui/core"
 
-export default function About({ data }) {
+export default function About(props) {
   return (
     <>
       <Typography variant="h5" component="h2" gutterBottom>

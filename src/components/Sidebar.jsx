@@ -29,11 +29,22 @@ import computer from "../images/computer-animated-glow.gif"
 import { lightTheme, darkTheme } from "../../theme"
 import ControlPanelItem from "./ControlPanelItem"
 
-export default function Sidebar({ children }) {
+export default function Sidebar(props) {
+  const currentPage = () => {
+    const pathname = props.location.pathname
+
+    if (pathname === "/") return "home"
+    else if (pathname === "/about") return "about"
+  }
   const [activeTheme, setActiveTheme] = React.useState("dark")
+  const [activePage, setActivePage] = React.useState(currentPage)
 
   const themeToggler = () => {
     activeTheme === "dark" ? setActiveTheme("light") : setActiveTheme("dark")
+  }
+
+  const pageToggler = page => {
+    setActivePage(page)
   }
 
   const theme = activeTheme === "dark" ? darkTheme : lightTheme
@@ -60,11 +71,18 @@ export default function Sidebar({ children }) {
   const classes = useStyles()
 
   const navigation = [
-    { text: "Home", icon: <HomeIcon />, selected: true, to: "/" },
     {
+      id: "home",
+      text: "Home",
+      icon: <HomeIcon />,
+      selected: activePage === "home",
+      to: "/",
+    },
+    {
+      id: "about",
       text: "About",
       icon: <EmojiPeopleIcon />,
-      selected: false,
+      selected: activePage === "about",
       to: "/about",
     },
   ]
@@ -74,7 +92,11 @@ export default function Sidebar({ children }) {
       subtitle: "Navigation",
       component: navigation.map(item => (
         <Link to={item.to} className={classes.link}>
-          <ListItem button selected={item.selected}>
+          <ListItem
+            button
+            selected={item.selected}
+            onClick={() => pageToggler(item.id)}
+          >
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.text} />
           </ListItem>
@@ -123,25 +145,6 @@ export default function Sidebar({ children }) {
     },
   ]
 
-  // const theme = activeTheme === "dark" ? darkTheme : lightTheme
-
-  // // Custom CSS to copy Drawer look
-  // // TODO: find a better way
-  // const useStyles = makeStyles({
-  //   paper: {
-  //     borderRight: `1px solid ${theme.palette.divider}`,
-  //     overflowY: "auto",
-  //     display: "flex",
-  //     flexDirection: "column",
-  //     height: "100vh",
-  //     flex: "0 0 auto",
-  //     width: "320px",
-  //   },
-  //   content: {
-  //     marginLeft: "320px",
-  //   },
-  // })
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -152,10 +155,16 @@ export default function Sidebar({ children }) {
             <Box>
               <Paper square elevation={0} className={classes.paper}>
                 <Box component="span" m={3}>
-                  <img src={computer} width="200px" />
-                  <Typography variant="h4" component="h2" color="primary">
-                    Henry J. Webster
-                  </Typography>
+                  <Link
+                    to="/"
+                    className={classes.link}
+                    onClick={() => setActivePage("home")}
+                  >
+                    <img src={computer} width="200px" />
+                    <Typography variant="h4" component="h2" color="primary">
+                      Henry J. Webster
+                    </Typography>
+                  </Link>
                 </Box>
                 <List>
                   {content.map(item => (
@@ -171,7 +180,7 @@ export default function Sidebar({ children }) {
           </Hidden>
         </Grid>
         <Grid container item xs={12} md={8}>
-          <Container maxWidth="md">{children}</Container>
+          <Container maxWidth="md">{props.children}</Container>
         </Grid>
       </Grid>
     </ThemeProvider>
