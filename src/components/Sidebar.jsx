@@ -24,7 +24,7 @@ import SportsEsportsIcon from "@material-ui/icons/SportsEsports"
 import EmailIcon from "@material-ui/icons/Email"
 import "@fontsource/source-sans-pro"
 import "@fontsource/source-sans-pro/900.css"
-
+import { Link } from "gatsby"
 import computer from "../images/computer-animated-glow.gif"
 import { lightTheme, darkTheme } from "../../theme"
 import ControlPanelItem from "./ControlPanelItem"
@@ -36,12 +36,36 @@ export default function Sidebar({ children }) {
     activeTheme === "dark" ? setActiveTheme("light") : setActiveTheme("dark")
   }
 
+  const theme = activeTheme === "dark" ? darkTheme : lightTheme
+
+  const useStyles = makeStyles({
+    paper: {
+      borderRight: `1px solid ${theme.palette.divider}`,
+      overflowY: "auto",
+      display: "flex",
+      flexDirection: "column",
+      height: "100vh",
+      flex: "0 0 auto",
+      width: "320px",
+    },
+    content: {
+      marginLeft: "320px",
+    },
+    link: {
+      color: "inherit",
+      textDecoration: "inherit",
+    },
+  })
+
+  const classes = useStyles()
+
   const navigation = [
-    { text: "Home", icon: <HomeIcon />, selected: true },
+    { text: "Home", icon: <HomeIcon />, selected: true, to: "/" },
     {
       text: "About",
       icon: <EmojiPeopleIcon />,
       selected: false,
+      to: "/about",
     },
   ]
 
@@ -49,10 +73,12 @@ export default function Sidebar({ children }) {
     {
       subtitle: "Navigation",
       component: navigation.map(item => (
-        <ListItem button selected={item.selected}>
-          <ListItemIcon>{item.icon}</ListItemIcon>
-          <ListItemText primary={item.text} />
-        </ListItem>
+        <Link to={item.to} className={classes.link}>
+          <ListItem button selected={item.selected}>
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.text} />
+          </ListItem>
+        </Link>
       )),
     },
     {
@@ -97,26 +123,24 @@ export default function Sidebar({ children }) {
     },
   ]
 
-  const theme = activeTheme === "dark" ? darkTheme : lightTheme
+  // const theme = activeTheme === "dark" ? darkTheme : lightTheme
 
-  // Custom CSS to copy Drawer look
-  // TODO: find a better way
-  const useStyles = makeStyles({
-    paper: {
-      borderRight: `1px solid ${theme.palette.divider}`,
-      overflowY: "auto",
-      display: "flex",
-      flexDirection: "column",
-      height: "100vh",
-      flex: "0 0 auto",
-      width: "320px",
-    },
-    content: {
-      marginLeft: "320px",
-    },
-  })
-
-  const classes = useStyles()
+  // // Custom CSS to copy Drawer look
+  // // TODO: find a better way
+  // const useStyles = makeStyles({
+  //   paper: {
+  //     borderRight: `1px solid ${theme.palette.divider}`,
+  //     overflowY: "auto",
+  //     display: "flex",
+  //     flexDirection: "column",
+  //     height: "100vh",
+  //     flex: "0 0 auto",
+  //     width: "320px",
+  //   },
+  //   content: {
+  //     marginLeft: "320px",
+  //   },
+  // })
 
   return (
     <ThemeProvider theme={theme}>
