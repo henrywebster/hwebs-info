@@ -3,8 +3,8 @@ import React from "react"
 
 export default function About({ data }) {
   return (
-//     <Sidebar>
-      <p>Hello this is my about page.</p>
-//     </Sidebar>
+    //     <Sidebar>
+    <p>Hello this is my about page.</p>
+    //     </Sidebar>
   )
 }

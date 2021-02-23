@@ -33,91 +33,90 @@ export default function Sidebar({ children }) {
   const [activeTheme, setActiveTheme] = React.useState("dark")
 
   const themeToggler = () => {
-  	activeTheme === "dark" ? setActiveTheme("light") : setActiveTheme("dark")
+    activeTheme === "dark" ? setActiveTheme("light") : setActiveTheme("dark")
   }
 
   const navigation = [
-	{ text: "Home", icon: <HomeIcon />, selected: true },
-	{
-	  text: "About",
-	  icon: <EmojiPeopleIcon />,
-	  selected: false,
-	},
-      ]
+    { text: "Home", icon: <HomeIcon />, selected: true },
+    {
+      text: "About",
+      icon: <EmojiPeopleIcon />,
+      selected: false,
+    },
+  ]
 
-	const content = [
-		{
-		  subtitle: "Navigation",
-		  component: navigation.map(item => (
-		    <ListItem button selected={item.selected}>
-		      <ListItemIcon>{item.icon}</ListItemIcon>
-		      <ListItemText primary={item.text} />
-		    </ListItem>
-		  )),
-		},
-		{
-		  subtitle: "Control Panel",
-		  component: [{ text: "Dark Mode", checked: true }].map(item => (
-		    <ControlPanelItem
-		      text={item.text}
-		      checked={item.checked}
-		      onChange={themeToggler}
-		    />
-		  )),
-		},
-		{
-		  subtitle: "Contact",
-		  component: [
-		    {
-		      text: "Email",
-		      icon: <EmailIcon />,
-		      href: "mailto:hwebs@hwebs.info",
-		    },
-		    {
-		      text: "GitHub",
-		      icon: <GitHubIcon />,
-		      href: "https://github.com/henrywebster",
-		    },
-		    {
-		      text: "Twitter",
-		      icon: <TwitterIcon />,
-		      href: "https://twitter.com/hank29a",
-		    },
-		    {
-		      text: "itch.io",
-		      icon: <SportsEsportsIcon />,
-		      href: "https://hank29a.itch.io/",
-		    },
-		  ].map(item => (
-		    <ListItem button component="a" href={item.href} target="_blank">
-		      <ListItemIcon>{item.icon}</ListItemIcon>
-		      <ListItemText primary={item.text} />
-		    </ListItem>
-		  )),
-		},
-	      ]
+  const content = [
+    {
+      subtitle: "Navigation",
+      component: navigation.map(item => (
+        <ListItem button selected={item.selected}>
+          <ListItemIcon>{item.icon}</ListItemIcon>
+          <ListItemText primary={item.text} />
+        </ListItem>
+      )),
+    },
+    {
+      subtitle: "Control Panel",
+      component: [{ text: "Dark Mode", checked: true }].map(item => (
+        <ControlPanelItem
+          text={item.text}
+          checked={item.checked}
+          onChange={themeToggler}
+        />
+      )),
+    },
+    {
+      subtitle: "Contact",
+      component: [
+        {
+          text: "Email",
+          icon: <EmailIcon />,
+          href: "mailto:hwebs@hwebs.info",
+        },
+        {
+          text: "GitHub",
+          icon: <GitHubIcon />,
+          href: "https://github.com/henrywebster",
+        },
+        {
+          text: "Twitter",
+          icon: <TwitterIcon />,
+          href: "https://twitter.com/hank29a",
+        },
+        {
+          text: "itch.io",
+          icon: <SportsEsportsIcon />,
+          href: "https://hank29a.itch.io/",
+        },
+      ].map(item => (
+        <ListItem button component="a" href={item.href} target="_blank">
+          <ListItemIcon>{item.icon}</ListItemIcon>
+          <ListItemText primary={item.text} />
+        </ListItem>
+      )),
+    },
+  ]
 
+  const theme = activeTheme === "dark" ? darkTheme : lightTheme
 
-	const theme = activeTheme === "dark" ? darkTheme : lightTheme
-
-	  // Custom CSS to copy Drawer look
+  // Custom CSS to copy Drawer look
   // TODO: find a better way
   const useStyles = makeStyles({
-	paper: {
-	  borderRight: `1px solid ${theme.palette.divider}`,
-	  overflowY: "auto",
-	  display: "flex",
-	  flexDirection: "column",
-	  height: "100vh",
-	  flex: "0 0 auto",
-	  width: "320px",
-	},
-	content: {
-	  marginLeft: "320px",
-	},
-      })
+    paper: {
+      borderRight: `1px solid ${theme.palette.divider}`,
+      overflowY: "auto",
+      display: "flex",
+      flexDirection: "column",
+      height: "100vh",
+      flex: "0 0 auto",
+      width: "320px",
+    },
+    content: {
+      marginLeft: "320px",
+    },
+  })
 
-      const classes = useStyles()
+  const classes = useStyles()
 
   return (
     <ThemeProvider theme={theme}>
@@ -148,14 +147,9 @@ export default function Sidebar({ children }) {
           </Hidden>
         </Grid>
         <Grid container item xs={12} md={8}>
-          <Container maxWidth="md">
-
-      		{children}
-
-          </Container>
+          <Container maxWidth="md">{children}</Container>
         </Grid>
       </Grid>
-
     </ThemeProvider>
   )
 }
