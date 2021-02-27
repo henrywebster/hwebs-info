@@ -39,6 +39,6 @@
 
 ## 🚨 Disclaimer
 I am new to JavaScript, React, and front-end development as a whole. 
-If you notice some icky code, please [open an issue](https://github.com/henrywebster/hwebs-info/issues/new) so I know what I can make better. 
-I welcome this sort of collaboration and knowledge sharing!
-I know I have a lot to learn.
+If you notice some ugly code, please [open an issue](https://github.com/henrywebster/hwebs-info/issues/new) explaining how I can make it better. 
+I welcome this sort of knowledge sharing!
+I know I have a lot to learn. 
