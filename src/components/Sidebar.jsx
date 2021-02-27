@@ -25,7 +25,7 @@ import EmailIcon from "@material-ui/icons/Email"
 import "@fontsource/source-sans-pro"
 import "@fontsource/source-sans-pro/900.css"
 import { Link } from "gatsby"
-import computer from "../images/computer-animated-glow.gif"
+import computer from "../images/computer.png"
 import { lightTheme, darkTheme } from "../../theme"
 import ControlPanelItem from "./ControlPanelItem"
 
