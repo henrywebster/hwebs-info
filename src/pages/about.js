@@ -1,7 +1,8 @@
 import React from "react"
-import { Typography, Link, Grid } from "@material-ui/core"
+import { Typography, Link, Grid, Container, Box } from "@material-ui/core"
 import ProjectCard from "../components/ProjectCard"
 import { useStaticQuery } from "gatsby"
+import Img from "gatsby-image"
 
 export default function About(props) {
   const data = useStaticQuery(graphql`
@@ -16,16 +17,29 @@ export default function About(props) {
           tags
           time
           title
-          image
+        }
+      }
+      imageSharp {
+        fixed(width: 400) {
+          ...GatsbyImageSharpFixed
         }
       }
     }
   `)
 
   console.log(data)
+  // console.log(data.imageSharp.f.base64)
   return (
     <>
-      <Grid container spacing={3}>
+      {/* <Img fixed={data.imageSharp.fixed}/> */}
+      <Grid
+        container
+        spacing={3}
+        style={{
+          margin: 0,
+          width: "100%",
+        }}
+      >
         {data.dataJson.projects.map(project => (
           <Grid item>
             <ProjectCard
@@ -34,6 +48,7 @@ export default function About(props) {
               description={project.description}
               tags={project.tags}
               links={project.links}
+              image={data.imageSharp.fixed}
             />
           </Grid>
         ))}
