@@ -22,6 +22,7 @@ import TwitterIcon from "@material-ui/icons/Twitter"
 import GitHubIcon from "@material-ui/icons/GitHub"
 import SportsEsportsIcon from "@material-ui/icons/SportsEsports"
 import EmailIcon from "@material-ui/icons/Email"
+import BuildIcon from "@material-ui/icons/Build"
 import "@fontsource/source-sans-pro"
 import "@fontsource/source-sans-pro/900.css"
 import { Link } from "gatsby"
@@ -84,6 +85,13 @@ export default function Sidebar(props) {
       icon: <EmojiPeopleIcon />,
       selected: activePage === "about",
       to: "/about",
+    },
+    {
+      id: "projects",
+      text: "Projects",
+      icon: <BuildIcon />,
+      selected: activePage === "projects",
+      to: "/projects",
     },
   ]
 
@@ -190,8 +198,8 @@ export default function Sidebar(props) {
           </Hidden>
         </Grid>
 
-        <Grid item>
-          <Container maxWidth="md">{props.children}</Container>
+        <Grid container item>
+          <Container maxWidth="sm">{props.children}</Container>
         </Grid>
       </Grid>
     </ThemeProvider>

@@ -1,59 +1,10 @@
 import React from "react"
-import { Typography, Link, Grid, Container, Box } from "@material-ui/core"
-import ProjectCard from "../components/ProjectCard"
-import { useStaticQuery } from "gatsby"
-import Img from "gatsby-image"
+import { Typography, Link, Grid } from "@material-ui/core"
 
 export default function About(props) {
-  const data = useStaticQuery(graphql`
-    query ProjectQuery {
-      dataJson {
-        projects {
-          description
-          links {
-            href
-            type
-          }
-          tags
-          time
-          title
-        }
-      }
-      imageSharp {
-        fixed(width: 400) {
-          ...GatsbyImageSharpFixed
-        }
-      }
-    }
-  `)
-
-  console.log(data)
-  // console.log(data.imageSharp.f.base64)
   return (
     <>
-      {/* <Img fixed={data.imageSharp.fixed}/> */}
-      <Grid
-        container
-        spacing={3}
-        style={{
-          margin: 0,
-          width: "100%",
-        }}
-      >
-        {data.dataJson.projects.map(project => (
-          <Grid item>
-            <ProjectCard
-              title={project.title}
-              year={project.time}
-              description={project.description}
-              tags={project.tags}
-              links={project.links}
-              image={data.imageSharp.fixed}
-            />
-          </Grid>
-        ))}
-      </Grid>
-      <Typography variant="h5" component="h2" gutterBottom>
+      <Typography variant="h2" component="h2" color="primary" gutterBottom>
         About
       </Typography>
       <Typography variant="body1" gutterBottom>

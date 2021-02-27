@@ -18,15 +18,8 @@ import labrat from "../images/lab-rat.png"
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // maxWidth: 400,
     display: "flex",
-    // wrap: "nowrap",
-    // overflow: "hidden"
-  },
-  content: {
-    // padding: 0
-    // flex: "1 0 auto",
-    // overflow: "hidden"
+    width: "100%",
   },
   chip: {
     margin: theme.spacing(0.5),
@@ -46,7 +39,7 @@ export default function ProjectCard(props) {
 
   return (
     <Card className={classes.root}>
-      <CardContent className={classes.content}>
+      <CardContent>
         <Typography variant="h6" component="span" className={classes.titleBar}>
           {props.title}
         </Typography>
@@ -79,10 +72,11 @@ export default function ProjectCard(props) {
           ))}
         </Box>
       </CardContent>
+      {/* <img src={labrat} className={classes.media} /> */}
 
-      <Hidden xsDown>
+      {/* <Hidden xsDown>
         <img src={labrat} className={classes.media} />
-      </Hidden>
+      </Hidden> */}
     </Card>
   )
 }
