@@ -1,5 +1,5 @@
 import React from "react"
-import { Typography, Grid } from "@material-ui/core"
+import { Typography, Grid, Container } from "@material-ui/core"
 import { useStaticQuery } from "gatsby"
 import ProjectCard from "../components/ProjectCard"
 
@@ -16,7 +16,6 @@ export default function Projects() {
           tags
           time
           title
-          image
         }
       }
     }
@@ -27,9 +26,9 @@ export default function Projects() {
       <Typography variant="h2" component="h2" color="primary">
         Projects
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} direction="column">
         {data.dataJson.projects.map(project => (
-          <Grid item>
+          <Grid container item>
             <ProjectCard
               title={project.title}
               year={project.time}

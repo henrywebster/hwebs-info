@@ -16,11 +16,8 @@ import labrat from "../images/lab-rat.png"
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 600,
     display: "flex",
-  },
-  content: {
-    flex: "1 0 auto",
+    width: "100%",
   },
   chip: {
     margin: theme.spacing(0.5),
@@ -39,46 +36,40 @@ export default function ProjectCard(props) {
 
   return (
     <Card className={classes.root}>
-      <div>
-        <CardContent className={classes.content}>
-          <Typography
-            variant="h6"
-            component="span"
-            className={classes.titleBar}
-          >
-            {props.title}
-          </Typography>
-          <Typography
-            variant="subtitle1"
+      <CardContent>
+        <Typography variant="h6" component="span" className={classes.titleBar}>
+          {props.title}
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          color="primary"
+          component="span"
+          gutterBottom
+        >
+          {props.year}
+        </Typography>
+        <Typography variant="body1" color="textPrimary" gutterBottom>
+          {props.description}
+        </Typography>
+        {props.tags.map(tag => (
+          <Chip
+            variant="outlined"
+            label={tag}
             color="primary"
-            component="span"
-            gutterBottom
-          >
-            {props.year}
-          </Typography>
-          <Typography variant="body1" color="textPrimary" gutterBottom>
-            {props.description}
-          </Typography>
-          {props.tags.map(tag => (
-            <Chip
-              variant="outlined"
-              label={tag}
-              color="primary"
-              size="small"
-              className={classes.chip}
-            />
+            size="small"
+            className={classes.chip}
+          />
+        ))}
+        <Box>
+          {props.links.map(link => (
+            <IconButton href={link.href} target="_blank">
+              {link.type === "github" && <GitHubIcon />}
+              {link.type === "external" && <OpenInNewIcon />}
+            </IconButton>
           ))}
-          <Box>
-            {props.links.map(link => (
-              <IconButton href={link.href} target="_blank">
-                {link.type === "github" && <GitHubIcon />}
-                {link.type === "external" && <OpenInNewIcon />}
-              </IconButton>
-            ))}
-          </Box>
-        </CardContent>
-      </div>
-      <img src={labrat} className={classes.media} />
+        </Box>
+      </CardContent>
+      {/* <img src={labrat} className={classes.media} /> */}
     </Card>
   )
 }

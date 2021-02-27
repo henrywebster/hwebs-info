@@ -61,7 +61,7 @@ export default function Sidebar(props) {
       width: "320px",
     },
     content: {
-      marginLeft: "320px",
+      marginLeft: "200px",
     },
     link: {
       color: "inherit",
@@ -188,7 +188,7 @@ export default function Sidebar(props) {
           </Hidden>
         </Grid>
         <Grid container item xs={12} md={8}>
-          <Container maxWidth="lg">{props.children}</Container>
+          <Container maxWidth="sm">{props.children}</Container>
         </Grid>
       </Grid>
     </ThemeProvider>
