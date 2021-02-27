@@ -1,12 +1,43 @@
 import React from "react"
-import { Typography, Link } from "@material-ui/core"
+import { Typography, Link, Grid } from "@material-ui/core"
 import ProjectCard from "../components/ProjectCard"
+import { useStaticQuery } from "gatsby"
 
 export default function About(props) {
+  const data = useStaticQuery(graphql`
+    query ProjectQuery {
+      dataJson {
+        projects {
+          description
+          links {
+            href
+            type
+          }
+          tags
+          time
+          title
+          image
+        }
+      }
+    }
+  `)
+
+  console.log(data)
   return (
     <>
-      <ProjectCard title="My Cool Project" year="2019" />
-
+      <Grid container spacing={3}>
+        {data.dataJson.projects.map(project => (
+          <Grid item>
+            <ProjectCard
+              title={project.title}
+              year={project.time}
+              description={project.description}
+              tags={project.tags}
+              links={project.links}
+            />
+          </Grid>
+        ))}
+      </Grid>
       <Typography variant="h5" component="h2" gutterBottom>
         About
       </Typography>

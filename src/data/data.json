@@ -1,0 +1,40 @@
+{
+  "projects": [
+    {
+      "title": "Personal Website v1",
+      "time": "2021",
+      "category": "Tech",
+      "description": "A portfolio, React practice project, and a home base for all my pursuits. Enabled by a pipeline from GitHub to AWS for consistent, automatic deployment.",
+      "tags": ["React", "Gatsby", "GraphQL", "AWS"],
+      "links": [
+        {
+          "type": "github",
+          "href": "https://github.com/henrywebster/hwebs-info"
+        },
+        {
+          "type": "external",
+          "href": "https://hwebs.info"
+        }
+      ],
+      "image": "../images/lab-rat.png"
+    },
+    {
+      "title": "Lab Rat",
+      "time": "2020",
+      "category": "Game",
+      "description": "Made for MizJam 1. Create a game based on the same art assets in 48 hours. I wrote the code and music while Julianne Waber did level design and art direction.",
+      "tags": ["Godot", "Ardour"],
+      "links": [
+        {
+          "type": "github",
+          "href": "https://github.com/henrywebster/rat-race"
+        },
+        {
+          "type": "external",
+          "href": "https://hank29a.itch.io/lab-rat"
+        }
+      ],
+      "image": "../images/lab-rat.png"
+    }
+  ]
+}

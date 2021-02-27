@@ -1,43 +1,84 @@
 import React from "react"
-import { Card, CardContent, Typography, makeStyles } from "@material-ui/core"
-import classes from "./ProjectCard.scss"
+import {
+  Card,
+  CardContent,
+  Typography,
+  makeStyles,
+  Chip,
+  IconButton,
+  Box,
+} from "@material-ui/core"
+import GitHubIcon from "@material-ui/icons/GitHub"
+import OpenInNewIcon from "@material-ui/icons/OpenInNew"
+// import classes from "./ProjectCard.scss"
+import theme from "../../theme"
+import labrat from "../images/lab-rat.png"
 
-const ulStyle = {
-  margin: "0",
-  padding: "0",
-}
+const useStyles = makeStyles(theme => ({
+  root: {
+    maxWidth: 600,
+    display: "flex",
+  },
+  content: {
+    flex: "1 0 auto",
+  },
+  chip: {
+    margin: theme.spacing(0.5),
+  },
+  titleBar: {
+    marginRight: theme.spacing(1.5),
+  },
+  media: {
+    minWidth: "40%",
+    objectFit: "cover",
+  },
+}))
 
 export default function ProjectCard(props) {
-  // const classes = useStyles()
+  const classes = useStyles(theme)
 
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h6" component="h3">
-          {props.title}
-        </Typography>
-        <Typography variant="subtitle1" color="primary" gutterBottom>
-          {props.year}
-        </Typography>
-        <Typography variant="body1" color="textSecondary" gutterBottom>
-          <ul className={`${classes.ul} ul`}>
-            <li className={`${classes.li} li`}>
-              Cut manual developer time for pre-production deployment from 1
-              hour to minutes
-            </li>
-            <li className={`${classes.li} li`}>
-              Stabilized production by creating immutable release versioning
-              with tags in SCM for quick bug-fixing of past versions and
-              confident rollbacks
-            </li>
-            <li className={`${classes.li} li`}>
-              Migration to firm-maintained pipeline freed 2 team members from
-              tasks for maintaining custom setup, allowing them to focus on
-              enhancements
-            </li>
-          </ul>
-        </Typography>
-      </CardContent>
+    <Card className={classes.root}>
+      <div>
+        <CardContent className={classes.content}>
+          <Typography
+            variant="h6"
+            component="span"
+            className={classes.titleBar}
+          >
+            {props.title}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            color="primary"
+            component="span"
+            gutterBottom
+          >
+            {props.year}
+          </Typography>
+          <Typography variant="body1" color="textPrimary" gutterBottom>
+            {props.description}
+          </Typography>
+          {props.tags.map(tag => (
+            <Chip
+              variant="outlined"
+              label={tag}
+              color="primary"
+              size="small"
+              className={classes.chip}
+            />
+          ))}
+          <Box>
+            {props.links.map(link => (
+              <IconButton href={link.href} target="_blank">
+                {link.type === "github" && <GitHubIcon />}
+                {link.type === "external" && <OpenInNewIcon />}
+              </IconButton>
+            ))}
+          </Box>
+        </CardContent>
+      </div>
+      <img src={labrat} className={classes.media} />
     </Card>
   )
 }
