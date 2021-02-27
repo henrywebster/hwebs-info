@@ -12,9 +12,9 @@ import {
   ThemeProvider,
   Container,
   Grid,
-  Paper,
   makeStyles,
   Hidden,
+  Drawer,
 } from "@material-ui/core"
 import HomeIcon from "@material-ui/icons/Home"
 import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople"
@@ -60,8 +60,8 @@ export default function Sidebar(props) {
       flex: "0 0 auto",
       width: "320px",
     },
-    content: {
-      marginLeft: "200px",
+    marginBox: {
+      width: "320px",
     },
     link: {
       color: "inherit",
@@ -157,37 +157,48 @@ export default function Sidebar(props) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <Grid container spacing={3} alignItems="center">
-        <Grid item md={4}>
+      <Hidden smDown>
+        <Drawer variant="permanent">
+          <Box component="span" m={3}>
+            <Link
+              to="/"
+              className={classes.link}
+              onClick={() => setActivePage("home")}
+            >
+              <img src={computer} width="200px" />
+              <Typography variant="h4" component="h2" color="primary">
+                Henry J. Webster
+              </Typography>
+            </Link>
+          </Box>
+          <List>
+            {content.map(item => (
+              <>
+                <Divider />
+                <ListSubheader>{item.subtitle}</ListSubheader>
+                {item.component}
+              </>
+            ))}
+          </List>
+        </Drawer>
+      </Hidden>
+      <Grid
+        container
+        direction="row"
+        alignContent="flex-start"
+        wrap="nowrap"
+        style={{
+          margin: 0,
+          width: "100%",
+        }}
+      >
+        <Grid item>
           <Hidden smDown>
-            <Box>
-              <Paper square elevation={0} className={classes.paper}>
-                <Box component="span" m={3}>
-                  <Link
-                    to="/"
-                    className={classes.link}
-                    onClick={() => setActivePage("home")}
-                  >
-                    <img src={computer} width="200px" />
-                    <Typography variant="h4" component="h2" color="primary">
-                      Henry J. Webster
-                    </Typography>
-                  </Link>
-                </Box>
-                <List>
-                  {content.map(item => (
-                    <>
-                      <Divider />
-                      <ListSubheader>{item.subtitle}</ListSubheader>
-                      {item.component}
-                    </>
-                  ))}
-                </List>
-              </Paper>
-            </Box>
+            <Container className={classes.marginBox}></Container>
           </Hidden>
         </Grid>
-        <Grid container item xs={12} md={8}>
+
+        <Grid container item>
           <Container maxWidth="sm">{props.children}</Container>
         </Grid>
       </Grid>

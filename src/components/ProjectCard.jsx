@@ -7,12 +7,14 @@ import {
   Chip,
   IconButton,
   Box,
+  Hidden,
 } from "@material-ui/core"
 import GitHubIcon from "@material-ui/icons/GitHub"
 import OpenInNewIcon from "@material-ui/icons/OpenInNew"
 // import classes from "./ProjectCard.scss"
 import theme from "../../theme"
 import labrat from "../images/lab-rat.png"
+// import Img from "gatsby-image"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +28,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1.5),
   },
   media: {
-    minWidth: "40%",
+    minWidth: "30%",
+    display: "flex",
     objectFit: "cover",
   },
 }))
@@ -70,6 +73,10 @@ export default function ProjectCard(props) {
         </Box>
       </CardContent>
       {/* <img src={labrat} className={classes.media} /> */}
+
+      {/* <Hidden xsDown>
+        <img src={labrat} className={classes.media} />
+      </Hidden> */}
     </Card>
   )
 }
