@@ -4,6 +4,7 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-material-ui`,
+    `gatsby-plugin-sass`,
     // {
     //   resolve: "gatsby-source-dynamodb",
     //   options: {
@@ -19,8 +20,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `images`,
-        path: `${__dirname}/src/images/`,
+        name: `data`,
+        path: `${__dirname}/src/data/`,
       },
     },
   ],

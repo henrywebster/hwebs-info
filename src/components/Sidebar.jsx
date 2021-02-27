@@ -180,7 +180,7 @@ export default function Sidebar(props) {
           </Hidden>
         </Grid>
         <Grid container item xs={12} md={8}>
-          <Container maxWidth="md">{props.children}</Container>
+          <Container maxWidth="lg">{props.children}</Container>
         </Grid>
       </Grid>
     </ThemeProvider>
