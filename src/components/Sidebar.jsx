@@ -174,7 +174,16 @@ export default function Sidebar(props) {
           </List>
         </Drawer>
       </Hidden>
-      <Grid container direction="row" alignContent="flex-start" wrap="nowrap">
+      <Grid
+        container
+        direction="row"
+        alignContent="flex-start"
+        wrap="nowrap"
+        style={{
+          margin: 0,
+          width: "100%",
+        }}
+      >
         <Grid item>
           <Hidden smDown>
             <Container className={classes.marginBox}></Container>

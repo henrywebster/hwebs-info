@@ -7,20 +7,26 @@ import {
   Chip,
   IconButton,
   Box,
+  Hidden,
 } from "@material-ui/core"
 import GitHubIcon from "@material-ui/icons/GitHub"
 import OpenInNewIcon from "@material-ui/icons/OpenInNew"
 // import classes from "./ProjectCard.scss"
 import theme from "../../theme"
 import labrat from "../images/lab-rat.png"
+// import Img from "gatsby-image"
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 600,
+    // maxWidth: 400,
     display: "flex",
+    // wrap: "nowrap",
+    // overflow: "hidden"
   },
   content: {
-    flex: "1 0 auto",
+    // padding: 0
+    // flex: "1 0 auto",
+    // overflow: "hidden"
   },
   chip: {
     margin: theme.spacing(0.5),
@@ -29,7 +35,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1.5),
   },
   media: {
-    minWidth: "40%",
+    minWidth: "30%",
+    display: "flex",
     objectFit: "cover",
   },
 }))
@@ -39,46 +46,43 @@ export default function ProjectCard(props) {
 
   return (
     <Card className={classes.root}>
-      <div>
-        <CardContent className={classes.content}>
-          <Typography
-            variant="h6"
-            component="span"
-            className={classes.titleBar}
-          >
-            {props.title}
-          </Typography>
-          <Typography
-            variant="subtitle1"
+      <CardContent className={classes.content}>
+        <Typography variant="h6" component="span" className={classes.titleBar}>
+          {props.title}
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          color="primary"
+          component="span"
+          gutterBottom
+        >
+          {props.year}
+        </Typography>
+        <Typography variant="body1" color="textPrimary" gutterBottom>
+          {props.description}
+        </Typography>
+        {props.tags.map(tag => (
+          <Chip
+            variant="outlined"
+            label={tag}
             color="primary"
-            component="span"
-            gutterBottom
-          >
-            {props.year}
-          </Typography>
-          <Typography variant="body1" color="textPrimary" gutterBottom>
-            {props.description}
-          </Typography>
-          {props.tags.map(tag => (
-            <Chip
-              variant="outlined"
-              label={tag}
-              color="primary"
-              size="small"
-              className={classes.chip}
-            />
+            size="small"
+            className={classes.chip}
+          />
+        ))}
+        <Box>
+          {props.links.map(link => (
+            <IconButton href={link.href} target="_blank">
+              {link.type === "github" && <GitHubIcon />}
+              {link.type === "external" && <OpenInNewIcon />}
+            </IconButton>
           ))}
-          <Box>
-            {props.links.map(link => (
-              <IconButton href={link.href} target="_blank">
-                {link.type === "github" && <GitHubIcon />}
-                {link.type === "external" && <OpenInNewIcon />}
-              </IconButton>
-            ))}
-          </Box>
-        </CardContent>
-      </div>
-      <img src={labrat} className={classes.media} />
+        </Box>
+      </CardContent>
+
+      <Hidden xsDown>
+        <img src={labrat} className={classes.media} />
+      </Hidden>
     </Card>
   )
 }
