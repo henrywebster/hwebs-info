@@ -34,8 +34,12 @@ export default function Sidebar(props) {
   const currentPage = () => {
     const pathname = props.location.pathname
 
+    // TODO: change to regex
+    console.log(pathname)
     if (pathname === "/") return "home"
-    else if (pathname === "/about") return "about"
+    else if (pathname === "/about/" || pathname === "/about") return "about"
+    else if (pathname === "/projects/" || pathname === "/projects")
+      return "projects"
   }
   const [activeTheme, setActiveTheme] = React.useState("dark")
   const [activePage, setActivePage] = React.useState(currentPage)
