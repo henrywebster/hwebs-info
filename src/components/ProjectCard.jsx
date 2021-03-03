@@ -7,13 +7,12 @@ import {
   Chip,
   IconButton,
   Box,
-  Hidden,
 } from "@material-ui/core"
 import GitHubIcon from "@material-ui/icons/GitHub"
 import OpenInNewIcon from "@material-ui/icons/OpenInNew"
-// import classes from "./ProjectCard.scss"
-import theme from "../../theme"
-import labrat from "../images/lab-rat.png"
+
+// TODO: this does nothing
+// import theme from "../../theme"
 // import Img from "gatsby-image"
 
 const useStyles = makeStyles(theme => ({
@@ -35,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function ProjectCard(props) {
-  const classes = useStyles(theme)
+  const classes = useStyles()
 
   return (
     <Card className={classes.root}>
@@ -61,11 +60,12 @@ export default function ProjectCard(props) {
             color="primary"
             size="small"
             className={classes.chip}
+            key={tag}
           />
         ))}
         <Box>
           {props.links.map(link => (
-            <IconButton href={link.href} target="_blank">
+            <IconButton href={link.href} target="_blank" key={link.href}>
               {link.type === "github" && <GitHubIcon />}
               {link.type === "external" && <OpenInNewIcon />}
             </IconButton>

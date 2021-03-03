@@ -35,7 +35,6 @@ export default function Sidebar(props) {
     const pathname = props.location.pathname
 
     // TODO: change to regex
-    console.log(pathname)
     if (pathname === "/") return "home"
     else if (pathname === "/about/" || pathname === "/about") return "about"
     else if (pathname === "/projects/" || pathname === "/projects")
@@ -103,7 +102,7 @@ export default function Sidebar(props) {
     {
       subtitle: "Navigation",
       component: navigation.map(item => (
-        <Link to={item.to} className={classes.link}>
+        <Link to={item.to} className={classes.link} key={item.id}>
           <ListItem
             button
             selected={item.selected}
@@ -122,6 +121,7 @@ export default function Sidebar(props) {
           text={item.text}
           checked={item.checked}
           onChange={themeToggler}
+          key={item.text}
         />
       )),
     },
@@ -149,7 +149,13 @@ export default function Sidebar(props) {
           href: "https://hank29a.itch.io/",
         },
       ].map(item => (
-        <ListItem button component="a" href={item.href} target="_blank">
+        <ListItem
+          button
+          component="a"
+          href={item.href}
+          target="_blank"
+          key={item.text}
+        >
           <ListItemIcon>{item.icon}</ListItemIcon>
           <ListItemText primary={item.text} />
         </ListItem>
@@ -169,7 +175,7 @@ export default function Sidebar(props) {
               className={classes.link}
               onClick={() => setActivePage("home")}
             >
-              <img src={computer} width="200px" />
+              <img src={computer} width="200px" alt="3D computer" />
               <Typography variant="h4" component="h2" color="primary">
                 Henry J. Webster
               </Typography>
@@ -177,11 +183,11 @@ export default function Sidebar(props) {
           </Box>
           <List>
             {content.map(item => (
-              <>
+              <div key={item.subtitle}>
                 <Divider />
                 <ListSubheader>{item.subtitle}</ListSubheader>
                 {item.component}
-              </>
+              </div>
             ))}
           </List>
         </Drawer>
