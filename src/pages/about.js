@@ -1,5 +1,5 @@
 import React from "react"
-import { Typography, Link, Grid } from "@material-ui/core"
+import { Typography, Link } from "@material-ui/core"
 
 export default function About(props) {
   return (
