@@ -28,7 +28,7 @@ export default function Projects() {
       </Typography>
       <Grid container spacing={3} direction="column">
         {data.dataJson.projects.map(project => (
-          <Grid container item>
+          <Grid item>
             <ProjectCard
               title={project.title}
               year={project.time}

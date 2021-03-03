@@ -196,11 +196,9 @@ export default function Sidebar(props) {
           width: "100%",
         }}
       >
-        <Grid item>
-          <Hidden smDown>
-            <Container className={classes.marginBox}></Container>
-          </Hidden>
-        </Grid>
+        <Hidden smDown>
+          <Grid item className={classes.marginBox} />
+        </Hidden>
 
         <Grid container item>
           <Container maxWidth="sm">{props.children}</Container>

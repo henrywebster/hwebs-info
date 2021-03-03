@@ -1,23 +1,23 @@
 import { createMuiTheme } from "@material-ui/core/styles"
 
-const typography = {
-  fontFamily: ['"Source Sans Pro"', "sans-serif"].join(","),
-}
-
-const overrides = {
-  MuiTypography: {
-    h2: {
-      fontWeight: "900",
+const styles = {
+  overrides: {
+    MuiTypography: {
+      h2: {
+        fontWeight: "900",
+      },
+      h4: {
+        fontWeight: "900",
+      },
     },
-    h4: {
-      fontWeight: "900",
-    },
+  },
+  typography: {
+    fontFamily: ['"Source Sans Pro"', "sans-serif"].join(","),
   },
 }
 
 const darkTheme = createMuiTheme({
-  typography: typography,
-  overrides: overrides,
+  ...styles,
   palette: {
     type: "dark",
     primary: {
@@ -38,8 +38,7 @@ const darkTheme = createMuiTheme({
 })
 
 const lightTheme = createMuiTheme({
-  typography: typography,
-  overrides: overrides,
+  ...styles,
   palette: {
     type: "light",
     primary: {
