@@ -1,9 +1,14 @@
 import React from "react"
+import { Helmet } from "react-helmet"
 import { Typography, Link } from "@material-ui/core"
 
 export default function About(props) {
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>About - Henry J Webster</title>
+      </Helmet>
       <Typography variant="h2" component="h2" color="primary" gutterBottom>
         About
       </Typography>
