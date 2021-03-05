@@ -1,4 +1,5 @@
 import React from "react"
+import { Helmet } from "react-helmet"
 import { Typography, Grid } from "@material-ui/core"
 import { useStaticQuery } from "gatsby"
 import ProjectCard from "../components/ProjectCard"
@@ -23,6 +24,10 @@ export default function Projects() {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Projects - Henry J Webster</title>
+      </Helmet>
       <Typography variant="h2" component="h2" color="primary">
         Projects
       </Typography>
