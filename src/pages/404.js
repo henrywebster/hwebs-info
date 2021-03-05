@@ -9,7 +9,6 @@ export default function errorPage(props) {
         <meta charSet="utf-8" />
         <title>404 - Henry J Webster</title>
       </Helmet>
-
       Error 404 - Page Not Found
     </Typography>
   )

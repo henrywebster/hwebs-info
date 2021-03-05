@@ -24,7 +24,7 @@ export default function Projects() {
 
   return (
     <>
-          <Helmet>
+      <Helmet>
         <meta charSet="utf-8" />
         <title>Projects - Henry J Webster</title>
       </Helmet>
