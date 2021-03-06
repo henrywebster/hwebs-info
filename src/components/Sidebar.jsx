@@ -15,6 +15,11 @@ import {
   makeStyles,
   Hidden,
   Drawer,
+  BottomNavigation,
+  BottomNavigationAction,
+  AppBar,
+  Toolbar,
+  IconButton
 } from "@material-ui/core"
 import HomeIcon from "@material-ui/icons/Home"
 import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople"
@@ -23,6 +28,7 @@ import GitHubIcon from "@material-ui/icons/GitHub"
 import SportsEsportsIcon from "@material-ui/icons/SportsEsports"
 import EmailIcon from "@material-ui/icons/Email"
 import BuildIcon from "@material-ui/icons/Build"
+import MenuIcon from "@material-ui/icons/Menu"
 import "@fontsource/source-sans-pro"
 import "@fontsource/source-sans-pro/900.css"
 import { Link } from "gatsby"
@@ -70,6 +76,15 @@ export default function Sidebar(props) {
       color: "inherit",
       textDecoration: "inherit",
     },
+    stickToBottom: {
+      width: '100%',
+      position: 'fixed',
+      bottom: 0,
+    },
+    toolbarMargin: theme.mixins.toolbar,
+    bottomMargin: {
+      marginBottom: '75px'
+    }
   })
 
   const classes = useStyles()
@@ -166,6 +181,19 @@ export default function Sidebar(props) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Hidden mdUp>
+        <AppBar>
+          <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6">
+            Henry J Webster
+          </Typography>
+          </Toolbar>
+        </AppBar>
+        <div className={classes.toolbarMargin} />
+      </Hidden>
 
       <Hidden smDown>
         <Drawer variant="permanent">
@@ -210,6 +238,17 @@ export default function Sidebar(props) {
           <Container maxWidth="sm">{props.children}</Container>
         </Grid>
       </Grid>
+        <Hidden mdUp>
+          <div className={classes.bottomMargin} />
+          <BottomNavigation
+          showLabels
+          className={classes.stickToBottom}
+          >
+            <BottomNavigationAction component={Link} to="/about" label="About" icon={<EmojiPeopleIcon />}/>
+            <BottomNavigationAction component={Link} to="/" label="Home" icon={<HomeIcon />} />
+            <BottomNavigationAction component={Link} to="/projects" label="Projects" icon={<BuildIcon />} />
+          </BottomNavigation>
+        </Hidden>
     </ThemeProvider>
   )
 }
