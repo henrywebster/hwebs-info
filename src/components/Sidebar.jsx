@@ -77,10 +77,6 @@ export default function Sidebar(props) {
     marginBox: {
       width: "320px",
     },
-    link: {
-      color: "inherit",
-      textDecoration: "inherit",
-    },
     stickToBottom: {
       width: "100%",
       position: "fixed",
@@ -125,7 +121,6 @@ export default function Sidebar(props) {
         <ListItem
           component={Link}
           to={item.to}
-          className={classes.link}
           key={item.id}
           button
           selected={item.selected}
