@@ -44,10 +44,10 @@ const Blurb = () => {
           color="textPrimary"
           gutterBottom
         >
-          Henry J. Webster is a programmer in Brooklyn, NY. <br />
+          My name is Henry J. Webster, a programmer in Brooklyn, NY. <br />
           <br />
-          🌞 During daylight he builds financial web services. <br />
-          🌜 At night he experiments with game development, music, and 3D art.
+          🌞 During daylight I build financial web services. <br />
+          🌜 At night I experiment with game development, music, and 3D art.
         </Typography>
       </CardContent>
     </Card>
@@ -132,7 +132,7 @@ export default function Home({ data }) {
 
         I make technology that works.
       </Typography> */}
-      <Grid container direction="column" spacing={3}>
+      <Grid container direction="column" spacing={4}>
         <Grid item>
           <Blurb />
         </Grid>

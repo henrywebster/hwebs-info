@@ -48,7 +48,11 @@ const styles = theme => ({
   },
   toolbarMargin: theme.mixins.toolbar,
   content: {
-    marginTop: 20,
+    marginTop: 40,
+  },
+  link: {
+    color: "inherit",
+    textDecoration: "inherit",
   },
 })
 
@@ -139,6 +143,10 @@ export default function Sidebar(props) {
     toolbarMargin: theme.mixins.toolbar,
     bottomMargin: {
       marginBottom: "75px",
+    },
+    link: {
+      color: "inherit",
+      textDecoration: "inherit",
     },
   })
 
