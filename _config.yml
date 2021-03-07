@@ -22,7 +22,7 @@ title: hwebs.info Website Project
 email: hwebs@hwebs.info
 description: >- # this means to ignore newlines until "baseurl:"
   Project document for my personal website.
-baseurl: "/hwebs-info" # the subpath of your site, e.g. /blog
+baseurl: "/hwebs-info/" # the subpath of your site, e.g. /blog
 url: "https://henrywebster.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: hank29a
 github_username:  henrywebster
