@@ -15,6 +15,10 @@ import {
   makeStyles,
   Hidden,
   Drawer,
+  AppBar,
+  Toolbar,
+  IconButton,
+  withStyles,
 } from "@material-ui/core"
 import HomeIcon from "@material-ui/icons/Home"
 import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople"
@@ -23,12 +27,63 @@ import GitHubIcon from "@material-ui/icons/GitHub"
 import SportsEsportsIcon from "@material-ui/icons/SportsEsports"
 import EmailIcon from "@material-ui/icons/Email"
 import BuildIcon from "@material-ui/icons/Build"
+import MenuIcon from "@material-ui/icons/Menu"
 import "@fontsource/source-sans-pro"
 import "@fontsource/source-sans-pro/900.css"
 import { Link } from "gatsby"
 import computer from "../images/computer.png"
 import { lightTheme, darkTheme } from "../../theme"
 import ControlPanelItem from "./ControlPanelItem"
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+  toolbarMargin: theme.mixins.toolbar,
+})
+
+const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
+  <>
+    <AppBar>
+      <Toolbar>
+        <IconButton
+          edge="start"
+          className={classes.menuButton}
+          color="inherit"
+          aria-label="Menu"
+          onClick={onMenuClick}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="title" color="inherit" className={classes.flex}>
+          Henry J Webster
+        </Typography>
+      </Toolbar>
+    </AppBar>
+    <div className={classes.toolbarMargin} />
+  </>
+))
+
+const MyDrawer = withStyles(styles)(({ variant, open, content, onClose }) => (
+  <Drawer variant={variant} open={open} onClose={onClose}>
+    <List>
+      {content.map(item => (
+        <div key={item.subtitle}>
+          <Divider />
+          <ListSubheader>{item.subtitle}</ListSubheader>
+          {item.component}
+        </div>
+      ))}
+    </List>
+  </Drawer>
+))
 
 export default function Sidebar(props) {
   const currentPage = () => {
@@ -42,13 +97,20 @@ export default function Sidebar(props) {
   }
   const [activeTheme, setActiveTheme] = React.useState("dark")
   const [activePage, setActivePage] = React.useState(currentPage)
+  const [drawer, setDrawer] = React.useState(false)
+  const [title, setTitle] = React.useState(currentPage)
 
   const themeToggler = () => {
     activeTheme === "dark" ? setActiveTheme("light") : setActiveTheme("dark")
   }
 
+  const toggleDrawer = () => {
+    setDrawer(!drawer)
+  }
+
   const pageToggler = page => {
     setActivePage(page)
+    setDrawer(false)
   }
 
   const theme = activeTheme === "dark" ? darkTheme : lightTheme
@@ -66,9 +128,14 @@ export default function Sidebar(props) {
     marginBox: {
       width: "320px",
     },
-    link: {
-      color: "inherit",
-      textDecoration: "inherit",
+    stickToBottom: {
+      width: "100%",
+      position: "fixed",
+      bottom: 0,
+    },
+    toolbarMargin: theme.mixins.toolbar,
+    bottomMargin: {
+      marginBottom: "75px",
     },
   })
 
@@ -102,16 +169,17 @@ export default function Sidebar(props) {
     {
       subtitle: "Navigation",
       component: navigation.map(item => (
-        <Link to={item.to} className={classes.link} key={item.id}>
-          <ListItem
-            button
-            selected={item.selected}
-            onClick={() => pageToggler(item.id)}
-          >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
-          </ListItem>
-        </Link>
+        <ListItem
+          component={Link}
+          to={item.to}
+          key={item.id}
+          button
+          selected={item.selected}
+          onClick={() => pageToggler(item.id)}
+        >
+          <ListItemIcon>{item.icon}</ListItemIcon>
+          <ListItemText primary={item.text} />
+        </ListItem>
       )),
     },
     {
@@ -166,6 +234,15 @@ export default function Sidebar(props) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Hidden mdUp>
+        <MyToolbar title={title} onMenuClick={toggleDrawer} />
+        <MyDrawer
+          content={content}
+          open={drawer}
+          onClose={toggleDrawer}
+          setTitle={setTitle}
+        />
+      </Hidden>
 
       <Hidden smDown>
         <Drawer variant="permanent">
