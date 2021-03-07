@@ -47,6 +47,13 @@ const styles = theme => ({
     marginRight: 20,
   },
   toolbarMargin: theme.mixins.toolbar,
+  content: {
+    marginTop: 40,
+  },
+  link: {
+    color: "inherit",
+    textDecoration: "inherit",
+  },
 })
 
 const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
@@ -136,6 +143,10 @@ export default function Sidebar(props) {
     toolbarMargin: theme.mixins.toolbar,
     bottomMargin: {
       marginBottom: "75px",
+    },
+    link: {
+      color: "inherit",
+      textDecoration: "inherit",
     },
   })
 
@@ -275,7 +286,10 @@ export default function Sidebar(props) {
         alignContent="flex-start"
         wrap="nowrap"
         style={{
-          margin: 0,
+          marginTop: 50,
+          marginBottom: 0,
+          marginLeft: 0,
+          marginRight: 0,
           width: "100%",
         }}
       >
@@ -283,7 +297,7 @@ export default function Sidebar(props) {
           <Grid item className={classes.marginBox} />
         </Hidden>
 
-        <Grid container item>
+        <Grid container item className={classes.content}>
           <Container maxWidth="sm">{props.children}</Container>
         </Grid>
       </Grid>
