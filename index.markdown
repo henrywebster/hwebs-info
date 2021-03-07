@@ -43,10 +43,5 @@ title: Home
 ## 📚 Reading
 
 - [Don't Make Me Think](https://sensible.com/dont-make-me-think/)
-
-## 🚨 Disclaimer
-
-I am new to JavaScript, React, and front-end development as a whole.
-If you notice some ugly code, please [open an issue](https://github.com/henrywebster/hwebs-info/issues/new) explaining how I can make it better.
-I welcome this sort of knowledge sharing!
-I know I have a lot to learn.
+- [Learning React, 2nd Edition](https://learning.oreilly.com/library/view/learning-react-2nd/9781492051718/)
+- [React Material-UI Cookbook](https://www.packtpub.com/product/react-material-ui-cookbook/9781789615227)
