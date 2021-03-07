@@ -15,11 +15,10 @@ import {
   makeStyles,
   Hidden,
   Drawer,
-  BottomNavigation,
-  BottomNavigationAction,
   AppBar,
   Toolbar,
   IconButton,
+  withStyles,
 } from "@material-ui/core"
 import HomeIcon from "@material-ui/icons/Home"
 import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople"
@@ -29,14 +28,62 @@ import SportsEsportsIcon from "@material-ui/icons/SportsEsports"
 import EmailIcon from "@material-ui/icons/Email"
 import BuildIcon from "@material-ui/icons/Build"
 import MenuIcon from "@material-ui/icons/Menu"
-import Brightness4Icon from "@material-ui/icons/Brightness4"
-import Brightness7Icon from "@material-ui/icons/Brightness7"
 import "@fontsource/source-sans-pro"
 import "@fontsource/source-sans-pro/900.css"
 import { Link } from "gatsby"
 import computer from "../images/computer.png"
 import { lightTheme, darkTheme } from "../../theme"
 import ControlPanelItem from "./ControlPanelItem"
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+  toolbarMargin: theme.mixins.toolbar,
+})
+
+const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
+  <>
+    <AppBar>
+      <Toolbar>
+        <IconButton
+          edge="start"
+          className={classes.menuButton}
+          color="inherit"
+          aria-label="Menu"
+          onClick={onMenuClick}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="title" color="inherit" className={classes.flex}>
+          Henry J Webster
+        </Typography>
+      </Toolbar>
+    </AppBar>
+    <div className={classes.toolbarMargin} />
+  </>
+))
+
+const MyDrawer = withStyles(styles)(({ variant, open, content, onClose }) => (
+  <Drawer variant={variant} open={open} onClose={onClose}>
+    <List>
+      {content.map(item => (
+        <div key={item.subtitle}>
+          <Divider />
+          <ListSubheader>{item.subtitle}</ListSubheader>
+          {item.component}
+        </div>
+      ))}
+    </List>
+  </Drawer>
+))
 
 export default function Sidebar(props) {
   const currentPage = () => {
@@ -50,16 +97,20 @@ export default function Sidebar(props) {
   }
   const [activeTheme, setActiveTheme] = React.useState("dark")
   const [activePage, setActivePage] = React.useState(currentPage)
-  const [menuOpen, setMenuOpen] = React.useState(false)
+  const [drawer, setDrawer] = React.useState(false)
+  const [title, setTitle] = React.useState(currentPage)
 
   const themeToggler = () => {
     activeTheme === "dark" ? setActiveTheme("light") : setActiveTheme("dark")
   }
 
-  const drawerToggler = () => {}
+  const toggleDrawer = () => {
+    setDrawer(!drawer)
+  }
 
   const pageToggler = page => {
     setActivePage(page)
+    setDrawer(false)
   }
 
   const theme = activeTheme === "dark" ? darkTheme : lightTheme
@@ -184,32 +235,13 @@ export default function Sidebar(props) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Hidden mdUp>
-        <AppBar>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6">Henry J Webster</Typography>
-            <IconButton
-              edge="end"
-              className={classes.menuButton}
-              color="inherit"
-              onClick={themeToggler}
-            >
-              {activeTheme === "light" ? (
-                <Brightness4Icon />
-              ) : (
-                <Brightness7Icon />
-              )}
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <div className={classes.toolbarMargin} />
+        <MyToolbar title={title} onMenuClick={toggleDrawer} />
+        <MyDrawer
+          content={content}
+          open={drawer}
+          onClose={toggleDrawer}
+          setTitle={setTitle}
+        />
       </Hidden>
 
       <Hidden smDown>
