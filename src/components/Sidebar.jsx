@@ -19,6 +19,7 @@ import {
   Toolbar,
   IconButton,
   withStyles,
+  useMediaQuery,
 } from "@material-ui/core"
 import HomeIcon from "@material-ui/icons/Home"
 import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople"
@@ -80,6 +81,22 @@ const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
 
 const MyDrawer = withStyles(styles)(({ variant, open, content, onClose }) => (
   <Drawer variant={variant} open={open} onClose={onClose}>
+    <Box component="span" m={3}>
+      {/* <Link
+              to="/"
+              className={classes.link}
+              onClick={() => setActivePage("home")}
+            > */}
+      {variant === "permanent" && (
+        <>
+          <img src={computer} width="200px" alt="3D computer" />
+          <Typography variant="h4" component="h2" color="primary">
+            Henry J. Webster
+          </Typography>
+        </>
+      )}
+      {/* </Link> */}
+    </Box>
     <List>
       {content.map(item => (
         <div key={item.subtitle}>
@@ -122,32 +139,13 @@ export default function Sidebar(props) {
 
   const theme = activeTheme === "dark" ? darkTheme : lightTheme
 
+  const smallBreakpoint = useMediaQuery(theme.breakpoints.up("md"))
+
   const useStyles = makeStyles({
-    paper: {
-      borderRight: `1px solid ${theme.palette.divider}`,
-      overflowY: "auto",
-      display: "flex",
-      flexDirection: "column",
-      height: "100vh",
-      flex: "0 0 auto",
-      width: "320px",
-    },
     marginBox: {
       width: "320px",
     },
-    stickToBottom: {
-      width: "100%",
-      position: "fixed",
-      bottom: 0,
-    },
     toolbarMargin: theme.mixins.toolbar,
-    bottomMargin: {
-      marginBottom: "75px",
-    },
-    link: {
-      color: "inherit",
-      textDecoration: "inherit",
-    },
   })
 
   const classes = useStyles()
@@ -245,41 +243,17 @@ export default function Sidebar(props) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+
       <Hidden mdUp>
         <MyToolbar title={title} onMenuClick={toggleDrawer} />
-        <MyDrawer
-          content={content}
-          open={drawer}
-          onClose={toggleDrawer}
-          setTitle={setTitle}
-        />
       </Hidden>
-
-      <Hidden smDown>
-        <Drawer variant="permanent">
-          <Box component="span" m={3}>
-            <Link
-              to="/"
-              className={classes.link}
-              onClick={() => setActivePage("home")}
-            >
-              <img src={computer} width="200px" alt="3D computer" />
-              <Typography variant="h4" component="h2" color="primary">
-                Henry J. Webster
-              </Typography>
-            </Link>
-          </Box>
-          <List>
-            {content.map(item => (
-              <div key={item.subtitle}>
-                <Divider />
-                <ListSubheader>{item.subtitle}</ListSubheader>
-                {item.component}
-              </div>
-            ))}
-          </List>
-        </Drawer>
-      </Hidden>
+      <MyDrawer
+        content={content}
+        open={drawer}
+        onClose={toggleDrawer}
+        setTitle={setTitle}
+        variant={smallBreakpoint ? "permanent" : "temporary"}
+      />
       <Grid
         container
         direction="row"
@@ -296,7 +270,6 @@ export default function Sidebar(props) {
         <Hidden smDown>
           <Grid item className={classes.marginBox} />
         </Hidden>
-
         <Grid container item className={classes.content}>
           <Container maxWidth="sm">{props.children}</Container>
         </Grid>
