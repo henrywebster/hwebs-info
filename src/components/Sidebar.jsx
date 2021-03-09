@@ -29,12 +29,15 @@ import SportsEsportsIcon from "@material-ui/icons/SportsEsports"
 import EmailIcon from "@material-ui/icons/Email"
 import BuildIcon from "@material-ui/icons/Build"
 import MenuIcon from "@material-ui/icons/Menu"
+import BugReportIcon from "@material-ui/icons/BugReport"
+import CodeIcon from "@material-ui/icons/Code"
 import "@fontsource/source-sans-pro"
 import "@fontsource/source-sans-pro/900.css"
 import { Link } from "gatsby"
 import computer from "../images/computer.png"
 import { lightTheme, darkTheme } from "../../theme"
 import ControlPanelItem from "./ControlPanelItem"
+import { version } from "../version"
 
 const styles = theme => ({
   root: {
@@ -105,8 +108,58 @@ const MyDrawer = withStyles(styles)(({ variant, open, content, onClose }) => (
           {item.component}
         </div>
       ))}
+      <Divider />
+      <ListSubheader>Meta</ListSubheader>
+      <Footer version={version} />
     </List>
   </Drawer>
+))
+
+const Footer = withStyles(styles)(({ version }) => (
+  // <>
+  // <ListItem>
+  //   <ListItemText primary="© 2021 Henry J. Webster" />
+  // </ListItem>
+  // <ListItem>
+  //   <ListItemText primary={`v${version}`} />
+  // </ListItem>
+  // </>
+  <>
+    <ListItem
+      button
+      component={Link}
+      to="https://github.com/henrywebster/hwebs-info/issues/new"
+      target="_blank"
+      dense
+    >
+      <ListItemIcon>
+        <BugReportIcon />
+      </ListItemIcon>
+      <ListItemText primary="Report an Issue" />
+    </ListItem>
+    <ListItem
+      button
+      component={Link}
+      to="https://github.com/henrywebster/hwebs-info/"
+      target="_blank"
+      dense
+    >
+      <ListItemIcon>
+        <CodeIcon />
+      </ListItemIcon>
+      <ListItemText primary="Source on GitHub" />
+    </ListItem>
+    <ListItem>
+      <div>
+        <Typography variant="subtitle2" gutterBottom>
+          {`v${version}`}
+        </Typography>
+        <Typography variant="subtitle2" gutterBottom>
+          © 2021 Henry J. Webster
+        </Typography>
+      </div>
+    </ListItem>
+  </>
 ))
 
 export default function Sidebar(props) {
