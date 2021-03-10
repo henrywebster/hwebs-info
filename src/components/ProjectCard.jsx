@@ -10,6 +10,9 @@ import {
 } from "@material-ui/core"
 import GitHubIcon from "@material-ui/icons/GitHub"
 import OpenInNewIcon from "@material-ui/icons/OpenInNew"
+import { SiItchDotIo } from "@react-icons/all-files/si/SiItchDotIo"
+import { SiSpotify } from "@react-icons/all-files/si/SiSpotify"
+import { SiBandcamp } from "@react-icons/all-files/si/SiBandcamp"
 
 // TODO: this does nothing
 // import theme from "../../theme"
@@ -68,6 +71,9 @@ export default function ProjectCard(props) {
             <IconButton href={link.href} target="_blank" key={link.href}>
               {link.type === "github" && <GitHubIcon />}
               {link.type === "external" && <OpenInNewIcon />}
+              {link.type === "itchio" && <SiItchDotIo />}
+              {link.type === "spotify" && <SiSpotify />}
+              {link.type === "bandcamp" && <SiBandcamp />}
             </IconButton>
           ))}
         </Box>

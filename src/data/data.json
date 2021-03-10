@@ -29,7 +29,7 @@
           "href": "https://github.com/henrywebster/rat-race"
         },
         {
-          "type": "external",
+          "type": "itchio",
           "href": "https://hank29a.itch.io/lab-rat"
         }
       ]
@@ -42,8 +42,12 @@
       "tags": [],
       "links": [
         {
-          "type": "external",
+          "type": "spotify",
           "href": "https://open.spotify.com/artist/6NCc3M5sQEEbcCVjJtFKzO?si=fnTv6y9WS_mdkb6WnvTu6Q"
+        },
+        {
+          "type": "bandcamp",
+          "href": "https://deathrayop.bandcamp.com/"
         }
       ]
     }
