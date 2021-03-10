@@ -16,7 +16,6 @@ const ControlPanelItem = ({ text, checked, onChange = () => {} }) => {
         color="primary"
         checked={switchOn}
         onChange={onSwitchChange}
-        disableRipple={true}
       />
     </ListItem>
   )
