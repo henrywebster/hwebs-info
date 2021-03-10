@@ -20,15 +20,17 @@ import {
   IconButton,
   withStyles,
   useMediaQuery,
+  SvgIcon
 } from "@material-ui/core"
 import HomeIcon from "@material-ui/icons/Home"
 import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople"
 import TwitterIcon from "@material-ui/icons/Twitter"
 import GitHubIcon from "@material-ui/icons/GitHub"
-import SportsEsportsIcon from "@material-ui/icons/SportsEsports"
 import EmailIcon from "@material-ui/icons/Email"
 import BuildIcon from "@material-ui/icons/Build"
 import MenuIcon from "@material-ui/icons/Menu"
+import { SiItchDotIo } from "@react-icons/all-files/si/SiItchDotIo"
+import { FaItchIo } from "@react-icons/all-files/fa/FaItchIo"
 import BugReportIcon from "@material-ui/icons/BugReport"
 import CodeIcon from "@material-ui/icons/Code"
 import "@fontsource/source-sans-pro"
@@ -275,7 +277,7 @@ export default function Sidebar(props) {
         },
         {
           text: "itch.io",
-          icon: <SportsEsportsIcon />,
+          icon: (<SvgIcon><FaItchIo /></SvgIcon>),
           href: "https://hank29a.itch.io/",
         },
       ].map(item => (
