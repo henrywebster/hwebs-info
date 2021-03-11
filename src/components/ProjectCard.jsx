@@ -51,7 +51,7 @@ export default function ProjectCard(props) {
         titleTypographyProps={{ color: "primary" }}
         className={classes.title}
       />
-      <CardContent className={classes.content}>
+      <CardContent>
         <Typography variant="body1" color="textPrimary" gutterBottom>
           {props.description}
         </Typography>
