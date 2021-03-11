@@ -20,7 +20,7 @@ import {
   IconButton,
   withStyles,
   useMediaQuery,
-  SvgIcon
+  SvgIcon,
 } from "@material-ui/core"
 import HomeIcon from "@material-ui/icons/Home"
 import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople"
@@ -277,7 +277,11 @@ export default function Sidebar(props) {
         },
         {
           text: "itch.io",
-          icon: (<SvgIcon><FaItchIo /></SvgIcon>),
+          icon: (
+            <SvgIcon>
+              <FaItchIo />
+            </SvgIcon>
+          ),
           href: "https://hank29a.itch.io/",
         },
       ].map(item => (

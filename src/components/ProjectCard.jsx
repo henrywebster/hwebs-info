@@ -2,6 +2,8 @@ import React from "react"
 import {
   Card,
   CardContent,
+  CardActions,
+  CardHeader,
   Typography,
   makeStyles,
   Chip,
@@ -20,19 +22,19 @@ import { SiBandcamp } from "@react-icons/all-files/si/SiBandcamp"
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex",
-    width: "100%",
+    maxWidth: 450,
+  },
+  title: {
+    paddingBottom: 0,
+  },
+  content: {
+    paddingBottom: 0,
   },
   chip: {
     margin: theme.spacing(0.5),
   },
   titleBar: {
     marginRight: theme.spacing(1.5),
-  },
-  media: {
-    minWidth: "30%",
-    display: "flex",
-    objectFit: "cover",
   },
 }))
 
@@ -41,18 +43,13 @@ export default function ProjectCard(props) {
 
   return (
     <Card className={classes.root}>
-      <CardContent>
-        <Typography variant="h6" component="span" className={classes.titleBar}>
-          {props.title}
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          color="primary"
-          component="span"
-          gutterBottom
-        >
-          {props.year}
-        </Typography>
+      <CardHeader
+        title={props.title}
+        subheader={props.year}
+        titleTypographyProps={{ color: "primary" }}
+        className={classes.title}
+      />
+      <CardContent className={classes.content}>
         <Typography variant="body1" color="textPrimary" gutterBottom>
           {props.description}
         </Typography>
@@ -66,18 +63,18 @@ export default function ProjectCard(props) {
             key={tag}
           />
         ))}
-        <Box>
-          {props.links.map(link => (
-            <IconButton href={link.href} target="_blank" key={link.href}>
-              {link.type === "github" && <GitHubIcon />}
-              {link.type === "external" && <OpenInNewIcon />}
-              {link.type === "itchio" && <SiItchDotIo />}
-              {link.type === "spotify" && <SiSpotify />}
-              {link.type === "bandcamp" && <SiBandcamp />}
-            </IconButton>
-          ))}
-        </Box>
       </CardContent>
+      <CardActions disableSpacing>
+        {props.links.map(link => (
+          <IconButton href={link.href} target="_blank" key={link.href}>
+            {link.type === "github" && <GitHubIcon />}
+            {link.type === "external" && <OpenInNewIcon />}
+            {link.type === "itchio" && <SiItchDotIo />}
+            {link.type === "spotify" && <SiSpotify />}
+            {link.type === "bandcamp" && <SiBandcamp />}
+          </IconButton>
+        ))}
+      </CardActions>
       {/* <img src={labrat} className={classes.media} /> */}
 
       {/* <Hidden xsDown>
