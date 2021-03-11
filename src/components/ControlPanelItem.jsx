@@ -12,7 +12,12 @@ const ControlPanelItem = ({ text, checked, onChange = () => {} }) => {
   return (
     <ListItem>
       <ListItemText primary={text} />
-      <Switch color="primary" checked={switchOn} onChange={onSwitchChange} />
+      <Switch
+        color="primary"
+        checked={switchOn}
+        onChange={onSwitchChange}
+        inputProps={{ "aria-label": text }}
+      />
     </ListItem>
   )
 }
