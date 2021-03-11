@@ -4,6 +4,7 @@ import {
   CardContent,
   CardActions,
   CardHeader,
+  CardMedia,
   Typography,
   makeStyles,
   Chip,
@@ -27,14 +28,15 @@ const useStyles = makeStyles(theme => ({
   title: {
     paddingBottom: 0,
   },
-  content: {
-    paddingBottom: 0,
-  },
   chip: {
     margin: theme.spacing(0.5),
   },
   titleBar: {
     marginRight: theme.spacing(1.5),
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%",
   },
 }))
 
@@ -64,6 +66,8 @@ export default function ProjectCard(props) {
           />
         ))}
       </CardContent>
+      {/* <CardMedia
+          image={labrat} title="labrat" className={classes.media}/> */}
       <CardActions disableSpacing>
         {props.links.map(link => (
           <IconButton href={link.href} target="_blank" key={link.href}>
@@ -75,11 +79,6 @@ export default function ProjectCard(props) {
           </IconButton>
         ))}
       </CardActions>
-      {/* <img src={labrat} className={classes.media} /> */}
-
-      {/* <Hidden xsDown>
-        <img src={labrat} className={classes.media} />
-      </Hidden> */}
     </Card>
   )
 }
