@@ -1,22 +1,29 @@
 import React from "react"
-import { ListItem, ListItemText, Switch } from "@material-ui/core"
+import {
+  ListItem,
+  Switch,
+  FormControlLabel,
+  withStyles,
+} from "@material-ui/core"
 
-const ControlPanelItem = ({ text, checked, onChange = () => {} }) => {
-  const [switchOn, setSwitchOn] = React.useState(checked || false)
+const Control = ({ checked, onChange }) => (
+  <Switch color="primary" checked={checked} onChange={onChange} />
+)
 
-  const onSwitchChange = () => {
-    setSwitchOn(!switchOn)
+const ControlPanelItem = ({ text, checked = false, onChange = () => {} }) => {
+  // TODO: move to HOC?
+  const [on, setOn] = React.useState(checked)
+
+  const toggle = () => {
+    setOn(!on)
     onChange()
   }
 
   return (
     <ListItem>
-      <ListItemText primary={text} />
-      <Switch
-        color="primary"
-        checked={switchOn}
-        onChange={onSwitchChange}
-        inputProps={{ "aria-label": text }}
+      <FormControlLabel
+        control={<Control checked={on} onChange={toggle} />}
+        label={text}
       />
     </ListItem>
   )
