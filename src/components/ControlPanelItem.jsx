@@ -6,27 +6,59 @@ import {
   withStyles,
 } from "@material-ui/core"
 
-const Control = ({ checked, onChange }) => (
-  <Switch color="primary" checked={checked} onChange={onChange} />
+// TODO: try with label on lieft and right, account for margin
+
+const style = theme => ({
+  labelLeft: {
+    marginLeft: 0,
+  },
+  labelRight: {
+    marginRight: 10,
+  },
+})
+
+const Control = ({ checked, onChange, className }) => (
+  <Switch
+    color="primary"
+    checked={checked}
+    onChange={onChange}
+    className={className}
+  />
 )
 
-const ControlPanelItem = ({ text, checked = false, onChange = () => {} }) => {
-  // TODO: move to HOC?
-  const [on, setOn] = React.useState(checked)
+const ControlPanelItem = withStyles(style)(
+  ({
+    classes,
+    text,
+    checked = false,
+    onChange = () => {},
+    variant = "right",
+  }) => {
+    // TODO: move to HOC?
+    const [on, setOn] = React.useState(checked)
 
-  const toggle = () => {
-    setOn(!on)
-    onChange()
+    const toggle = () => {
+      setOn(!on)
+      onChange()
+    }
+
+    return (
+      <ListItem>
+        <FormControlLabel
+          control={
+            <Control
+              checked={on}
+              onChange={toggle}
+              className={variant == "right" ? classes.labelRight : undefined}
+            />
+          }
+          label={text}
+          labelPlacement={variant === "left" ? "start" : "end"}
+          className={variant === "left" ? classes.labelLeft : undefined}
+        />
+      </ListItem>
+    )
   }
-
-  return (
-    <ListItem>
-      <FormControlLabel
-        control={<Control checked={on} onChange={toggle} />}
-        label={text}
-      />
-    </ListItem>
-  )
-}
+)
 
 export default ControlPanelItem
