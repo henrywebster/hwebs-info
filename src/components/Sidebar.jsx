@@ -18,12 +18,6 @@ import {
   withStyles,
   useMediaQuery,
 } from "@material-ui/core"
-import HomeIcon from "@material-ui/icons/Home"
-import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople"
-import BuildIcon from "@material-ui/icons/Build"
-import MenuIcon from "@material-ui/icons/Menu"
-import BugReportIcon from "@material-ui/icons/BugReport"
-import CodeIcon from "@material-ui/icons/Code"
 import "@fontsource/source-sans-pro"
 import "@fontsource/source-sans-pro/900.css"
 import { Link } from "gatsby"
@@ -67,7 +61,7 @@ const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
           aria-label="Menu"
           onClick={onMenuClick}
         >
-          <MenuIcon />
+          <IconHelper icon="menu" />
         </IconButton>
         <Typography variant="title" color="inherit" className={classes.flex}>
           Henry J Webster
@@ -109,7 +103,7 @@ const MyDrawer = withStyles(styles)(({ variant, open, content, onClose }) => (
 const FooterButtons = () => [
   <IconLinkItem
     primary="Report an Issue"
-    icon={<BugReportIcon />}
+    icon={<IconHelper icon="bug" />}
     component={Link}
     to="https://github.com/henrywebster/hwebs-info/issues/new"
     target="_blank"
@@ -117,7 +111,7 @@ const FooterButtons = () => [
   />,
   <IconLinkItem
     primary="Source on GitHub"
-    icon={<CodeIcon />}
+    icon={<IconHelper icon="code" />}
     component={Link}
     to="https://github.com/henrywebster/hwebs-info/"
     target="_blank"
@@ -176,21 +170,21 @@ export default function Sidebar(props) {
     {
       id: "home",
       text: "Home",
-      icon: <HomeIcon />,
+      icon: "home",
       selected: activePage === "home",
       to: "/",
     },
     {
       id: "about",
       text: "About",
-      icon: <EmojiPeopleIcon />,
+      icon: "wave",
       selected: activePage === "about",
       to: "/about",
     },
     {
       id: "projects",
       text: "Projects",
-      icon: <BuildIcon />,
+      icon: "build",
       selected: activePage === "projects",
       to: "/projects",
     },
@@ -199,14 +193,14 @@ export default function Sidebar(props) {
   const content = [
     {
       subtitle: "Navigation",
-      component: navigation.map(item => (
+      component: navigation.map(({ text, to, id, selected, icon }, index) => (
         <IconLinkItem
-          to={item.to}
-          key={item.id}
-          selected={item.selected}
-          onClick={() => pageToggler(item.id)}
-          icon={item.icon}
-          primary={item.text}
+          to={to}
+          key={index}
+          selected={selected}
+          onClick={() => pageToggler(id)}
+          icon={<IconHelper icon={icon} />}
+          primary={text}
         />
       )),
     },
