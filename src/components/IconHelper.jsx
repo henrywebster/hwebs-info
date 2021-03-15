@@ -10,10 +10,16 @@ import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople"
 import MenuIcon from "@material-ui/icons/Menu"
 import BugReportIcon from "@material-ui/icons/BugReport"
 import CodeIcon from "@material-ui/icons/Code"
+import OpenInNewIcon from "@material-ui/icons/OpenInNew"
+import { SiSpotify } from "@react-icons/all-files/si/SiSpotify"
+import { SiBandcamp } from "@react-icons/all-files/si/SiBandcamp"
+import BrokenImageIcon from "@material-ui/icons/BrokenImage"
 // TODO: how to test this?
 
 export default function IconHelper({ icon }) {
   switch (icon) {
+    case "bandcamp":
+      return <SiBandcamp />
     case "bug":
       return <BugReportIcon />
     case "build":
@@ -34,9 +40,15 @@ export default function IconHelper({ icon }) {
       )
     case "menu":
       return <MenuIcon />
+    case "open":
+      return <OpenInNewIcon />
+    case "spotify":
+      return <SiSpotify />
     case "twitter":
       return <TwitterIcon />
     case "wave":
       return <EmojiPeopleIcon />
+    default:
+      return <BrokenImageIcon />
   }
 }
