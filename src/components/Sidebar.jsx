@@ -261,17 +261,24 @@ export default function Sidebar(props) {
           ),
           href: "https://hank29a.itch.io/",
         },
-      ].map(item => (
-        <ListItem
-          button
-          component="a"
-          href={item.href}
+      ].map(({ text, href, icon }, index) => (
+        // <ListItem
+        //   button
+        //   component="a"
+        //   href={item.href}
+        //   target="_blank"
+        //   key={item.text}
+        // >
+        //   <ListItemIcon>{item.icon}</ListItemIcon>
+        //   <ListItemText primary={item.text} />
+        // </ListItem>
+        <IconLinkItem
+          primary={text}
+          icon={icon}
+          to={href}
           target="_blank"
-          key={item.text}
-        >
-          <ListItemIcon>{item.icon}</ListItemIcon>
-          <ListItemText primary={item.text} />
-        </ListItem>
+          key={index}
+        />
       )),
     },
   ]
