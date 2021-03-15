@@ -29,7 +29,6 @@ import GitHubIcon from "@material-ui/icons/GitHub"
 import EmailIcon from "@material-ui/icons/Email"
 import BuildIcon from "@material-ui/icons/Build"
 import MenuIcon from "@material-ui/icons/Menu"
-import { SiItchDotIo } from "@react-icons/all-files/si/SiItchDotIo"
 import { FaItchIo } from "@react-icons/all-files/fa/FaItchIo"
 import BugReportIcon from "@material-ui/icons/BugReport"
 import CodeIcon from "@material-ui/icons/Code"
@@ -40,6 +39,7 @@ import computer from "../images/computer.png"
 import { lightTheme, darkTheme } from "../../theme"
 import ControlPanelItem from "./ControlPanelItem"
 import { version } from "../version"
+import IconLinkItem from "./IconLinkItem"
 
 const styles = theme => ({
   root: {
@@ -118,14 +118,6 @@ const MyDrawer = withStyles(styles)(({ variant, open, content, onClose }) => (
 ))
 
 const Footer = withStyles(styles)(({ version }) => (
-  // <>
-  // <ListItem>
-  //   <ListItemText primary="© 2021 Henry J. Webster" />
-  // </ListItem>
-  // <ListItem>
-  //   <ListItemText primary={`v${version}`} />
-  // </ListItem>
-  // </>
   <>
     <ListItem
       button
@@ -233,17 +225,14 @@ export default function Sidebar(props) {
     {
       subtitle: "Navigation",
       component: navigation.map(item => (
-        <ListItem
-          component={Link}
+        <IconLinkItem
           to={item.to}
           key={item.id}
-          button
           selected={item.selected}
           onClick={() => pageToggler(item.id)}
-        >
-          <ListItemIcon>{item.icon}</ListItemIcon>
-          <ListItemText primary={item.text} />
-        </ListItem>
+          icon={item.icon}
+          primary={item.text}
+        />
       )),
     },
     {
