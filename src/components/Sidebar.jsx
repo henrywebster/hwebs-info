@@ -17,16 +17,11 @@ import {
   IconButton,
   withStyles,
   useMediaQuery,
-  SvgIcon,
 } from "@material-ui/core"
 import HomeIcon from "@material-ui/icons/Home"
 import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople"
-import TwitterIcon from "@material-ui/icons/Twitter"
-import GitHubIcon from "@material-ui/icons/GitHub"
-import EmailIcon from "@material-ui/icons/Email"
 import BuildIcon from "@material-ui/icons/Build"
 import MenuIcon from "@material-ui/icons/Menu"
-import { FaItchIo } from "@react-icons/all-files/fa/FaItchIo"
 import BugReportIcon from "@material-ui/icons/BugReport"
 import CodeIcon from "@material-ui/icons/Code"
 import "@fontsource/source-sans-pro"
@@ -38,6 +33,7 @@ import ControlPanelItem from "./ControlPanelItem"
 import { version } from "../version"
 import IconLinkItem from "./IconLinkItem"
 import Footer from "./Footer"
+import IconHelper from "./IconHelper"
 
 const styles = theme => ({
   root: {
@@ -230,32 +226,28 @@ export default function Sidebar(props) {
       component: [
         {
           text: "Email",
-          icon: <EmailIcon />,
+          icon: "email",
           href: "mailto:hwebs@hwebs.info",
         },
         {
           text: "GitHub",
-          icon: <GitHubIcon />,
+          icon: "github",
           href: "https://github.com/henrywebster",
         },
         {
           text: "Twitter",
-          icon: <TwitterIcon />,
+          icon: "twitter",
           href: "https://twitter.com/hank29a",
         },
         {
           text: "itch.io",
-          icon: (
-            <SvgIcon>
-              <FaItchIo />
-            </SvgIcon>
-          ),
+          icon: "itchio",
           href: "https://hank29a.itch.io/",
         },
       ].map(({ text, href, icon }, index) => (
         <IconLinkItem
           primary={text}
-          icon={icon}
+          icon={<IconHelper icon={icon} />}
           to={href}
           target="_blank"
           key={index}
