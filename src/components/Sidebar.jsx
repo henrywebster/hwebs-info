@@ -18,6 +18,7 @@ import {
   withStyles,
   useMediaQuery,
 } from "@material-ui/core"
+import { useStaticQuery, graphql } from "gatsby"
 import "@fontsource/source-sans-pro"
 import "@fontsource/source-sans-pro/900.css"
 import { Link } from "gatsby"
@@ -126,6 +127,20 @@ const NavFooter = () => (
 )
 
 export default function Sidebar(props) {
+  const data = useStaticQuery(graphql`
+    query SidebarQuery {
+      dataJson {
+        sidebar {
+          contact {
+            href
+            icon
+            text
+          }
+        }
+      }
+    }
+  `)
+
   const currentPage = () => {
     const pathname = props.location.pathname
 
@@ -217,36 +232,17 @@ export default function Sidebar(props) {
     },
     {
       subtitle: "Contact",
-      component: [
-        {
-          text: "Email",
-          icon: "email",
-          href: "mailto:hwebs@hwebs.info",
-        },
-        {
-          text: "GitHub",
-          icon: "github",
-          href: "https://github.com/henrywebster",
-        },
-        {
-          text: "Twitter",
-          icon: "twitter",
-          href: "https://twitter.com/hank29a",
-        },
-        {
-          text: "itch.io",
-          icon: "itchio",
-          href: "https://hank29a.itch.io/",
-        },
-      ].map(({ text, href, icon }, index) => (
-        <IconLinkItem
-          primary={text}
-          icon={<IconHelper icon={icon} />}
-          to={href}
-          target="_blank"
-          key={index}
-        />
-      )),
+      component: data.dataJson.sidebar.contact.map(
+        ({ text, href, icon }, index) => (
+          <IconLinkItem
+            primary={text}
+            icon={<IconHelper icon={icon} />}
+            to={href}
+            target="_blank"
+            key={index}
+          />
+        )
+      ),
     },
   ]
 
