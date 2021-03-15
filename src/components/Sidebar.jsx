@@ -40,6 +40,7 @@ import { lightTheme, darkTheme } from "../../theme"
 import ControlPanelItem from "./ControlPanelItem"
 import { version } from "../version"
 import IconLinkItem from "./IconLinkItem"
+import Footer from "./Footer"
 
 const styles = theme => ({
   root: {
@@ -112,49 +113,36 @@ const MyDrawer = withStyles(styles)(({ variant, open, content, onClose }) => (
       ))}
       <Divider />
       <ListSubheader>Meta</ListSubheader>
-      <Footer version={version} />
+      <NavFooter version={version} />
     </List>
   </Drawer>
 ))
 
-const Footer = withStyles(styles)(({ version }) => (
-  <>
-    <ListItem
-      button
-      component={Link}
-      to="https://github.com/henrywebster/hwebs-info/issues/new"
-      target="_blank"
-      dense
-    >
-      <ListItemIcon>
-        <BugReportIcon />
-      </ListItemIcon>
-      <ListItemText primary="Report an Issue" />
-    </ListItem>
-    <ListItem
-      button
-      component={Link}
-      to="https://github.com/henrywebster/hwebs-info/"
-      target="_blank"
-      dense
-    >
-      <ListItemIcon>
-        <CodeIcon />
-      </ListItemIcon>
-      <ListItemText primary="Source on GitHub" />
-    </ListItem>
-    <ListItem>
-      <div>
-        <Typography variant="subtitle2" gutterBottom>
-          {`v${version}`}
-        </Typography>
-        <Typography variant="subtitle2" gutterBottom>
-          © 2021 Henry J. Webster
-        </Typography>
-      </div>
-    </ListItem>
-  </>
-))
+// TODO: make data-driven
+const FooterButtons = () => [
+  <IconLinkItem
+    primary="Report an Issue"
+    icon={<BugReportIcon />}
+    component={Link}
+    to="https://github.com/henrywebster/hwebs-info/issues/new"
+    target="_blank"
+    dense
+  />,
+  <IconLinkItem
+    primary="Source on GitHub"
+    icon={<CodeIcon />}
+    component={Link}
+    to="https://github.com/henrywebster/hwebs-info/"
+    target="_blank"
+    dense
+  />,
+]
+
+const notices = () => [version, "© 2021 Henry J. Webster"]
+
+const NavFooter = () => (
+  <Footer buttons={<FooterButtons />} notices={notices()} />
+)
 
 export default function Sidebar(props) {
   const currentPage = () => {
