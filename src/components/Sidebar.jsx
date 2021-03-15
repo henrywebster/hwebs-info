@@ -2,9 +2,6 @@ import React from "react"
 import {
   Typography,
   List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
   Divider,
   ListSubheader,
   Box,
@@ -88,11 +85,6 @@ const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
 const MyDrawer = withStyles(styles)(({ variant, open, content, onClose }) => (
   <Drawer variant={variant} open={open} onClose={onClose}>
     <Box component="span" m={3}>
-      {/* <Link
-              to="/"
-              className={classes.link}
-              onClick={() => setActivePage("home")}
-            > */}
       {variant === "permanent" && (
         <>
           <img src={computer} width="200px" alt="3D computer" />
@@ -101,7 +93,6 @@ const MyDrawer = withStyles(styles)(({ variant, open, content, onClose }) => (
           </Typography>
         </>
       )}
-      {/* </Link> */}
     </Box>
     <List>
       {content.map(item => (
@@ -262,16 +253,6 @@ export default function Sidebar(props) {
           href: "https://hank29a.itch.io/",
         },
       ].map(({ text, href, icon }, index) => (
-        // <ListItem
-        //   button
-        //   component="a"
-        //   href={item.href}
-        //   target="_blank"
-        //   key={item.text}
-        // >
-        //   <ListItemIcon>{item.icon}</ListItemIcon>
-        //   <ListItemText primary={item.text} />
-        // </ListItem>
         <IconLinkItem
           primary={text}
           icon={icon}
