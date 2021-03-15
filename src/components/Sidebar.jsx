@@ -21,7 +21,6 @@ import {
 import { useStaticQuery, graphql } from "gatsby"
 import "@fontsource/source-sans-pro"
 import "@fontsource/source-sans-pro/900.css"
-import { Link } from "gatsby"
 import computer from "../images/computer.png"
 import { lightTheme, darkTheme } from "../../theme"
 import ControlPanelItem from "./ControlPanelItem"
@@ -73,57 +72,51 @@ const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
   </>
 ))
 
-const MyDrawer = withStyles(styles)(({ variant, open, content, onClose }) => (
-  <Drawer variant={variant} open={open} onClose={onClose}>
-    <Box component="span" m={3}>
-      {variant === "permanent" && (
-        <>
-          <img src={computer} width="200px" alt="3D computer" />
-          <Typography variant="h4" component="h2" color="primary">
-            Henry J. Webster
-          </Typography>
-        </>
-      )}
-    </Box>
-    <List>
-      {content.map(item => (
-        <div key={item.subtitle}>
-          <Divider />
-          <ListSubheader>{item.subtitle}</ListSubheader>
-          {item.component}
-        </div>
-      ))}
-      <Divider />
-      <ListSubheader>Meta</ListSubheader>
-      <NavFooter version={version} />
-    </List>
-  </Drawer>
-))
+const MyDrawer = withStyles(styles)(
+  ({ variant, open, content, onClose, meta }) => (
+    <Drawer variant={variant} open={open} onClose={onClose}>
+      <Box component="span" m={3}>
+        {variant === "permanent" && (
+          <>
+            <img src={computer} width="200px" alt="3D computer" />
+            <Typography variant="h4" component="h2" color="primary">
+              Henry J. Webster
+            </Typography>
+          </>
+        )}
+      </Box>
+      <List>
+        {content.map(item => (
+          <div key={item.subtitle}>
+            <Divider />
+            <ListSubheader>{item.subtitle}</ListSubheader>
+            {item.component}
+          </div>
+        ))}
+        <Divider />
+        <ListSubheader>Meta</ListSubheader>
+        <NavFooter version={version} meta={meta} />
+      </List>
+    </Drawer>
+  )
+)
 
-// TODO: make data-driven
-const FooterButtons = () => [
-  <IconLinkItem
-    primary="Report an Issue"
-    icon={<IconHelper icon="bug" />}
-    component={Link}
-    to="https://github.com/henrywebster/hwebs-info/issues/new"
-    target="_blank"
-    dense
-  />,
-  <IconLinkItem
-    primary="Source on GitHub"
-    icon={<IconHelper icon="code" />}
-    component={Link}
-    to="https://github.com/henrywebster/hwebs-info/"
-    target="_blank"
-    dense
-  />,
-]
+const FooterButtons = ({ content }) =>
+  content.map(({ text, icon, to }, index) => (
+    <IconLinkItem
+      primary={text}
+      icon={<IconHelper icon={icon} />}
+      to={to}
+      target="_blank"
+      dense
+      key={index}
+    />
+  ))
 
 const notices = () => [version, "© 2021 Henry J. Webster"]
 
-const NavFooter = () => (
-  <Footer buttons={<FooterButtons />} notices={notices()} />
+const NavFooter = ({ meta }) => (
+  <Footer buttons={<FooterButtons content={meta} />} notices={notices()} />
 )
 
 export default function Sidebar(props) {
@@ -135,6 +128,11 @@ export default function Sidebar(props) {
             href
             icon
             text
+          }
+          meta {
+            icon
+            text
+            to
           }
         }
       }
@@ -259,6 +257,7 @@ export default function Sidebar(props) {
         onClose={toggleDrawer}
         setTitle={setTitle}
         variant={smallBreakpoint ? "permanent" : "temporary"}
+        meta={data.dataJson.sidebar.meta}
       />
       <Grid
         container

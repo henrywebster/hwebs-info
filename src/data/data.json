@@ -21,6 +21,18 @@
         "icon": "itchio",
         "href": "https://hank29a.itch.io/"
       }
+    ],
+    "meta": [
+      {
+        "text": "Report an Issue",
+        "icon": "bug",
+        "to": "https://github.com/henrywebster/hwebs-info/issues/new"
+      },
+      {
+        "text": "Source on GitHub",
+        "icon": "code",
+        "to": "https://github.com/henrywebster/hwebs-info/"
+      }
     ]
   },
   "projects": [
