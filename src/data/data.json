@@ -1,4 +1,40 @@
 {
+  "sidebar": {
+    "contact": [
+      {
+        "text": "Email",
+        "icon": "email",
+        "href": "mailto:hwebs@hwebs.info"
+      },
+      {
+        "text": "GitHub",
+        "icon": "github",
+        "href": "https://github.com/henrywebster"
+      },
+      {
+        "text": "Twitter",
+        "icon": "twitter",
+        "href": "https://twitter.com/hank29a"
+      },
+      {
+        "text": "itch.io",
+        "icon": "itchio",
+        "href": "https://hank29a.itch.io/"
+      }
+    ],
+    "meta": [
+      {
+        "text": "Report an Issue",
+        "icon": "bug",
+        "to": "https://github.com/henrywebster/hwebs-info/issues/new"
+      },
+      {
+        "text": "Source on GitHub",
+        "icon": "code",
+        "to": "https://github.com/henrywebster/hwebs-info/"
+      }
+    ]
+  },
   "projects": [
     {
       "title": "Personal Website v1",
@@ -12,7 +48,7 @@
           "href": "https://github.com/henrywebster/hwebs-info"
         },
         {
-          "type": "external",
+          "type": "open",
           "href": "https://hwebs.info"
         }
       ]

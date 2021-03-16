@@ -2,9 +2,6 @@ import React from "react"
 import {
   Typography,
   List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
   Divider,
   ListSubheader,
   Box,
@@ -20,27 +17,17 @@ import {
   IconButton,
   withStyles,
   useMediaQuery,
-  SvgIcon,
 } from "@material-ui/core"
-import HomeIcon from "@material-ui/icons/Home"
-import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople"
-import TwitterIcon from "@material-ui/icons/Twitter"
-import GitHubIcon from "@material-ui/icons/GitHub"
-import EmailIcon from "@material-ui/icons/Email"
-import BuildIcon from "@material-ui/icons/Build"
-import MenuIcon from "@material-ui/icons/Menu"
-import { FaItchIo } from "@react-icons/all-files/fa/FaItchIo"
-import BugReportIcon from "@material-ui/icons/BugReport"
-import CodeIcon from "@material-ui/icons/Code"
+import { useStaticQuery, graphql } from "gatsby"
 import "@fontsource/source-sans-pro"
 import "@fontsource/source-sans-pro/900.css"
-import { Link } from "gatsby"
 import computer from "../images/computer.png"
 import { lightTheme, darkTheme } from "../../theme"
 import ControlPanelItem from "./ControlPanelItem"
 import { version } from "../version"
 import IconLinkItem from "./IconLinkItem"
 import Footer from "./Footer"
+import IconHelper from "./IconHelper"
 
 const styles = theme => ({
   root: {
@@ -74,7 +61,7 @@ const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
           aria-label="Menu"
           onClick={onMenuClick}
         >
-          <MenuIcon />
+          <IconHelper icon="menu" />
         </IconButton>
         <Typography variant="title" color="inherit" className={classes.flex}>
           Henry J Webster
@@ -85,66 +72,73 @@ const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
   </>
 ))
 
-const MyDrawer = withStyles(styles)(({ variant, open, content, onClose }) => (
-  <Drawer variant={variant} open={open} onClose={onClose}>
-    <Box component="span" m={3}>
-      {/* <Link
-              to="/"
-              className={classes.link}
-              onClick={() => setActivePage("home")}
-            > */}
-      {variant === "permanent" && (
-        <>
-          <img src={computer} width="200px" alt="3D computer" />
-          <Typography variant="h4" component="h2" color="primary">
-            Henry J. Webster
-          </Typography>
-        </>
-      )}
-      {/* </Link> */}
-    </Box>
-    <List>
-      {content.map(item => (
-        <div key={item.subtitle}>
-          <Divider />
-          <ListSubheader>{item.subtitle}</ListSubheader>
-          {item.component}
-        </div>
-      ))}
-      <Divider />
-      <ListSubheader>Meta</ListSubheader>
-      <NavFooter version={version} />
-    </List>
-  </Drawer>
-))
+const MyDrawer = withStyles(styles)(
+  ({ variant, open, content, onClose, meta }) => (
+    <Drawer variant={variant} open={open} onClose={onClose}>
+      <Box component="span" m={3}>
+        {variant === "permanent" && (
+          <>
+            <img src={computer} width="200px" alt="3D computer" />
+            <Typography variant="h4" component="h2" color="primary">
+              Henry J. Webster
+            </Typography>
+          </>
+        )}
+      </Box>
+      <List>
+        {content.map(item => (
+          <div key={item.subtitle}>
+            <Divider />
+            <ListSubheader>{item.subtitle}</ListSubheader>
+            {item.component}
+          </div>
+        ))}
+        <Divider />
+        <ListSubheader>Meta</ListSubheader>
+        <NavFooter version={version} meta={meta} />
+      </List>
+    </Drawer>
+  )
+)
 
-// TODO: make data-driven
-const FooterButtons = () => [
-  <IconLinkItem
-    primary="Report an Issue"
-    icon={<BugReportIcon />}
-    component={Link}
-    to="https://github.com/henrywebster/hwebs-info/issues/new"
-    target="_blank"
-    dense
-  />,
-  <IconLinkItem
-    primary="Source on GitHub"
-    icon={<CodeIcon />}
-    component={Link}
-    to="https://github.com/henrywebster/hwebs-info/"
-    target="_blank"
-    dense
-  />,
-]
+const FooterButtons = ({ content }) =>
+  content.map(({ text, icon, to }, index) => (
+    <IconLinkItem
+      primary={text}
+      icon={<IconHelper icon={icon} />}
+      to={to}
+      target="_blank"
+      dense
+      key={index}
+    />
+  ))
 
 const notices = () => [version, "© 2021 Henry J. Webster"]
 
-const NavFooter = () => (
-  <Footer buttons={<FooterButtons />} notices={notices()} />
+const NavFooter = ({ meta }) => (
+  <Footer buttons={<FooterButtons content={meta} />} notices={notices()} />
 )
 
 export default function Sidebar(props) {
+  const data = useStaticQuery(graphql`
+    query SidebarQuery {
+      dataJson {
+        sidebar {
+          contact {
+            href
+            icon
+            text
+          }
+          meta {
+            icon
+            text
+            to
+          }
+        }
+      }
+    }
+  `)
+
   const currentPage = () => {
     const pathname = props.location.pathname
 
@@ -189,21 +183,21 @@ export default function Sidebar(props) {
     {
       id: "home",
       text: "Home",
-      icon: <HomeIcon />,
+      icon: "home",
       selected: activePage === "home",
       to: "/",
     },
     {
       id: "about",
       text: "About",
-      icon: <EmojiPeopleIcon />,
+      icon: "wave",
       selected: activePage === "about",
       to: "/about",
     },
     {
       id: "projects",
       text: "Projects",
-      icon: <BuildIcon />,
+      icon: "build",
       selected: activePage === "projects",
       to: "/projects",
     },
@@ -212,14 +206,14 @@ export default function Sidebar(props) {
   const content = [
     {
       subtitle: "Navigation",
-      component: navigation.map(item => (
+      component: navigation.map(({ text, to, id, selected, icon }, index) => (
         <IconLinkItem
-          to={item.to}
-          key={item.id}
-          selected={item.selected}
-          onClick={() => pageToggler(item.id)}
-          icon={item.icon}
-          primary={item.text}
+          to={to}
+          key={index}
+          selected={selected}
+          onClick={() => pageToggler(id)}
+          icon={<IconHelper icon={icon} />}
+          primary={text}
         />
       )),
     },
@@ -236,43 +230,17 @@ export default function Sidebar(props) {
     },
     {
       subtitle: "Contact",
-      component: [
-        {
-          text: "Email",
-          icon: <EmailIcon />,
-          href: "mailto:hwebs@hwebs.info",
-        },
-        {
-          text: "GitHub",
-          icon: <GitHubIcon />,
-          href: "https://github.com/henrywebster",
-        },
-        {
-          text: "Twitter",
-          icon: <TwitterIcon />,
-          href: "https://twitter.com/hank29a",
-        },
-        {
-          text: "itch.io",
-          icon: (
-            <SvgIcon>
-              <FaItchIo />
-            </SvgIcon>
-          ),
-          href: "https://hank29a.itch.io/",
-        },
-      ].map(item => (
-        <ListItem
-          button
-          component="a"
-          href={item.href}
-          target="_blank"
-          key={item.text}
-        >
-          <ListItemIcon>{item.icon}</ListItemIcon>
-          <ListItemText primary={item.text} />
-        </ListItem>
-      )),
+      component: data.dataJson.sidebar.contact.map(
+        ({ text, href, icon }, index) => (
+          <IconLinkItem
+            primary={text}
+            icon={<IconHelper icon={icon} />}
+            to={href}
+            target="_blank"
+            key={index}
+          />
+        )
+      ),
     },
   ]
 
@@ -289,6 +257,7 @@ export default function Sidebar(props) {
         onClose={toggleDrawer}
         setTitle={setTitle}
         variant={smallBreakpoint ? "permanent" : "temporary"}
+        meta={data.dataJson.sidebar.meta}
       />
       <Grid
         container

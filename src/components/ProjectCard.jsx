@@ -4,18 +4,12 @@ import {
   CardContent,
   CardActions,
   CardHeader,
-  CardMedia,
   Typography,
   makeStyles,
   Chip,
   IconButton,
-  Box,
 } from "@material-ui/core"
-import GitHubIcon from "@material-ui/icons/GitHub"
-import OpenInNewIcon from "@material-ui/icons/OpenInNew"
-import { SiItchDotIo } from "@react-icons/all-files/si/SiItchDotIo"
-import { SiSpotify } from "@react-icons/all-files/si/SiSpotify"
-import { SiBandcamp } from "@react-icons/all-files/si/SiBandcamp"
+import IconHelper from "./IconHelper"
 
 // TODO: this does nothing
 // import theme from "../../theme"
@@ -69,13 +63,9 @@ export default function ProjectCard(props) {
       {/* <CardMedia
           image={labrat} title="labrat" className={classes.media}/> */}
       <CardActions disableSpacing>
-        {props.links.map(link => (
-          <IconButton href={link.href} target="_blank" key={link.href}>
-            {link.type === "github" && <GitHubIcon />}
-            {link.type === "external" && <OpenInNewIcon />}
-            {link.type === "itchio" && <SiItchDotIo />}
-            {link.type === "spotify" && <SiSpotify />}
-            {link.type === "bandcamp" && <SiBandcamp />}
+        {props.links.map(({ href, type }, index) => (
+          <IconButton href={href} target="_blank" key={index}>
+            <IconHelper icon={type} />
           </IconButton>
         ))}
       </CardActions>

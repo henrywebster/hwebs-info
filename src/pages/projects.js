@@ -1,7 +1,7 @@
 import React from "react"
 import { Helmet } from "react-helmet"
 import { Typography, Grid } from "@material-ui/core"
-import { useStaticQuery } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 import ProjectCard from "../components/ProjectCard"
 
 export default function Projects() {

@@ -8,16 +8,27 @@ describe("IconLinkItem", () => {
     expect(screen.getByRole("button")).toHaveTextContent("Button")
   })
 
-  test("is link", () => {
-    render(<IconLinkItem />)
-    expect(screen.getByRole("button").closest("a")).toBeTruthy()
-  })
-
   test("link goes to other page", () => {
     render(<IconLinkItem to="/about" />)
     expect(screen.getByRole("button").closest("a")).toHaveAttribute(
       "href",
       "/about"
+    )
+  })
+
+  test("mailto link is valid", () => {
+    render(<IconLinkItem to="mailto:test@" />)
+    expect(screen.getByRole("link").closest("a")).toHaveAttribute(
+      "href",
+      "mailto:test@"
+    )
+  })
+
+  test("external link is a link", () => {
+    render(<IconLinkItem to="https://com" />)
+    expect(screen.getByRole("link").closest("a")).toHaveAttribute(
+      "href",
+      "https://com"
     )
   })
 })
