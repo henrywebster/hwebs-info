@@ -49,7 +49,7 @@ const ControlPanelItem = withStyles(style)(
             <Control
               checked={on}
               onChange={toggle}
-              className={variant == "right" ? classes.labelRight : undefined}
+              className={variant === "right" ? classes.labelRight : undefined}
             />
           }
           label={text}

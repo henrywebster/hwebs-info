@@ -5,100 +5,45 @@ import {
   Divider,
   ListSubheader,
   Box,
-  CssBaseline,
-  ThemeProvider,
-  Container,
-  Grid,
-  makeStyles,
-  Hidden,
   Drawer,
-  AppBar,
-  Toolbar,
-  IconButton,
-  withStyles,
   useMediaQuery,
+  useTheme,
 } from "@material-ui/core"
 import { useStaticQuery, graphql } from "gatsby"
 import "@fontsource/source-sans-pro"
 import "@fontsource/source-sans-pro/900.css"
 import computer from "../images/computer.png"
-import { lightTheme, darkTheme } from "../../theme"
 import ControlPanelItem from "./ControlPanelItem"
 import { version } from "../version"
 import IconLinkItem from "./IconLinkItem"
 import Footer from "./Footer"
 import IconHelper from "./IconHelper"
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  flex: {
-    flex: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  toolbarMargin: theme.mixins.toolbar,
-  content: {
-    marginTop: 40,
-  },
-  link: {
-    color: "inherit",
-    textDecoration: "inherit",
-  },
-})
-
-const MyToolbar = withStyles(styles)(({ classes, title, onMenuClick }) => (
-  <>
-    <AppBar>
-      <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="Menu"
-          onClick={onMenuClick}
-        >
-          <IconHelper icon="menu" />
-        </IconButton>
-        <Typography variant="title" color="inherit" className={classes.flex}>
-          Henry J Webster
-        </Typography>
-      </Toolbar>
-    </AppBar>
-    <div className={classes.toolbarMargin} />
-  </>
-))
-
-const MyDrawer = withStyles(styles)(
-  ({ variant, open, content, onClose, meta }) => (
-    <Drawer variant={variant} open={open} onClose={onClose}>
-      <Box component="span" m={3}>
-        {variant === "permanent" && (
-          <>
-            <img src={computer} width="200px" alt="3D computer" />
-            <Typography variant="h4" component="h2" color="primary">
-              Henry J. Webster
-            </Typography>
-          </>
-        )}
-      </Box>
-      <List>
-        {content.map(item => (
-          <div key={item.subtitle}>
-            <Divider />
-            <ListSubheader>{item.subtitle}</ListSubheader>
-            {item.component}
-          </div>
-        ))}
-        <Divider />
-        <ListSubheader>Meta</ListSubheader>
-        <NavFooter version={version} meta={meta} />
-      </List>
-    </Drawer>
-  )
+const MyDrawer = ({ variant, open, content, onClose, meta }) => (
+  <Drawer variant={variant} open={open} onClose={onClose}>
+    <Box component="span" m={3}>
+      {variant === "permanent" && (
+        <>
+          <img src={computer} width="200px" alt="3D computer" />
+          <Typography variant="h4" component="h2" color="primary">
+            Henry J. Webster
+          </Typography>
+        </>
+      )}
+    </Box>
+    <List>
+      {content.map(item => (
+        <div key={item.subtitle}>
+          <Divider />
+          <ListSubheader>{item.subtitle}</ListSubheader>
+          {item.component}
+        </div>
+      ))}
+      <Divider />
+      <ListSubheader>Meta</ListSubheader>
+      <NavFooter version={version} meta={meta} />
+    </List>
+  </Drawer>
 )
 
 const FooterButtons = ({ content }) =>
@@ -120,6 +65,7 @@ const NavFooter = ({ meta }) => (
 )
 
 export default function Sidebar(props) {
+  // TODO: also get site title from this query
   const data = useStaticQuery(graphql`
     query SidebarQuery {
       dataJson {
@@ -148,36 +94,16 @@ export default function Sidebar(props) {
     else if (pathname === "/projects/" || pathname === "/projects")
       return "projects"
   }
-  const [activeTheme, setActiveTheme] = React.useState("dark")
   const [activePage, setActivePage] = React.useState(currentPage)
-  const [drawer, setDrawer] = React.useState(false)
-  const [title, setTitle] = React.useState(currentPage)
 
-  const themeToggler = () => {
-    activeTheme === "dark" ? setActiveTheme("light") : setActiveTheme("dark")
-  }
-
-  const toggleDrawer = () => {
-    setDrawer(!drawer)
-  }
+  const theme = useTheme()
 
   const pageToggler = page => {
     setActivePage(page)
-    setDrawer(false)
+    props.onClose()
   }
 
-  const theme = activeTheme === "dark" ? darkTheme : lightTheme
-
   const smallBreakpoint = useMediaQuery(theme.breakpoints.up("md"))
-
-  const useStyles = makeStyles({
-    marginBox: {
-      width: "320px",
-    },
-    toolbarMargin: theme.mixins.toolbar,
-  })
-
-  const classes = useStyles()
 
   const navigation = [
     {
@@ -218,12 +144,13 @@ export default function Sidebar(props) {
       )),
     },
     {
+      // TODO: need to get initial state from layout
       subtitle: "Control Panel",
       component: [{ text: "Dark Mode", checked: true }].map(item => (
         <ControlPanelItem
           text={item.text}
           checked={item.checked}
-          onChange={themeToggler}
+          onChange={props.onThemeChange}
           key={item.text}
         />
       )),
@@ -245,40 +172,12 @@ export default function Sidebar(props) {
   ]
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-
-      <Hidden mdUp>
-        <MyToolbar title={title} onMenuClick={toggleDrawer} />
-      </Hidden>
-      <MyDrawer
-        content={content}
-        open={drawer}
-        onClose={toggleDrawer}
-        setTitle={setTitle}
-        variant={smallBreakpoint ? "permanent" : "temporary"}
-        meta={data.dataJson.sidebar.meta}
-      />
-      <Grid
-        container
-        direction="row"
-        alignContent="flex-start"
-        wrap="nowrap"
-        style={{
-          marginTop: 50,
-          marginBottom: 0,
-          marginLeft: 0,
-          marginRight: 0,
-          width: "100%",
-        }}
-      >
-        <Hidden smDown>
-          <Grid item className={classes.marginBox} />
-        </Hidden>
-        <Grid container item className={classes.content}>
-          <Container maxWidth="sm">{props.children}</Container>
-        </Grid>
-      </Grid>
-    </ThemeProvider>
+    <MyDrawer
+      content={content}
+      open={props.open}
+      onClose={props.onClose}
+      variant={smallBreakpoint ? "permanent" : "temporary"}
+      meta={data.dataJson.sidebar.meta}
+    />
   )
 }
