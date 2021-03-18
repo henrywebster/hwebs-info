@@ -28,6 +28,7 @@ const styles = theme => ({
     color: "inherit",
     textDecoration: "inherit",
   },
+  toolbarMargin: theme.mixins.toolbar,
 })
 
 const MyToolbar = withStyles(styles)(({ classes, onMenuClick }) => (
@@ -66,7 +67,6 @@ export default function Layout({ children, location }) {
     marginBox: {
       minWidth: "320px",
     },
-    toolbarMargin: theme.mixins.toolbar,
   })
 
   const classes = useStyles()

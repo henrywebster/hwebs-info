@@ -100,6 +100,7 @@ export default function Sidebar(props) {
 
   const pageToggler = page => {
     setActivePage(page)
+    props.onClose()
   }
 
   const smallBreakpoint = useMediaQuery(theme.breakpoints.up("md"))
