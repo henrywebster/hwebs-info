@@ -1,4 +1,9 @@
 module.exports = {
+  siteMetadata: {
+    title: `Henry J. Webster`,
+    description: `My personal website.`,
+    author: `@henrywebster`,
+  },
   plugins: [
     "gatsby-transformer-json",
     `gatsby-plugin-material-ui`,

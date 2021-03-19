@@ -12,7 +12,7 @@ const styles = {
     },
   },
   typography: {
-    fontFamily: ['"Source Sans Pro"', "sans-serif"].join(","),
+    fontFamily: "sans-serif",
   },
 }
 

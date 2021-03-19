@@ -1,147 +1,130 @@
 import React from "react"
-import { Helmet } from "react-helmet"
-import {
-  Typography,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  withStyles,
-  Grid,
-  Box,
-  Paper,
-} from "@material-ui/core"
-import { DiJava } from "@react-icons/all-files/di/DiJava"
-import { SiJavascript } from "@react-icons/all-files/si/SiJavascript"
-import { SiReact } from "@react-icons/all-files/si/SiReact"
-import { SiSpring } from "@react-icons/all-files/si/SiSpring"
-import { SiSpinnaker } from "@react-icons/all-files/si/SiSpinnaker"
-import { SiBlender } from "@react-icons/all-files/si/SiBlender"
-import { FaAws } from "@react-icons/all-files/fa/FaAws"
-import { SiGodotengine } from "@react-icons/all-files/si/SiGodotengine"
-import PageTitle from "../components/pageTitle"
+import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
+import computer from "../images/computer.png"
 
 const styles = theme => ({
-  techItem: {
-    // maxWidth: 100,
-    padding: 10,
+  social: {
     margin: 10,
-    backgroundColor: theme.palette.secondary.main,
   },
-  techIcon: {
-    fontSize: "3em",
-    lineHeight: 0.5,
+  root: {
+    flexGrow: 1,
+  },
+  img: {
+    maxWidth: "100%",
   },
 })
 
-const Blurb = () => {
-  return (
-    <Card>
-      <CardHeader title="Welcome" titleTypographyProps={{ color: "primary" }} />
-      <CardContent>
-        <Typography
-          variant="body1"
-          component="span"
-          color="textPrimary"
-          gutterBottom
-        >
-          My name is Henry J. Webster, a programmer in Brooklyn, NY. <br />
-          <br />
-          🌞 During daylight I build financial web services. <br />
-          🌜 At night I experiment with game development, music, and 3D art.
-        </Typography>
-      </CardContent>
-    </Card>
-  )
-}
-
-const Rundown = () => {
-  return (
-    <Card>
-      <CardContent>
-        <Typography variant="h5" component="h5" color="primary">
-          Technlogies 👷
-        </Typography>
-        <TechCategory
-          category="Languages"
-          items={[
-            <TechItem name="Java" icon={<DiJava />} />,
-            <TechItem name="JavaScript" icon={<SiJavascript />} />,
-          ]}
-        />
-        <TechCategory
-          category="Frameworks"
-          items={[
-            <TechItem name="React" icon={<SiReact />} />,
-            <TechItem name="Spring" icon={<SiSpring />} />,
-          ]}
-        />
-        <TechCategory
-          category="Platforms"
-          items={[<TechItem name="AWS" icon={<FaAws />} />]}
-        />
-        <TechCategory
-          category="Tools"
-          items={[
-            <TechItem name="Spinnaker" icon={<SiSpinnaker />} />,
-            <TechItem name="Blender" icon={<SiBlender />} />,
-            <TechItem name="Godot Engine" icon={<SiGodotengine />} />,
-          ]}
-        />
-      </CardContent>
-    </Card>
-  )
-}
-
-const TechItem = withStyles(styles)(({ classes, name, icon }) => (
-  <Box className={classes.techItem} borderRadius={8}>
-    <Grid container alignItems="center" direction="column">
-      <Grid item className={classes.techIcon}>
-        {icon}
-      </Grid>
-      <Grid item>
-        <Typography variant="subtitle1" component="span">
-          {name}
-        </Typography>
-      </Grid>
-    </Grid>
-  </Box>
+const SocialLink = withStyles(styles)(({ icon, text, href, classes }) => (
+  <Typography
+    variant="body1"
+    color="primary"
+    component="a"
+    href={href}
+    target="_blank"
+    className={classes.social}
+  >
+    <span role="img" aria-label="">
+      {icon}
+    </span>{" "}
+    {text}
+  </Typography>
 ))
 
-const TechCategory = withStyles(styles)(({ classes, category, items }) => (
-  <>
-    <Typography variant="subtitle1" component="span">
-      {category}
+const Welcome = () => (
+  <div>
+    <Typography variant="h4">Welcome 👋</Typography>
+    <Typography variant="body1" component="div">
+      My name is Henry J. Webster, a programmer in Brooklyn, NY. <br />
+      <br />
+      ☀️ At work I'm building loan web services @
+      <Typography
+        variant="body1"
+        color="primary"
+        component="a"
+        href="https://www.jpmorgan.com/commercial-banking"
+        target="_blank"
+      >
+        JPMorgan Chase
+      </Typography>
+      . <br />
+      🌔 At night I experiment with game development, music, and 3D art.
     </Typography>
-    <Divider />
-    <Grid container>
-      {items.map(item => (
-        <Grid item>{item}</Grid>
-      ))}
-    </Grid>
-  </>
-))
+  </div>
+)
 
-export default function Home({ data }) {
-  return (
-    <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Home - Henry J Webster</title>
-      </Helmet>
-      <PageTitle title="Home" />
-      {/* <Typography variant="h2" component="h2" color="primary">
+const Section = ({ id, children }) => (
+  <Box
+    component="section"
+    id={id}
+    display="flex"
+    justifyContent="center"
+    alignItems="center"
+    minHeight="100vh"
+  >
+    {children}
+  </Box>
+)
 
-        I make technology that works.
-      </Typography> */}
-      <Grid container direction="column" spacing={4}>
-        <Grid item>
-          <Blurb />
+const socials = [
+  {
+    icon: "✉️",
+    text: "Email",
+    href: "mailto:hwebs@hwebs.info",
+  },
+  {
+    icon: "🐙",
+    text: "GitHub",
+    href: "https://github.com/henrywebster",
+  },
+  {
+    icon: "🐦",
+    text: "Twitter",
+    href: "https://twitter.com/hank29a",
+  },
+  {
+    icon: "🕹️",
+    text: "itch.io",
+    href: "https://hank29a.itch.io/",
+  },
+]
+
+const Index = withStyles(styles)(({ classes }) => (
+  <Container maxWidth="md">
+    <Section id="home" className={classes.root}>
+      <Grid
+        container
+        component="section"
+        id="home"
+        justify="space-between"
+        alignItems="center"
+        spacing={3}
+      >
+        <Grid container item sm={12} md={4} justify="center">
+          <img src={computer} alt="" className={classes.img} />
         </Grid>
-        <Grid item>
-          <Rundown />
+        <Grid container item sm={12} md={8} justify="center">
+          <Welcome />
+        </Grid>
+        <Grid item xs={12}>
+          <Box display="flex" justifyContent="center">
+            {socials.map((social, index) => (
+              <SocialLink {...social} key={index} />
+            ))}
+          </Box>
         </Grid>
       </Grid>
-    </>
-  )
-}
+    </Section>
+    <Section id="about">
+      <Box>
+        <Typography variant="h4" gutterBottom>
+          About 🧑‍🦰
+        </Typography>
+
+        <br />
+        <Typography variant="body1"></Typography>
+      </Box>
+    </Section>
+  </Container>
+))
+
+export default Index
