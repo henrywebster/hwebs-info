@@ -8,6 +8,7 @@ import {
   Drawer,
   useMediaQuery,
   useTheme,
+  withStyles,
 } from "@material-ui/core"
 import { useStaticQuery, graphql } from "gatsby"
 import "@fontsource/source-sans-pro"
@@ -21,11 +22,11 @@ import IconHelper from "./IconHelper"
 
 const MyDrawer = ({ variant, open, content, onClose, meta }) => (
   <Drawer variant={variant} open={open} onClose={onClose}>
-    <Box component="span" m={3}>
+    <Box component="span" m={3} width="185px">
       {variant === "permanent" && (
         <>
-          <img src={computer} width="200px" alt="3D computer" />
-          <Typography variant="h4" component="h2" color="primary">
+          <img src={computer} width="185px" alt="3D computer" />
+          <Typography variant="h3" component="h2" color="primary">
             Henry J. Webster
           </Typography>
         </>
@@ -90,9 +91,8 @@ export default function Sidebar(props) {
 
     // TODO: change to regex
     if (pathname === "/") return "home"
-    else if (pathname === "/about/" || pathname === "/about") return "about"
-    else if (pathname === "/projects/" || pathname === "/projects")
-      return "projects"
+    else if (pathname.startsWith("/about")) return "about"
+    else if (pathname.startsWith("/projects")) return "projects"
   }
   const [activePage, setActivePage] = React.useState(currentPage)
 

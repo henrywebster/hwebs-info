@@ -1,6 +1,7 @@
 import React from "react"
 import { Helmet } from "react-helmet"
 import { Typography, Link } from "@material-ui/core"
+import PageTitle from "../components/pageTitle"
 
 export default function About(props) {
   return (
@@ -9,9 +10,7 @@ export default function About(props) {
         <meta charSet="utf-8" />
         <title>About - Henry J Webster</title>
       </Helmet>
-      <Typography variant="h2" component="h2" color="primary" gutterBottom>
-        About
-      </Typography>
+      <PageTitle title="About" />
       <Typography variant="body1" gutterBottom>
         Developer with 3 years professional experience in critical backend
         financial services. Highly adaptable with a past in game engine
