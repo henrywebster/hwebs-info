@@ -6,7 +6,7 @@ const styles = {
       h2: {
         fontWeight: "900",
       },
-      h4: {
+      h3: {
         fontWeight: "900",
       },
     },

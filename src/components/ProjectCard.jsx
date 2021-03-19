@@ -17,7 +17,7 @@ import IconHelper from "./IconHelper"
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 450,
+    maxWidth: 440,
   },
   title: {
     paddingBottom: 0,

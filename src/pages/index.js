@@ -4,10 +4,12 @@ import {
   Typography,
   Card,
   CardContent,
+  CardHeader,
   Divider,
   withStyles,
   Grid,
   Box,
+  Paper,
 } from "@material-ui/core"
 import { DiJava } from "@react-icons/all-files/di/DiJava"
 import { SiJavascript } from "@react-icons/all-files/si/SiJavascript"
@@ -17,6 +19,7 @@ import { SiSpinnaker } from "@react-icons/all-files/si/SiSpinnaker"
 import { SiBlender } from "@react-icons/all-files/si/SiBlender"
 import { FaAws } from "@react-icons/all-files/fa/FaAws"
 import { SiGodotengine } from "@react-icons/all-files/si/SiGodotengine"
+import PageTitle from "../components/pageTitle"
 
 const styles = theme => ({
   techItem: {
@@ -34,10 +37,8 @@ const styles = theme => ({
 const Blurb = () => {
   return (
     <Card>
+      <CardHeader title="Welcome" titleTypographyProps={{ color: "primary" }} />
       <CardContent>
-        <Typography variant="h5" component="h5" color="primary">
-          Welcome 👋
-        </Typography>
         <Typography
           variant="body1"
           component="span"
@@ -128,6 +129,7 @@ export default function Home({ data }) {
         <meta charSet="utf-8" />
         <title>Home - Henry J Webster</title>
       </Helmet>
+      <PageTitle title="Home" />
       {/* <Typography variant="h2" component="h2" color="primary">
 
         I make technology that works.
