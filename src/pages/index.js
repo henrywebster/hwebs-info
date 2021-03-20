@@ -1,16 +1,10 @@
 import React from "react"
-import {
-  Typography,
-  Grid,
-  Box,
-  Container,
-  withStyles,
-  Button,
-} from "@material-ui/core"
+import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
 import computer from "../images/computer.png"
 import { useStaticQuery, graphql } from "gatsby"
 import ProjectCard from "../components/ProjectCard"
 import SEO from "../components/seo"
+import Emoji from "../components/emoji"
 
 const styles = theme => ({
   social: {
@@ -33,20 +27,19 @@ const SocialLink = withStyles(styles)(({ icon, text, href, classes }) => (
     target="_blank"
     className={classes.social}
   >
-    <span role="img" aria-label="">
-      {icon}
-    </span>{" "}
-    {text}
+    <Emoji emoji={icon} /> {text}
   </Typography>
 ))
 
 const Welcome = () => (
   <div>
-    <Typography variant="h4">Welcome 👋</Typography>
+    <Typography variant="h4">
+      Welcome <Emoji emoji="👋" />
+    </Typography>
     <Typography variant="body1" component="div">
       My name is Henry J. Webster, a programmer in Brooklyn, NY. <br />
       <br />
-      ☀️ At work I'm building loan web services @
+      <Emoji emoji="☀️" /> At work I'm building loan web services @
       <Typography
         variant="body1"
         color="primary"
@@ -57,7 +50,8 @@ const Welcome = () => (
         JPMorgan Chase
       </Typography>
       . <br />
-      🌔 At night I experiment with game development, music, and 3D art.
+      <Emoji emoji="🌔" /> At night I experiment with game development, music,
+      and 3D art.
     </Typography>
     {/* <Button component="a" href="abc" variant="contained" color="primary">
       Resume
@@ -149,7 +143,7 @@ const Index = withStyles(styles)(({ classes }) => {
       <Section id="projects">
         <Box>
           <Typography variant="h4" gutterBottom>
-            Projects 🏗️
+            Projects <Emoji emoji="🏗️" />
           </Typography>
           <Grid container spacing={3} justify="space-around">
             {data.dataJson.projects.map((project, index) => (
@@ -169,7 +163,7 @@ const Index = withStyles(styles)(({ classes }) => {
       <Section id="about">
         <Container maxWidth="sm">
           <Typography variant="h4" gutterBottom>
-            About 🧑‍🦰
+            About <Emoji emoji="🧑‍🦰" />
           </Typography>
 
           <br />
