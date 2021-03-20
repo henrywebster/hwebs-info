@@ -22,10 +22,7 @@ const defaultTheme = createMuiTheme({
     },
   },
 })
-const {
-  breakpoints,
-  typography: { pxToRem },
-} = defaultTheme
+const { breakpoints } = defaultTheme
 
 const theme = {
   ...defaultTheme,

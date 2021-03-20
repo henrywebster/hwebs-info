@@ -105,6 +105,11 @@ const Index = withStyles(styles)(({ classes }) => {
           tags
           time
           title
+          image {
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
         }
       }
     }
@@ -150,6 +155,7 @@ const Index = withStyles(styles)(({ classes }) => {
                   date={new Date(project.time, 0, 1)}
                   description={project.description}
                   links={project.links}
+                  image={project.image}
                 />
               </Grid>
             ))}
