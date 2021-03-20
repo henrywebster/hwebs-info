@@ -9,7 +9,7 @@ import {
   Button,
 } from "@material-ui/core"
 import { Link } from "gatsby"
-import { darkTheme } from "../../theme"
+import theme from "../../theme"
 
 const sections = ["home", "projects", "about"]
 
@@ -23,7 +23,7 @@ const styles = theme => ({
 })
 
 const Layout = withStyles(styles)(({ location, children, classes }) => (
-  <ThemeProvider theme={darkTheme}>
+  <ThemeProvider theme={theme}>
     <CssBaseline />
     <AppBar color="transparent">
       <Toolbar className={classes.root}>
@@ -48,19 +48,29 @@ const Layout = withStyles(styles)(({ location, children, classes }) => (
             Henry J. Webster
           </Typography>
         )}
-        <span>
+        <div>
           {sections.map((section, index) => {
             return location.pathname === "/" ? (
-              <Button component="a" href={`#${section}`} key={index}>
+              <Button
+                // size="small"
+                component="a"
+                href={`#${section}`}
+                key={index}
+              >
                 {section}
               </Button>
             ) : (
-              <Button component={Link} to={`/#${section}`} key={index}>
+              <Button
+                size="small"
+                component={Link}
+                to={`/#${section}`}
+                key={index}
+              >
                 {section}
               </Button>
             )
           })}
-        </span>
+        </div>
       </Toolbar>
     </AppBar>
     {children}

@@ -1,23 +1,9 @@
 import { createMuiTheme } from "@material-ui/core/styles"
 
-const styles = {
-  overrides: {
-    MuiTypography: {
-      h2: {
-        fontWeight: "900",
-      },
-      h3: {
-        fontWeight: "900",
-      },
-    },
-  },
+const defaultTheme = createMuiTheme({
   typography: {
     fontFamily: "sans-serif",
   },
-}
-
-const darkTheme = createMuiTheme({
-  ...styles,
   palette: {
     type: "dark",
     primary: {
@@ -36,26 +22,32 @@ const darkTheme = createMuiTheme({
     },
   },
 })
+const {
+  breakpoints,
+  typography: { pxToRem },
+} = defaultTheme
 
-const lightTheme = createMuiTheme({
-  ...styles,
-  palette: {
-    type: "light",
-    primary: {
-      light: "#8f7cff",
-      main: "#504fff",
-      dark: "#0025cb",
+const theme = {
+  ...defaultTheme,
+  overrides: {
+    MuiButton: {
+      root: {
+        fontSize: ".75rem",
+      },
     },
-    secondary: {
-      light: "#66ffa6",
-      main: "#00e676",
-      dark: "#00b248",
-    },
-    action: {
-      hover: "#00e67688",
-      selected: "#00e676bb",
+    MuiTypography: {
+      body1: {
+        [breakpoints.down("xs")]: {
+          fontSize: ".75rem",
+        },
+      },
+      button: {
+        [breakpoints.down("xs")]: {
+          fontSize: ".75rem",
+        },
+      },
     },
   },
-})
+}
 
-export { darkTheme, lightTheme }
+export default theme

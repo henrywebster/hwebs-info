@@ -53,9 +53,6 @@ const Welcome = () => (
       <Emoji emoji="🌔" /> At night I experiment with game development, music,
       and 3D art.
     </Typography>
-    {/* <Button component="a" href="abc" variant="contained" color="primary">
-      Resume
-    </Button> */}
   </div>
 )
 
