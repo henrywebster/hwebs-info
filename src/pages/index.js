@@ -1,147 +1,199 @@
 import React from "react"
-import { Helmet } from "react-helmet"
 import {
   Typography,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  withStyles,
   Grid,
   Box,
-  Paper,
+  Container,
+  withStyles,
+  Button,
 } from "@material-ui/core"
-import { DiJava } from "@react-icons/all-files/di/DiJava"
-import { SiJavascript } from "@react-icons/all-files/si/SiJavascript"
-import { SiReact } from "@react-icons/all-files/si/SiReact"
-import { SiSpring } from "@react-icons/all-files/si/SiSpring"
-import { SiSpinnaker } from "@react-icons/all-files/si/SiSpinnaker"
-import { SiBlender } from "@react-icons/all-files/si/SiBlender"
-import { FaAws } from "@react-icons/all-files/fa/FaAws"
-import { SiGodotengine } from "@react-icons/all-files/si/SiGodotengine"
-import PageTitle from "../components/pageTitle"
+import computer from "../images/computer.png"
+import { useStaticQuery, graphql } from "gatsby"
+import ProjectCard from "../components/ProjectCard"
+import SEO from "../components/seo"
 
 const styles = theme => ({
-  techItem: {
-    // maxWidth: 100,
-    padding: 10,
+  social: {
     margin: 10,
-    backgroundColor: theme.palette.secondary.main,
   },
-  techIcon: {
-    fontSize: "3em",
-    lineHeight: 0.5,
+  root: {
+    flexGrow: 1,
+  },
+  img: {
+    maxWidth: "100%",
   },
 })
 
-const Blurb = () => {
-  return (
-    <Card>
-      <CardHeader title="Welcome" titleTypographyProps={{ color: "primary" }} />
-      <CardContent>
-        <Typography
-          variant="body1"
-          component="span"
-          color="textPrimary"
-          gutterBottom
-        >
-          My name is Henry J. Webster, a programmer in Brooklyn, NY. <br />
-          <br />
-          🌞 During daylight I build financial web services. <br />
-          🌜 At night I experiment with game development, music, and 3D art.
-        </Typography>
-      </CardContent>
-    </Card>
-  )
-}
-
-const Rundown = () => {
-  return (
-    <Card>
-      <CardContent>
-        <Typography variant="h5" component="h5" color="primary">
-          Technlogies 👷
-        </Typography>
-        <TechCategory
-          category="Languages"
-          items={[
-            <TechItem name="Java" icon={<DiJava />} />,
-            <TechItem name="JavaScript" icon={<SiJavascript />} />,
-          ]}
-        />
-        <TechCategory
-          category="Frameworks"
-          items={[
-            <TechItem name="React" icon={<SiReact />} />,
-            <TechItem name="Spring" icon={<SiSpring />} />,
-          ]}
-        />
-        <TechCategory
-          category="Platforms"
-          items={[<TechItem name="AWS" icon={<FaAws />} />]}
-        />
-        <TechCategory
-          category="Tools"
-          items={[
-            <TechItem name="Spinnaker" icon={<SiSpinnaker />} />,
-            <TechItem name="Blender" icon={<SiBlender />} />,
-            <TechItem name="Godot Engine" icon={<SiGodotengine />} />,
-          ]}
-        />
-      </CardContent>
-    </Card>
-  )
-}
-
-const TechItem = withStyles(styles)(({ classes, name, icon }) => (
-  <Box className={classes.techItem} borderRadius={8}>
-    <Grid container alignItems="center" direction="column">
-      <Grid item className={classes.techIcon}>
-        {icon}
-      </Grid>
-      <Grid item>
-        <Typography variant="subtitle1" component="span">
-          {name}
-        </Typography>
-      </Grid>
-    </Grid>
-  </Box>
+const SocialLink = withStyles(styles)(({ icon, text, href, classes }) => (
+  <Typography
+    variant="body1"
+    color="primary"
+    component="a"
+    href={href}
+    target="_blank"
+    className={classes.social}
+  >
+    <span role="img" aria-label="">
+      {icon}
+    </span>{" "}
+    {text}
+  </Typography>
 ))
 
-const TechCategory = withStyles(styles)(({ classes, category, items }) => (
-  <>
-    <Typography variant="subtitle1" component="span">
-      {category}
+const Welcome = () => (
+  <div>
+    <Typography variant="h4">Welcome 👋</Typography>
+    <Typography variant="body1" component="div">
+      My name is Henry J. Webster, a programmer in Brooklyn, NY. <br />
+      <br />
+      ☀️ At work I'm building loan web services @
+      <Typography
+        variant="body1"
+        color="primary"
+        component="a"
+        href="https://www.jpmorgan.com/commercial-banking"
+        target="_blank"
+      >
+        JPMorgan Chase
+      </Typography>
+      . <br />
+      🌔 At night I experiment with game development, music, and 3D art.
     </Typography>
-    <Divider />
-    <Grid container>
-      {items.map(item => (
-        <Grid item>{item}</Grid>
-      ))}
-    </Grid>
-  </>
-))
+    {/* <Button component="a" href="abc" variant="contained" color="primary">
+      Resume
+    </Button> */}
+  </div>
+)
 
-export default function Home({ data }) {
+const Section = ({ id, children }) => (
+  <Box
+    component="section"
+    id={id}
+    display="flex"
+    justifyContent="center"
+    alignItems="center"
+    minHeight="100vh"
+  >
+    {children}
+  </Box>
+)
+
+const socials = [
+  {
+    icon: "✉️",
+    text: "Email",
+    href: "mailto:hwebs@hwebs.info",
+  },
+  {
+    icon: "🐙",
+    text: "GitHub",
+    href: "https://github.com/henrywebster",
+  },
+  {
+    icon: "🐦",
+    text: "Twitter",
+    href: "https://twitter.com/hank29a",
+  },
+  {
+    icon: "🕹️",
+    text: "itch.io",
+    href: "https://hank29a.itch.io/",
+  },
+]
+
+const Index = withStyles(styles)(({ classes }) => {
+  const data = useStaticQuery(graphql`
+    query ProjectIndexQuery {
+      dataJson {
+        projects {
+          description
+          links {
+            href
+            type
+          }
+          tags
+          time
+          title
+        }
+      }
+    }
+  `)
+
   return (
-    <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Home - Henry J Webster</title>
-      </Helmet>
-      <PageTitle title="Home" />
-      {/* <Typography variant="h2" component="h2" color="primary">
+    <Container maxWidth="md">
+      <SEO title="Henry J. Webster" />
+      <Section id="home" className={classes.root}>
+        <Grid
+          container
+          component="section"
+          id="home"
+          justify="space-between"
+          alignItems="center"
+          spacing={3}
+        >
+          <Grid container item sm={12} md={4} justify="center">
+            <img src={computer} alt="" className={classes.img} />
+          </Grid>
+          <Grid container item sm={12} md={8} justify="center">
+            <Welcome />
+          </Grid>
+          <Grid item xs={12}>
+            <Box display="flex" justifyContent="center">
+              {socials.map((social, index) => (
+                <SocialLink {...social} key={index} />
+              ))}
+            </Box>
+          </Grid>
+        </Grid>
+      </Section>
+      <Section id="projects">
+        <Box>
+          <Typography variant="h4" gutterBottom>
+            Projects 🏗️
+          </Typography>
+          <Grid container spacing={3} justify="space-around">
+            {data.dataJson.projects.map((project, index) => (
+              <Grid item key={index}>
+                <ProjectCard
+                  title={project.title}
+                  year={project.time}
+                  description={project.description}
+                  tags={project.tags}
+                  links={project.links}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Section>
+      <Section id="about">
+        <Container maxWidth="sm">
+          <Typography variant="h4" gutterBottom>
+            About 🧑‍🦰
+          </Typography>
 
-        I make technology that works.
-      </Typography> */}
-      <Grid container direction="column" spacing={4}>
-        <Grid item>
-          <Blurb />
-        </Grid>
-        <Grid item>
-          <Rundown />
-        </Grid>
-      </Grid>
-    </>
+          <br />
+          <Typography variant="body1">
+            I have 3 years of professional experience in software. My curiosity
+            takes me all over the place and I love learning new technologies and
+            approaches while building interesting projects. <br /> <br />
+            I'm an avid cyclist, reader, coffee-lover, and productivity nerd. I
+            have fun with home audio production and playing guitar. <br />{" "}
+            <br />
+            Thanks for checking out my website! <br />
+            Henry J. Webster
+          </Typography>
+          <Typography
+            color="primary"
+            component="a"
+            href="mailto:hwebs@hwebs.info"
+          >
+            hwebs@hwebs.info
+          </Typography>
+        </Container>
+      </Section>
+    </Container>
   )
-}
+})
+
+export default Index
