@@ -2,9 +2,9 @@ import React from "react"
 import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
 import computer from "../images/computer.png"
 import { useStaticQuery, graphql } from "gatsby"
-import ProjectCard from "../components/ProjectCard"
 import SEO from "../components/seo"
 import Emoji from "../components/emoji"
+import ProjectCard from "../components/project-card"
 
 const styles = theme => ({
   social: {
@@ -150,9 +150,8 @@ const Index = withStyles(styles)(({ classes }) => {
               <Grid item key={index}>
                 <ProjectCard
                   title={project.title}
-                  year={project.time}
+                  date={new Date(project.time, 0, 1)}
                   description={project.description}
-                  tags={project.tags}
                   links={project.links}
                 />
               </Grid>

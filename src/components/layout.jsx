@@ -11,15 +11,14 @@ import {
 import { Link } from "gatsby"
 import { darkTheme } from "../../theme"
 
-const sections = ["home", "about", "projects"]
+const sections = ["home", "projects", "about"]
 
 const styles = theme => ({
-  toolbar: {
-    marginBottom: 60,
+  root: {
+    justifyContent: "space-between",
   },
-  appbar: {
-    display: "flex",
-    alignItems: "space-between",
+  name: {
+    textDecoration: "none",
   },
 })
 
@@ -27,21 +26,41 @@ const Layout = withStyles(styles)(({ location, children, classes }) => (
   <ThemeProvider theme={darkTheme}>
     <CssBaseline />
     <AppBar color="transparent">
-      <Toolbar className={classes.appbar}>
-        <Typography variant="h6" color="primary">
-          Henry J. Webster
-        </Typography>
-        {sections.map((section, index) => {
-          return location.pathname === "/" ? (
-            <Button component="a" href={`#${section}`} key={index}>
-              {section}
-            </Button>
-          ) : (
-            <Button component={Link} to={`/#${section}`} key={index}>
-              {section}
-            </Button>
-          )
-        })}
+      <Toolbar className={classes.root}>
+        {location.pathname === "/" ? (
+          <Typography
+            color="primary"
+            variant="button"
+            component="a"
+            href="#home"
+            className={classes.name}
+          >
+            Henry J. Webster
+          </Typography>
+        ) : (
+          <Typography
+            color="primary"
+            variant="button"
+            component={Link}
+            to="/"
+            className={classes.name}
+          >
+            Henry J. Webster
+          </Typography>
+        )}
+        <span>
+          {sections.map((section, index) => {
+            return location.pathname === "/" ? (
+              <Button component="a" href={`#${section}`} key={index}>
+                {section}
+              </Button>
+            ) : (
+              <Button component={Link} to={`/#${section}`} key={index}>
+                {section}
+              </Button>
+            )
+          })}
+        </span>
       </Toolbar>
     </AppBar>
     {children}
