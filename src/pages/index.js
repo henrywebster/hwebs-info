@@ -1,6 +1,16 @@
 import React from "react"
-import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
+import {
+  Typography,
+  Grid,
+  Box,
+  Container,
+  withStyles,
+  Button,
+} from "@material-ui/core"
 import computer from "../images/computer.png"
+import { useStaticQuery, graphql } from "gatsby"
+import ProjectCard from "../components/ProjectCard"
+import SEO from "../components/seo"
 
 const styles = theme => ({
   social: {
@@ -49,6 +59,9 @@ const Welcome = () => (
       . <br />
       🌔 At night I experiment with game development, music, and 3D art.
     </Typography>
+    {/* <Button component="a" href="abc" variant="contained" color="primary">
+      Resume
+    </Button> */}
   </div>
 )
 
@@ -88,43 +101,99 @@ const socials = [
   },
 ]
 
-const Index = withStyles(styles)(({ classes }) => (
-  <Container maxWidth="md">
-    <Section id="home" className={classes.root}>
-      <Grid
-        container
-        component="section"
-        id="home"
-        justify="space-between"
-        alignItems="center"
-        spacing={3}
-      >
-        <Grid container item sm={12} md={4} justify="center">
-          <img src={computer} alt="" className={classes.img} />
-        </Grid>
-        <Grid container item sm={12} md={8} justify="center">
-          <Welcome />
-        </Grid>
-        <Grid item xs={12}>
-          <Box display="flex" justifyContent="center">
-            {socials.map((social, index) => (
-              <SocialLink {...social} key={index} />
-            ))}
-          </Box>
-        </Grid>
-      </Grid>
-    </Section>
-    <Section id="about">
-      <Box>
-        <Typography variant="h4" gutterBottom>
-          About 🧑‍🦰
-        </Typography>
+const Index = withStyles(styles)(({ classes }) => {
+  const data = useStaticQuery(graphql`
+    query ProjectIndexQuery {
+      dataJson {
+        projects {
+          description
+          links {
+            href
+            type
+          }
+          tags
+          time
+          title
+        }
+      }
+    }
+  `)
 
-        <br />
-        <Typography variant="body1"></Typography>
-      </Box>
-    </Section>
-  </Container>
-))
+  return (
+    <Container maxWidth="md">
+      <SEO title="Henry J. Webster" />
+      <Section id="home" className={classes.root}>
+        <Grid
+          container
+          component="section"
+          id="home"
+          justify="space-between"
+          alignItems="center"
+          spacing={3}
+        >
+          <Grid container item sm={12} md={4} justify="center">
+            <img src={computer} alt="" className={classes.img} />
+          </Grid>
+          <Grid container item sm={12} md={8} justify="center">
+            <Welcome />
+          </Grid>
+          <Grid item xs={12}>
+            <Box display="flex" justifyContent="center">
+              {socials.map((social, index) => (
+                <SocialLink {...social} key={index} />
+              ))}
+            </Box>
+          </Grid>
+        </Grid>
+      </Section>
+      <Section id="projects">
+        <Box>
+          <Typography variant="h4" gutterBottom>
+            Projects 🏗️
+          </Typography>
+          <Grid container spacing={3} justify="space-around">
+            {data.dataJson.projects.map((project, index) => (
+              <Grid item key={index}>
+                <ProjectCard
+                  title={project.title}
+                  year={project.time}
+                  description={project.description}
+                  tags={project.tags}
+                  links={project.links}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Section>
+      <Section id="about">
+        <Container maxWidth="sm">
+          <Typography variant="h4" gutterBottom>
+            About 🧑‍🦰
+          </Typography>
+
+          <br />
+          <Typography variant="body1">
+            I have 3 years of professional experience in software. My curiosity
+            takes me all over the place and I love learning new technologies and
+            approaches while building interesting projects. <br /> <br />
+            I'm an avid cyclist, reader, coffee-lover, and productivity nerd. I
+            have fun with home audio production and playing guitar. <br />{" "}
+            <br />
+            Thanks for checking out my website! <br />
+            Henry J. Webster
+          </Typography>
+          <Typography
+            color="primary"
+            component="a"
+            href="mailto:hwebs@hwebs.info"
+          >
+            hwebs@hwebs.info
+          </Typography>
+        </Container>
+      </Section>
+    </Container>
+  )
+})
 
 export default Index

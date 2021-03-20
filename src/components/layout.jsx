@@ -7,35 +7,43 @@ import {
   CssBaseline,
   withStyles,
   Button,
-  Container,
 } from "@material-ui/core"
+import { Link } from "gatsby"
 import { darkTheme } from "../../theme"
 
 const sections = ["home", "about", "projects"]
 
 const styles = theme => ({
   toolbar: {
-    marginBottom: theme.mixins.toolbar,
+    marginBottom: 60,
+  },
+  appbar: {
+    display: "flex",
+    alignItems: "space-between",
   },
 })
 
-const Layout = withStyles(styles)(({ children, classes }) => (
+const Layout = withStyles(styles)(({ location, children, classes }) => (
   <ThemeProvider theme={darkTheme}>
     <CssBaseline />
     <AppBar color="transparent">
-      <Toolbar>
+      <Toolbar className={classes.appbar}>
         <Typography variant="h6" color="primary">
           Henry J. Webster
         </Typography>
-        {sections.map((section, index) => (
-          <Button component="a" href={`#${section}`} key={index}>
-            {section}
-          </Button>
-        ))}
+        {sections.map((section, index) => {
+          return location.pathname === "/" ? (
+            <Button component="a" href={`#${section}`} key={index}>
+              {section}
+            </Button>
+          ) : (
+            <Button component={Link} to={`/#${section}`} key={index}>
+              {section}
+            </Button>
+          )
+        })}
       </Toolbar>
     </AppBar>
-    {/* <div className={classes.toolbar} /> */}
-    {/* <Container maxWidth="md">{children}</Container> */}
     {children}
   </ThemeProvider>
 ))
