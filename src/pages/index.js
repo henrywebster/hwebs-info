@@ -1,16 +1,9 @@
 import React from "react"
-import {
-  Typography,
-  Grid,
-  Box,
-  Container,
-  withStyles,
-  Button,
-} from "@material-ui/core"
-import computer from "../images/computer.png"
-import { useStaticQuery, graphql } from "gatsby"
-import ProjectCard from "../components/ProjectCard"
+import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
+import computer from "../images/computer-v3.webp"
 import SEO from "../components/seo"
+import Emoji from "../components/emoji"
+import FeaturedProject from "../components/featured-project"
 
 const styles = theme => ({
   social: {
@@ -21,6 +14,7 @@ const styles = theme => ({
   },
   img: {
     maxWidth: "100%",
+    width: 400,
   },
 })
 
@@ -33,20 +27,19 @@ const SocialLink = withStyles(styles)(({ icon, text, href, classes }) => (
     target="_blank"
     className={classes.social}
   >
-    <span role="img" aria-label="">
-      {icon}
-    </span>{" "}
-    {text}
+    <Emoji emoji={icon} /> {text}
   </Typography>
 ))
 
 const Welcome = () => (
   <div>
-    <Typography variant="h4">Welcome 👋</Typography>
+    <Typography variant="h4">
+      Welcome <Emoji emoji="👋" />
+    </Typography>
     <Typography variant="body1" component="div">
       My name is Henry J. Webster, a programmer in Brooklyn, NY. <br />
       <br />
-      ☀️ At work I'm building loan web services @
+      <Emoji emoji="☀️" /> At work I'm building loan web services @
       <Typography
         variant="body1"
         color="primary"
@@ -57,11 +50,9 @@ const Welcome = () => (
         JPMorgan Chase
       </Typography>
       . <br />
-      🌔 At night I experiment with game development, music, and 3D art.
+      <Emoji emoji="🌔" /> At night I experiment with game development, music,
+      and 3D art.
     </Typography>
-    {/* <Button component="a" href="abc" variant="contained" color="primary">
-      Resume
-    </Button> */}
   </div>
 )
 
@@ -102,23 +93,6 @@ const socials = [
 ]
 
 const Index = withStyles(styles)(({ classes }) => {
-  const data = useStaticQuery(graphql`
-    query ProjectIndexQuery {
-      dataJson {
-        projects {
-          description
-          links {
-            href
-            type
-          }
-          tags
-          time
-          title
-        }
-      }
-    }
-  `)
-
   return (
     <Container maxWidth="md">
       <SEO title="Henry J. Webster" />
@@ -149,27 +123,20 @@ const Index = withStyles(styles)(({ classes }) => {
       <Section id="projects">
         <Box>
           <Typography variant="h4" gutterBottom>
-            Projects 🏗️
+            Projects <Emoji emoji="🏗️" />
           </Typography>
-          <Grid container spacing={3} justify="space-around">
-            {data.dataJson.projects.map((project, index) => (
-              <Grid item key={index}>
-                <ProjectCard
-                  title={project.title}
-                  year={project.time}
-                  description={project.description}
-                  tags={project.tags}
-                  links={project.links}
-                />
-              </Grid>
-            ))}
-          </Grid>
+          <Box marginBottom={5}>
+            <Typography variant="body1" gutterBottom>
+              I enjoy creating in my free time, whether it be art or technology.
+            </Typography>
+          </Box>
+          <FeaturedProject />
         </Box>
       </Section>
       <Section id="about">
         <Container maxWidth="sm">
           <Typography variant="h4" gutterBottom>
-            About 🧑‍🦰
+            About <Emoji emoji="🧑‍🦰" />
           </Typography>
 
           <br />

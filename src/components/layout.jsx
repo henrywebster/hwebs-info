@@ -9,39 +9,68 @@ import {
   Button,
 } from "@material-ui/core"
 import { Link } from "gatsby"
-import { darkTheme } from "../../theme"
+import theme from "../../theme"
 
-const sections = ["home", "about", "projects"]
+const sections = ["home", "projects", "about"]
 
 const styles = theme => ({
-  toolbar: {
-    marginBottom: 60,
+  root: {
+    justifyContent: "space-between",
   },
-  appbar: {
-    display: "flex",
-    alignItems: "space-between",
+  name: {
+    textDecoration: "none",
   },
 })
 
 const Layout = withStyles(styles)(({ location, children, classes }) => (
-  <ThemeProvider theme={darkTheme}>
+  <ThemeProvider theme={theme}>
     <CssBaseline />
     <AppBar color="transparent">
-      <Toolbar className={classes.appbar}>
-        <Typography variant="h6" color="primary">
-          Henry J. Webster
-        </Typography>
-        {sections.map((section, index) => {
-          return location.pathname === "/" ? (
-            <Button component="a" href={`#${section}`} key={index}>
-              {section}
-            </Button>
-          ) : (
-            <Button component={Link} to={`/#${section}`} key={index}>
-              {section}
-            </Button>
-          )
-        })}
+      <Toolbar className={classes.root}>
+        {location.pathname === "/" ? (
+          <Typography
+            color="primary"
+            variant="button"
+            component="a"
+            href="#home"
+            className={classes.name}
+          >
+            Henry J. Webster
+          </Typography>
+        ) : (
+          <Typography
+            color="primary"
+            variant="button"
+            component={Link}
+            to="/"
+            className={classes.name}
+          >
+            Henry J. Webster
+          </Typography>
+        )}
+        <div>
+          {sections.map((section, index) => {
+            return location.pathname === "/" ? (
+              <Button
+                // size="small"
+                component="a"
+                href={`#${section}`}
+                key={index}
+              >
+                {section}
+              </Button>
+            ) : (
+              <Button
+                size="small"
+                component={Link}
+                to={`/#${section}`}
+                key={index}
+              >
+                {section}
+              </Button>
+            )
+          })}
+        </div>
       </Toolbar>
     </AppBar>
     {children}
