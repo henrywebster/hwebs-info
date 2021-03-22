@@ -1,9 +1,10 @@
 import React from "react"
 import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
+import { useStaticQuery, graphql } from "gatsby"
 import computer from "../images/computer-v3.webp"
 import SEO from "../components/seo"
 import Emoji from "../components/emoji"
-import FeaturedProject from "../components/featured-project"
+import ProjectPreview from "../components/project-preview"
 import Section from "../components/section"
 
 const styles = theme => ({
@@ -77,7 +78,51 @@ const socials = [
   },
 ]
 
+// Fisher-Yates shuffle from https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+function shuffle(a) {
+  var j, x, i
+  for (i = a.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1))
+    x = a[i]
+    a[i] = a[j]
+    a[j] = x
+  }
+  return a
+}
+
 const Index = withStyles(styles)(({ classes }) => {
+  const {
+    dataJson: { projects },
+  } = useStaticQuery(graphql`
+    query FeaturedProjectQuery {
+      dataJson {
+        projects {
+          description
+          links {
+            href
+            type
+          }
+          tags
+          time
+          title
+          featured
+          image {
+            childImageSharp {
+              gatsbyImageData(
+                width: 425
+                formats: WEBP
+                webpOptions: { quality: 100 }
+              )
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  const randoms = shuffle(projects.filter(project => !project.featured))
+  const featured = projects.find(project => project.featured)
+
   return (
     <Container maxWidth="md">
       <SEO title="Henry J. Webster" />
@@ -115,7 +160,7 @@ const Index = withStyles(styles)(({ classes }) => {
               I enjoy creating in my free time, whether it be art or technology.
             </Typography>
           </Box>
-          <FeaturedProject />
+          <ProjectPreview featured={featured} randoms={randoms} />
         </Box>
       </Section>
       <Section id="about">
