@@ -4,13 +4,11 @@ import computer from "../images/computer-v3.webp"
 import SEO from "../components/seo"
 import Emoji from "../components/emoji"
 import FeaturedProject from "../components/featured-project"
+import Section from "../components/section"
 
 const styles = theme => ({
   social: {
     margin: 10,
-  },
-  root: {
-    flexGrow: 1,
   },
   img: {
     maxWidth: "100%",
@@ -56,19 +54,6 @@ const Welcome = () => (
   </div>
 )
 
-const Section = ({ id, children }) => (
-  <Box
-    component="section"
-    id={id}
-    display="flex"
-    justifyContent="center"
-    alignItems="center"
-    minHeight="100vh"
-  >
-    {children}
-  </Box>
-)
-
 const socials = [
   {
     icon: "✉️",
@@ -96,7 +81,7 @@ const Index = withStyles(styles)(({ classes }) => {
   return (
     <Container maxWidth="md">
       <SEO title="Henry J. Webster" />
-      <Section id="home" className={classes.root}>
+      <Section id="home">
         <Grid
           container
           component="section"
