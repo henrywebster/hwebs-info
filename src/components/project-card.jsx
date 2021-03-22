@@ -1,4 +1,4 @@
-import React, { lazy } from "react"
+import React from "react"
 import {
   Card,
   CardHeader,
@@ -10,7 +10,7 @@ import {
   withStyles,
 } from "@material-ui/core"
 import IconHelper from "./IconHelper"
-import labrat from "../images/lab-rat.webp"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 const styles = theme => ({
   root: {
@@ -24,39 +24,42 @@ const styles = theme => ({
 
 const ProjectCard = withStyles(styles)(
   ({ title, date, description, links, image, classes }) => (
-    <Card className={classes.root}>
-      {image && (
-        <CardMedia
-          //   image={lazy(() => import("../images/lab-rat.webp"))}
-          //   image={`../images/${image}`}
-          image={labrat}
+    <>
+      <Card className={classes.root}>
+        {/* {image && <GatsbyImage image={getImage(image)} alt="" role="img" />} */}
+        {image && (
+          <CardMedia
+            image={image}
+            title={title}
+            className={classes.media}
+            role="img"
+          >
+            {/* <div> Hello</div> */}
+          </CardMedia>
+        )}
+        <CardHeader
           title={title}
-          className={classes.media}
-          role="img"
-        />
-      )}
-      <CardHeader
-        title={title}
-        subheader={date.toLocaleDateString("en-US", { year: "numeric" })}
-        titleTypographyProps={{ color: "primary" }}
-      ></CardHeader>
-      <CardContent>
-        <Typography variant="body2">{description}</Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        {links &&
-          links.map((link, index) => (
-            <IconButton
-              component="a"
-              href={link.href}
-              target="_blank"
-              key={index}
-            >
-              <IconHelper icon={link.type} />
-            </IconButton>
-          ))}
-      </CardActions>
-    </Card>
+          subheader={date.toLocaleDateString("en-US", { year: "numeric" })}
+          titleTypographyProps={{ color: "primary" }}
+        ></CardHeader>
+        <CardContent>
+          <Typography variant="body2">{description}</Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          {links &&
+            links.map((link, index) => (
+              <IconButton
+                component="a"
+                href={link.href}
+                target="_blank"
+                key={index}
+              >
+                <IconHelper icon={link.type} />
+              </IconButton>
+            ))}
+        </CardActions>
+      </Card>
+    </>
   )
 )
 

@@ -2,7 +2,7 @@ import React from "react"
 import { Typography, Box } from "@material-ui/core"
 import SEO from "../components/seo"
 
-export default function errorPage(props) {
+export default function ErrorPage(props) {
   return (
     // TODO: split out section component
     <Box

@@ -75,7 +75,7 @@
       "title": "Central Park Conservancy Itinerary Builder",
       "time": 2019,
       "category": "Tech",
-      "description": "Part of a volunteer team that created a prototype web application allowing visitors of Central Park to build personalized guided tours. I worked on the back-end with Python and AWS Lambda and DynamoDB.",
+      "description": "Part of a volunteer team that built a prototype web application allowing visitors of Central Park to create personalized guided tours. I worked on the back-end with Python and AWS Lambda and DynamoDB.",
       "tags": ["Python", "AWS"],
       "links": [
         {
@@ -89,6 +89,7 @@
       "time": 2013,
       "category": "Music",
       "description": "Wrote and recorded lo-fi music. I got to play lots of shows with friends. I'm honored when people put my music in their skate montages.",
+      "image": "drop.webp",
       "tags": [],
       "links": [
         {

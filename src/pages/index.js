@@ -1,7 +1,8 @@
 import React from "react"
 import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
-import computer from "../images/computer.png"
+import computer from "../images/computer.webp"
 import { useStaticQuery, graphql } from "gatsby"
+import { getImage } from "gatsby-plugin-image"
 import SEO from "../components/seo"
 import Emoji from "../components/emoji"
 import ProjectCard from "../components/project-card"
@@ -107,7 +108,11 @@ const Index = withStyles(styles)(({ classes }) => {
           title
           image {
             childImageSharp {
-              gatsbyImageData
+              gatsbyImageData(
+                width: 425
+                formats: WEBP
+                webpOptions: { quality: 100 }
+              )
             }
           }
         }
@@ -147,6 +152,11 @@ const Index = withStyles(styles)(({ classes }) => {
           <Typography variant="h4" gutterBottom>
             Projects <Emoji emoji="🏗️" />
           </Typography>
+          <Box marginBottom={10}>
+            <Typography variant="body1" gutterBottom>
+              I enjoy creating in my free time, whether it be art or technology.
+            </Typography>
+          </Box>
           <Grid container spacing={3} justify="space-around">
             {data.dataJson.projects.map((project, index) => (
               <Grid item key={index}>
@@ -155,7 +165,14 @@ const Index = withStyles(styles)(({ classes }) => {
                   date={new Date(project.time, 0, 1)}
                   description={project.description}
                   links={project.links}
-                  image={project.image}
+                  // For GatsbyImage
+                  // image={getImage(project.image)}
+                  // CardMedia hack
+                  image={
+                    project.image &&
+                    project.image.childImageSharp.gatsbyImageData.images
+                      .fallback.src
+                  }
                 />
               </Grid>
             ))}
