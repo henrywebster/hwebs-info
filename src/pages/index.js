@@ -1,11 +1,9 @@
 import React from "react"
 import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
-import computer from "../images/computer.webp"
-import { useStaticQuery, graphql } from "gatsby"
-import { getImage } from "gatsby-plugin-image"
+import computer from "../images/computer-v3.webp"
 import SEO from "../components/seo"
 import Emoji from "../components/emoji"
-import ProjectCard from "../components/project-card"
+import FeaturedProject from "../components/featured-project"
 
 const styles = theme => ({
   social: {
@@ -16,6 +14,7 @@ const styles = theme => ({
   },
   img: {
     maxWidth: "100%",
+    width: 400,
   },
 })
 
@@ -94,32 +93,6 @@ const socials = [
 ]
 
 const Index = withStyles(styles)(({ classes }) => {
-  const data = useStaticQuery(graphql`
-    query ProjectIndexQuery {
-      dataJson {
-        projects {
-          description
-          links {
-            href
-            type
-          }
-          tags
-          time
-          title
-          image {
-            childImageSharp {
-              gatsbyImageData(
-                width: 425
-                formats: WEBP
-                webpOptions: { quality: 100 }
-              )
-            }
-          }
-        }
-      }
-    }
-  `)
-
   return (
     <Container maxWidth="md">
       <SEO title="Henry J. Webster" />
@@ -152,31 +125,12 @@ const Index = withStyles(styles)(({ classes }) => {
           <Typography variant="h4" gutterBottom>
             Projects <Emoji emoji="🏗️" />
           </Typography>
-          <Box marginBottom={10}>
+          <Box marginBottom={5}>
             <Typography variant="body1" gutterBottom>
               I enjoy creating in my free time, whether it be art or technology.
             </Typography>
           </Box>
-          <Grid container spacing={3} justify="space-around">
-            {data.dataJson.projects.map((project, index) => (
-              <Grid item key={index}>
-                <ProjectCard
-                  title={project.title}
-                  date={new Date(project.time, 0, 1)}
-                  description={project.description}
-                  links={project.links}
-                  // For GatsbyImage
-                  // image={getImage(project.image)}
-                  // CardMedia hack
-                  image={
-                    project.image &&
-                    project.image.childImageSharp.gatsbyImageData.images
-                      .fallback.src
-                  }
-                />
-              </Grid>
-            ))}
-          </Grid>
+          <FeaturedProject />
         </Box>
       </Section>
       <Section id="about">
