@@ -8,7 +8,7 @@ const Section = ({ id, children, ...props }) => (
     display="flex"
     justifyContent="center"
     alignItems="center"
-    minHeight="100vh"
+    minHeight="90vh"
   >
     {children}
   </Box>
