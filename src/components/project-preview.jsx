@@ -53,6 +53,7 @@ const ProjectPreview = ({ featured, randoms = [] }) => {
       {randoms.length && (
         <Grid item>
           <Title>
+            {/* Move into Title component*/}
             <Typography variant="h5" component="span">
               Random <Emoji emoji="🎲" />
             </Typography>
