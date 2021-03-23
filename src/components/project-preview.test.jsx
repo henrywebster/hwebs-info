@@ -76,4 +76,43 @@ describe("Project Preview", () => {
     expect(timeMachineProject).toBeTruthy()
     expect(danceProject).toBeTruthy()
   })
+
+  test("cycles afrer pressing shuffle button", () => {
+    const randoms = [
+      {
+        title: "Time Machine",
+        featured: false,
+      },
+      {
+        title: "Dance Competition",
+        featured: false,
+      },
+    ]
+
+    render(<ProjectPreview randoms={randoms} />)
+
+    let timeMachineProject = screen.queryByText(/Time Machine/)
+    let danceProject = screen.queryByText(/Dance Competition/)
+
+    userEvent.click(screen.getByText(/Shuffle/))
+
+    if (!timeMachineProject) {
+      timeMachineProject = screen.queryByText(/Time Machine/)
+      danceProject = undefined
+    } else if (!danceProject) {
+      danceProject = screen.queryByText(/Dance Competition/)
+      timeMachineProject = undefined
+    }
+
+    userEvent.click(screen.getByText(/Shuffle/))
+
+    if (!timeMachineProject) {
+      timeMachineProject = screen.queryByText(/Time Machine/)
+    } else if (!danceProject) {
+      danceProject = screen.queryByText(/Dance Competition/)
+    }
+
+    expect(timeMachineProject).toBeTruthy()
+    expect(danceProject).toBeTruthy()
+  })
 })
