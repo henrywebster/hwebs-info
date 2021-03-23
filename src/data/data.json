@@ -41,6 +41,7 @@
       "time": 2021,
       "category": "Tech",
       "description": "A portfolio, React practice project, and a home base for all my pursuits. Enabled by a pipeline from GitHub to AWS for consistent, automatic deployment.",
+      "image": "website-screen.webp",
       "tags": ["React", "Gatsby", "GraphQL", "AWS"],
       "links": [
         {
