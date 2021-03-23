@@ -21,18 +21,42 @@ const styles = theme => ({
   name: {
     textDecoration: "none",
   },
-  footer: {
-    padding: 20,
-    textAlign: "center",
-  },
   items: {
     padding: 10,
   },
 })
 
-const Footer = withStyles(styles)(({ classes, children }) => (
-  <Box component="footer" className={classes.footer}>
-    {children}
+const Footer = withStyles(styles)(({ classes }) => (
+  <Box padding={2} textAlign="center" component="footer">
+    <Typography variant="subtitle2" component="span" className={classes.items}>
+      © 2021 Henry J. Webster
+    </Typography>
+    |
+    <Typography variant="subtitle2" component="span" className={classes.items}>
+      v0.1.0
+    </Typography>
+    |
+    <Typography
+      variant="subtitle2"
+      component="a"
+      color="primary"
+      className={classes.items}
+      href="https://github.com/henrywebster/hwebs-info"
+      target="_blank"
+    >
+      🖥️ Source on GitHub
+    </Typography>
+    |
+    <Typography
+      variant="subtitle2"
+      component="a"
+      color="primary"
+      className={classes.items}
+      href="https://github.com/henrywebster/hwebs-info/issues"
+      target="_blank"
+    >
+      ⚠️ Report an Issue
+    </Typography>
   </Box>
 ))
 
@@ -88,45 +112,7 @@ const Layout = withStyles(styles)(({ location, children, classes }) => (
       </Toolbar>
     </AppBar>
     {children}
-    <Footer>
-      <Typography
-        variant="subtitle2"
-        component="span"
-        className={classes.items}
-      >
-        © 2021 Henry J. Webster
-      </Typography>
-      |
-      <Typography
-        variant="subtitle2"
-        component="span"
-        className={classes.items}
-      >
-        v0.1.0
-      </Typography>
-      |
-      <Typography
-        variant="subtitle2"
-        component="a"
-        color="primary"
-        className={classes.items}
-        href="https://github.com/henrywebster/hwebs-info"
-        target="_blank"
-      >
-        🖥️ Source on GitHub
-      </Typography>
-      |
-      <Typography
-        variant="subtitle2"
-        component="a"
-        color="primary"
-        className={classes.items}
-        href="https://github.com/henrywebster/hwebs-info/issues"
-        target="_blank"
-      >
-        ⚠️ Report an Issue
-      </Typography>
-    </Footer>
+    <Footer />
   </ThemeProvider>
 ))
 
