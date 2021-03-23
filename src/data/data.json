@@ -103,6 +103,20 @@
           "href": "https://deathrayop.bandcamp.com/"
         }
       ]
+    },
+    {
+      "title": "Cody's Ocean Cleanup",
+      "time": 2020,
+      "category": "Game",
+      "description": "Programmed a mobile game for Cody Simpson promoting his mission to stop ocean pollution. Play as Cody to pick up as much trash as possible without wiping out! Julianne Waber made the art while Cody Simpson and NAIROBI made the music.",
+      "image": "cody.webp",
+      "tags": ["Godot", "AWS"],
+      "links": [
+        {
+          "type": "open",
+          "href": "https://highforevergame.com"
+        }
+      ]
     }
   ]
 }
