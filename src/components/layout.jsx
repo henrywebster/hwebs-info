@@ -6,10 +6,9 @@ import {
   ThemeProvider,
   CssBaseline,
   withStyles,
-  Button,
   Box,
 } from "@material-ui/core"
-import { Link } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
 import theme from "../../theme"
 
 const sections = ["home", "projects", "about"]
@@ -22,98 +21,116 @@ const styles = theme => ({
     textDecoration: "none",
   },
   items: {
-    padding: 10,
+    margin: 10,
   },
 })
 
-const Footer = withStyles(styles)(({ classes }) => (
+const onHomePage = location => location === "/"
+
+const getLink = (section, pathname, props, text = undefined) =>
+  onHomePage(pathname) ? (
+    <LinkTypography href={`#${section}`} {...props}>
+      {text ? text : section}
+    </LinkTypography>
+  ) : (
+    <LinkTypography component={Link} to={`/#${section}`} {...props}>
+      {text ? text : section}
+    </LinkTypography>
+  )
+
+const LinkTypography = ({
+  children,
+  component = "a",
+  variant = "subtitle2",
+  ...props
+}) => (
+  <Typography
+    variant={variant}
+    color="primary"
+    component={component}
+    {...props}
+  >
+    {children}
+  </Typography>
+)
+
+const Footer = withStyles(styles)(({ classes, version, copyright }) => (
   <Box padding={2} textAlign="center" component="footer">
     <Typography variant="subtitle2" component="span" className={classes.items}>
-      © 2021 Henry J. Webster
+      {`©${copyright}`}
     </Typography>
     |
     <Typography variant="subtitle2" component="span" className={classes.items}>
-      v0.1.0
+      {`v${version}`}
     </Typography>
     |
-    <Typography
-      variant="subtitle2"
-      component="a"
-      color="primary"
+    <LinkTypography
       className={classes.items}
       href="https://github.com/henrywebster/hwebs-info"
       target="_blank"
     >
       🖥️ Source on GitHub
-    </Typography>
+    </LinkTypography>
     |
-    <Typography
-      variant="subtitle2"
-      component="a"
-      color="primary"
+    <LinkTypography
       className={classes.items}
       href="https://github.com/henrywebster/hwebs-info/issues"
       target="_blank"
     >
       ⚠️ Report an Issue
-    </Typography>
+    </LinkTypography>
   </Box>
 ))
 
-const Layout = withStyles(styles)(({ location, children, classes }) => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <AppBar color="transparent">
-      <Toolbar className={classes.root}>
-        {location.pathname === "/" ? (
-          <Typography
-            color="primary"
-            variant="button"
-            component="a"
-            href="#home"
-            className={classes.name}
-          >
-            Henry J. Webster
-          </Typography>
-        ) : (
-          <Typography
-            color="primary"
-            variant="button"
-            component={Link}
-            to="/"
-            className={classes.name}
-          >
-            Henry J. Webster
-          </Typography>
-        )}
-        <div>
-          {sections.map((section, index) => {
-            return location.pathname === "/" ? (
-              <Button
-                // size="small"
-                component="a"
-                href={`#${section}`}
-                key={index}
-              >
-                {section}
-              </Button>
-            ) : (
-              <Button
-                size="small"
-                component={Link}
-                to={`/#${section}`}
-                key={index}
-              >
-                {section}
-              </Button>
-            )
-          })}
-        </div>
-      </Toolbar>
-    </AppBar>
-    {children}
-    <Footer />
-  </ThemeProvider>
-))
+const Layout = withStyles(styles)(
+  ({ location: { pathname }, children, classes }) => {
+    const {
+      site: { siteMetadata },
+    } = useStaticQuery(
+      graphql`
+        query MetadataQuery {
+          site {
+            siteMetadata {
+              copyright
+              released
+              url
+              version
+              title
+            }
+          }
+        }
+      `
+    )
+
+    return (
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AppBar color="transparent">
+          <Toolbar className={classes.root}>
+            {getLink(
+              "home",
+              pathname,
+              {
+                variant: "button",
+                className: classes.name,
+              },
+              siteMetadata.title
+            )}
+            <div>
+              {sections.map((section, index) => {
+                return getLink(section, pathname, {
+                  key: index,
+                  className: classes.items,
+                })
+              })}
+            </div>
+          </Toolbar>
+        </AppBar>
+        {children}
+        <Footer {...siteMetadata} />
+      </ThemeProvider>
+    )
+  }
+)
 
 export default Layout
