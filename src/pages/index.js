@@ -1,6 +1,6 @@
 import React from "react"
 import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 import computer from "../images/computer-v3.webp"
 import SEO from "../components/seo"
 import Emoji from "../components/emoji"
@@ -182,6 +182,14 @@ const Index = withStyles(styles)(({ classes }) => {
           <Box marginBottom={5}>
             <Typography variant="body1" gutterBottom>
               I enjoy creating in my free time, whether it be art or technology.
+            </Typography>
+            <br />
+            <Typography variant="body1">
+              {"See all my projects in "}
+              <Typography color="primary" component={Link} to="/archive">
+                the archive
+              </Typography>
+              .
             </Typography>
           </Box>
           <ProjectPreview featured={featured} randoms={randoms} />

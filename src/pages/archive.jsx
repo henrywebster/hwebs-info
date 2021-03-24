@@ -1,12 +1,12 @@
 import React from "react"
-import { Container, Grid, withStyles } from "@material-ui/core"
+import { Container, Grid, Typography, withStyles } from "@material-ui/core"
 import { useStaticQuery, graphql } from "gatsby"
 import Section from "../components/section"
 import ProjectCard from "../components/project-card"
 
 const styles = theme => ({
   top: {
-    marginTop: 50,
+    marginTop: 80,
   },
 })
 
@@ -42,7 +42,9 @@ const Archive = withStyles(styles)(({ classes }) => {
     <Container maxWidth="md">
       <Section id="archive">
         <div className={classes.top}>
-          <h2>Archive</h2>
+          <Typography variant="h3" color="primary" gutterBottom>
+            Archive
+          </Typography>
           <Grid container spacing={3} justify="center">
             {projects.map(({ image, date, ...project }, index) => (
               <Grid item key={index}>
