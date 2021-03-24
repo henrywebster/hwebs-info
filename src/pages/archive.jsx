@@ -42,19 +42,16 @@ const Archive = withStyles(styles)(({ classes }) => {
     <Container maxWidth="md">
       <Section id="archive">
         <div className={classes.top}>
+          <h2>Archive</h2>
           <Grid container spacing={3} justify="center">
-            <Grid item xs={12}>
-              <h2>Archive</h2>
-            </Grid>
             {projects.map(({ image, date, ...project }, index) => (
-              <Grid item>
+              <Grid item key={index}>
                 <ProjectCard
                   date={new Date(date)}
                   image={
                     image &&
                     image.childImageSharp.gatsbyImageData.images.fallback.src
                   }
-                  key={index}
                   {...project}
                 />
               </Grid>
