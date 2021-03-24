@@ -38,6 +38,11 @@ const theme = {
           fontSize: ".75rem",
         },
       },
+      body2: {
+        [breakpoints.down("xs")]: {
+          fontSize: ".65rem",
+        },
+      },
       button: {
         [breakpoints.down("xs")]: {
           fontSize: ".75rem",

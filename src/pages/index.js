@@ -1,11 +1,13 @@
 import React from "react"
 import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 import computer from "../images/computer-v3.webp"
 import SEO from "../components/seo"
 import Emoji from "../components/emoji"
 import ProjectPreview from "../components/project-preview"
 import Section from "../components/section"
+
+const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
 
 const styles = theme => ({
   social: {
@@ -52,6 +54,21 @@ const Welcome = () => (
       <Emoji emoji="🌔" /> At night I experiment with game development, music,
       and 3D art.
     </Typography>
+    <br /> <br />
+    <Highlights />
+  </div>
+)
+
+const Highlights = () => (
+  <div>
+    <Typography variant="body1" gutterBottom>
+      <u>What I work with:</u>
+    </Typography>
+    {Object.entries(highlights).map(([k, v], index) => (
+      <Typography variant="body2" gutterBottom key={index}>
+        <b>{capitalize(k)}</b> — {v.join(", ")}
+      </Typography>
+    ))}
   </div>
 )
 
@@ -78,6 +95,13 @@ const socials = [
   },
 ]
 
+const highlights = {
+  languages: ["Java", "JavaScript", "Python"],
+  frameworks: ["Spring", "React"],
+  platforms: ["AWS", "Pivotal Cloud Foundry"],
+  programs: ["Godot", "Ardour", "Blender"],
+}
+
 // Fisher-Yates shuffle from https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
 function shuffle(a) {
   var j, x, i
@@ -102,8 +126,8 @@ const Index = withStyles(styles)(({ classes }) => {
             href
             type
           }
-          tags
           time
+          date
           title
           featured
           image {
@@ -159,6 +183,14 @@ const Index = withStyles(styles)(({ classes }) => {
             <Typography variant="body1" gutterBottom>
               I enjoy creating in my free time, whether it be art or technology.
             </Typography>
+            <br />
+            <Typography variant="body1">
+              {"See all my projects in "}
+              <Typography color="primary" component={Link} to="/archive">
+                the archive
+              </Typography>
+              .
+            </Typography>
           </Box>
           <ProjectPreview featured={featured} randoms={randoms} />
         </Box>
@@ -175,8 +207,7 @@ const Index = withStyles(styles)(({ classes }) => {
             takes me all over the place and I love learning new technologies and
             approaches while building interesting projects. <br /> <br />
             I'm an avid cyclist, reader, coffee-lover, and productivity nerd. I
-            have fun with home audio production and playing guitar. <br />{" "}
-            <br />
+            enjoy home audio production and playing guitar. <br /> <br />
             Thanks for checking out my website! <br />
             Henry J. Webster
           </Typography>

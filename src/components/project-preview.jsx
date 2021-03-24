@@ -37,7 +37,7 @@ const ProjectPreview = ({ featured, randoms = [] }) => {
           </Title>
           <ProjectCard
             title={featured.title}
-            date={new Date(featured.time, 0, 1)}
+            date={new Date(featured.date)}
             description={featured.description}
             links={featured.links}
             // For GatsbyImage
@@ -53,6 +53,7 @@ const ProjectPreview = ({ featured, randoms = [] }) => {
       {randoms.length && (
         <Grid item>
           <Title>
+            {/* Move into Title component*/}
             <Typography variant="h5" component="span">
               Random <Emoji emoji="🎲" />
             </Typography>
@@ -66,7 +67,7 @@ const ProjectPreview = ({ featured, randoms = [] }) => {
           </Title>
           <ProjectCard
             title={randoms[active].title}
-            date={new Date(randoms[active].time, 0, 1)}
+            date={new Date(randoms[active].date)}
             description={randoms[active].description}
             links={randoms[active].links}
             // For GatsbyImage
