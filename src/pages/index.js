@@ -127,6 +127,7 @@ const Index = withStyles(styles)(({ classes }) => {
             type
           }
           time
+          date
           title
           featured
           image {
@@ -164,9 +165,6 @@ const Index = withStyles(styles)(({ classes }) => {
           <Grid container item sm={12} md={8} justify="center">
             <Welcome />
           </Grid>
-          {/* <Grid container item sm={12} justify="center">
-            <Highlights />
-          </Grid> */}
           <Grid item xs={12}>
             <Box display="flex" justifyContent="center">
               {socials.map((social, index) => (
