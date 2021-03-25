@@ -15,7 +15,8 @@ const styles = theme => ({
   },
   img: {
     maxWidth: "100%",
-    width: 400,
+    width: "400",
+    alignSelf: "center",
   },
 })
 
@@ -38,7 +39,7 @@ const Welcome = () => (
       Welcome <Emoji emoji="👋" />
     </Typography>
     <Typography variant="body1" component="div">
-      My name is Henry J. Webster, a programmer in Brooklyn, NY. <br />
+      I'm Henry J. Webster, a programmer in Brooklyn, NY. <br />
       <br />
       <Emoji emoji="☀️" /> At work I'm building loan web services @
       <Typography
