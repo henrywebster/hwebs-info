@@ -10,12 +10,17 @@ import Section from "../components/section"
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
 
 const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
   social: {
     margin: 10,
   },
   img: {
-    maxWidth: "100%",
-    width: 400,
+    maxWidth: 200,
+    width: "100%",
+    height: "auto",
+    // width: 400,
   },
 })
 
@@ -38,7 +43,7 @@ const Welcome = () => (
       Welcome <Emoji emoji="👋" />
     </Typography>
     <Typography variant="body1" component="div">
-      My name is Henry J. Webster, a programmer in Brooklyn, NY. <br />
+      I'm Henry J. Webster, a programmer in Brooklyn, NY. <br />
       <br />
       <Emoji emoji="☀️" /> At work I'm building loan web services @
       <Typography
@@ -150,7 +155,7 @@ const Index = withStyles(styles)(({ classes }) => {
   return (
     <Container maxWidth="md">
       <SEO title="Henry J. Webster" />
-      <Section id="home">
+      <Section id="home" className={classes.root}>
         <Grid
           container
           component="section"

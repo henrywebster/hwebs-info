@@ -33,9 +33,7 @@ const ProjectCard = withStyles(styles)(
             title={title}
             className={classes.media}
             role="img"
-          >
-            {/* <div> Hello</div> */}
-          </CardMedia>
+          ></CardMedia>
         )}
         <CardHeader
           title={title}
