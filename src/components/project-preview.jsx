@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import ProjectCard from "./project-card"
 import { Typography, Grid, Button, Box } from "@material-ui/core"
 import Emoji from "./emoji"
@@ -17,6 +17,15 @@ const Title = ({ children }) => (
 
 const ProjectPreview = ({ featured, randoms = [] }) => {
   const [active, setActive] = useState(0)
+
+  // Hack: this is to force an update so the (possibly incorrect) static image doesn't show
+  const advanceOne = useCallback(() => {
+    if (randoms.length > 1) {
+      setActive(1)
+    }
+  }, [randoms.length])
+
+  useEffect(() => advanceOne(), [advanceOne])
 
   const advanceShuffle = () => {
     if (active === randoms.length - 1) {
