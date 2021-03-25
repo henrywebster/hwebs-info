@@ -12,11 +12,11 @@ const styles = theme => ({
 
 const Archive = withStyles(styles)(({ classes }) => {
   const {
-    dataJson: { projects },
+    allProjectsJson: { nodes },
   } = useStaticQuery(graphql`
     query {
-      dataJson {
-        projects {
+      allProjectsJson {
+        nodes {
           title
           date
           description
@@ -46,7 +46,7 @@ const Archive = withStyles(styles)(({ classes }) => {
             Archive
           </Typography>
           <Grid container spacing={3} justify="center">
-            {projects.map(({ image, date, ...project }, index) => (
+            {nodes.map(({ image, date, ...project }, index) => (
               <Grid item key={index}>
                 <ProjectCard
                   date={new Date(date)}
