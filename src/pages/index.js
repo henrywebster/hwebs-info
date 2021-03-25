@@ -10,17 +10,13 @@ import Section from "../components/section"
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
   social: {
     margin: 10,
   },
   img: {
-    maxWidth: 200,
-    width: "100%",
-    height: "auto",
-    // width: 400,
+    maxWidth: "100%",
+    width: "400",
+    alignSelf: "center",
   },
 })
 
@@ -155,7 +151,7 @@ const Index = withStyles(styles)(({ classes }) => {
   return (
     <Container maxWidth="md">
       <SEO title="Henry J. Webster" />
-      <Section id="home" className={classes.root}>
+      <Section id="home">
         <Grid
           container
           component="section"
