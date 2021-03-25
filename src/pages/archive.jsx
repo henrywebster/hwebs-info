@@ -14,8 +14,8 @@ const Archive = withStyles(styles)(({ classes }) => {
   const {
     allProjectsJson: { nodes },
   } = useStaticQuery(graphql`
-    query {
-      allProjectsJson {
+    {
+      allProjectsJson(sort: { fields: date, order: DESC }) {
         nodes {
           title
           date
