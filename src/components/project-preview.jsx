@@ -44,9 +44,11 @@ const ProjectPreview = ({ featured, randoms = [] }) => {
               Featured <Emoji emoji="🌟" />
             </Typography>
           </Title>
+          {/* TODO: repeating all this code twice */}
           <ProjectCard
             title={featured.title}
-            date={new Date(featured.date)}
+            startDate={new Date(featured.startDate)}
+            endDate={new Date(featured.endDate)}
             description={featured.description}
             links={featured.links}
             // For GatsbyImage
@@ -76,7 +78,8 @@ const ProjectPreview = ({ featured, randoms = [] }) => {
           </Title>
           <ProjectCard
             title={randoms[active].title}
-            date={new Date(randoms[active].date)}
+            startDate={new Date(randoms[active].startDate)}
+            endDate={new Date(randoms[active].endDate)}
             description={randoms[active].description}
             links={randoms[active].links}
             // For GatsbyImage

@@ -127,8 +127,8 @@ const Index = withStyles(styles)(({ classes }) => {
             href
             type
           }
-          time
-          date
+          startDate
+          endDate
           title
           featured
           image {

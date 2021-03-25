@@ -18,7 +18,8 @@ const Archive = withStyles(styles)(({ classes }) => {
       allProjectsJson(sort: { fields: date, order: DESC }) {
         nodes {
           title
-          date
+          startDate
+          endDate
           description
           links {
             href
@@ -46,10 +47,11 @@ const Archive = withStyles(styles)(({ classes }) => {
             Archive
           </Typography>
           <Grid container spacing={3} justify="center">
-            {nodes.map(({ image, date, ...project }, index) => (
+            {nodes.map(({ image, startDate, endDate, ...project }, index) => (
               <Grid item key={index}>
                 <ProjectCard
-                  date={new Date(date)}
+                  startDate={new Date(startDate)}
+                  endDate={new Date(endDate)}
                   image={
                     image &&
                     image.childImageSharp.gatsbyImageData.images.fallback.src
