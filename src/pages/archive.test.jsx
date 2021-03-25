@@ -10,7 +10,7 @@ beforeEach(() => {
 describe("Archive", () => {
   test("has title", () => {
     useStaticQuery.mockImplementation(() => ({
-      dataJson: { projects: [] },
+      allProjectsJson: { nodes: [] },
     }))
 
     render(<Archive />)
@@ -19,8 +19,8 @@ describe("Archive", () => {
 
   test("has projects", () => {
     useStaticQuery.mockImplementation(() => ({
-      dataJson: {
-        projects: [
+      allProjectsJson: {
+        nodes: [
           {
             title: "Time Machine",
           },

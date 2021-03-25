@@ -22,8 +22,16 @@ const styles = theme => ({
   },
 })
 
+const extractYear = date =>
+  date.toLocaleDateString("en-US", { year: "numeric" })
+
+const convertDateText = (startDate, endDate) =>
+  startDate && startDate.getFullYear() !== endDate.getFullYear()
+    ? `${extractYear(startDate)} - ${extractYear(endDate)}`
+    : extractYear(endDate)
+
 const ProjectCard = withStyles(styles)(
-  ({ title, date, description, links, image, classes }) => (
+  ({ title, description, links, image, startDate, endDate, classes }) => (
     <>
       <Card className={classes.root}>
         {/* {image && <GatsbyImage image={getImage(image)} alt="" role="img" />} */}
@@ -37,7 +45,7 @@ const ProjectCard = withStyles(styles)(
         )}
         <CardHeader
           title={title}
-          subheader={date.toLocaleDateString("en-US", { year: "numeric" })}
+          subheader={convertDateText(startDate, endDate)}
           titleTypographyProps={{ color: "primary" }}
         ></CardHeader>
         <CardContent>

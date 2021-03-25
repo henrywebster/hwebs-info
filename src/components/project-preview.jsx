@@ -3,6 +3,13 @@ import ProjectCard from "./project-card"
 import { Typography, Grid, Button, Box } from "@material-ui/core"
 import Emoji from "./emoji"
 
+const convert = ({ startDate, endDate, image, ...rest }) => ({
+  startDate: new Date(startDate),
+  endDate: new Date(endDate),
+  image: image && image.childImageSharp.gatsbyImageData.images.fallback.src,
+  ...rest,
+})
+
 const Title = ({ children }) => (
   <Box
     display="flex"
@@ -44,19 +51,7 @@ const ProjectPreview = ({ featured, randoms = [] }) => {
               Featured <Emoji emoji="🌟" />
             </Typography>
           </Title>
-          <ProjectCard
-            title={featured.title}
-            date={new Date(featured.date)}
-            description={featured.description}
-            links={featured.links}
-            // For GatsbyImage
-            // image={getImage(project.image)}
-            // CardMedia hack
-            image={
-              featured.image &&
-              featured.image.childImageSharp.gatsbyImageData.images.fallback.src
-            }
-          />
+          <ProjectCard {...convert(featured)} />
         </Grid>
       )}
       {randoms.length && (
@@ -74,20 +69,7 @@ const ProjectPreview = ({ featured, randoms = [] }) => {
               Shuffle
             </Button>
           </Title>
-          <ProjectCard
-            title={randoms[active].title}
-            date={new Date(randoms[active].date)}
-            description={randoms[active].description}
-            links={randoms[active].links}
-            // For GatsbyImage
-            // image={getImage(project.image)}
-            // CardMedia hack
-            image={
-              randoms[active].image &&
-              randoms[active].image.childImageSharp.gatsbyImageData.images
-                .fallback.src
-            }
-          />
+          <ProjectCard {...convert(randoms[active])} />
         </Grid>
       )}
     </Grid>

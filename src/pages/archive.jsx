@@ -12,13 +12,14 @@ const styles = theme => ({
 
 const Archive = withStyles(styles)(({ classes }) => {
   const {
-    dataJson: { projects },
+    allProjectsJson: { nodes },
   } = useStaticQuery(graphql`
-    query {
-      dataJson {
-        projects {
+    {
+      allProjectsJson(sort: { fields: date, order: DESC }) {
+        nodes {
           title
-          date
+          startDate
+          endDate
           description
           links {
             href
@@ -46,10 +47,11 @@ const Archive = withStyles(styles)(({ classes }) => {
             Archive
           </Typography>
           <Grid container spacing={3} justify="center">
-            {projects.map(({ image, date, ...project }, index) => (
+            {nodes.map(({ image, startDate, endDate, ...project }, index) => (
               <Grid item key={index}>
                 <ProjectCard
-                  date={new Date(date)}
+                  startDate={new Date(startDate)}
+                  endDate={new Date(endDate)}
                   image={
                     image &&
                     image.childImageSharp.gatsbyImageData.images.fallback.src

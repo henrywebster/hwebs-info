@@ -117,18 +117,18 @@ function shuffle(a) {
 
 const Index = withStyles(styles)(({ classes }) => {
   const {
-    dataJson: { projects },
+    allProjectsJson: { nodes },
   } = useStaticQuery(graphql`
-    query FeaturedProjectQuery {
-      dataJson {
-        projects {
+    query {
+      allProjectsJson {
+        nodes {
           description
           links {
             href
             type
           }
-          time
-          date
+          startDate
+          endDate
           title
           featured
           image {
@@ -145,8 +145,8 @@ const Index = withStyles(styles)(({ classes }) => {
     }
   `)
 
-  const randoms = shuffle(projects.filter(project => !project.featured))
-  const featured = projects.find(project => project.featured)
+  const randoms = shuffle(nodes.filter(project => !project.featured))
+  const featured = nodes.find(project => project.featured)
 
   return (
     <Container maxWidth="md">
