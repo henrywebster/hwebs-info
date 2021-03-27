@@ -46,7 +46,7 @@
     "endDate": "2019-05-01",
     "date": "2019-11-01",
     "category": "Tech",
-    "image": "lab-rat.webp",
+    "image": "central-park.webp",
     "description": "Part of a volunteer team that built a prototype web application allowing visitors of Central Park to create personalized guided tours. I worked on the back-end with Python and AWS Lambda and DynamoDB.",
     "tags": ["Python", "AWS"],
     "links": [

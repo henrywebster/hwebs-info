@@ -81,4 +81,4 @@ export const ProjectPreview = ({ featured, randoms = [] }) => {
   )
 }
 
-export default { ProjectPreview }
+export default ProjectPreview
