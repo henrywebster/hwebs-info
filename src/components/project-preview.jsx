@@ -3,10 +3,15 @@ import ProjectCard from "./project-card"
 import { Typography, Grid, Button, Box } from "@material-ui/core"
 import Emoji from "./emoji"
 
-const convert = ({ startDate, endDate, image, ...rest }) => ({
-  startDate: new Date(startDate),
-  endDate: new Date(endDate),
-  image: image && image.childImageSharp.gatsbyImageData.images.fallback.src,
+export const convertDate = date => new Date(date)
+
+export const convertGatsbyImageToSrc = image =>
+  image && image.childImageSharp.gatsbyImageData.images.fallback.src
+
+export const convertFields = ({ startDate, endDate, image, ...rest }) => ({
+  startDate: convertDate(startDate),
+  endDate: convertDate(endDate),
+  image: convertGatsbyImageToSrc(image),
   ...rest,
 })
 
@@ -22,7 +27,7 @@ const Title = ({ children }) => (
   </Box>
 )
 
-const ProjectPreview = ({ featured, randoms = [] }) => {
+export const ProjectPreview = ({ featured, randoms = [] }) => {
   const [active, setActive] = useState(0)
 
   // Hack: this is to force an update so the (possibly incorrect) static image doesn't show
@@ -51,7 +56,7 @@ const ProjectPreview = ({ featured, randoms = [] }) => {
               Featured <Emoji emoji="🌟" />
             </Typography>
           </Title>
-          <ProjectCard {...convert(featured)} />
+          <ProjectCard {...convertFields(featured)} />
         </Grid>
       )}
       {randoms.length && (
@@ -69,11 +74,11 @@ const ProjectPreview = ({ featured, randoms = [] }) => {
               Shuffle
             </Button>
           </Title>
-          <ProjectCard {...convert(randoms[active])} />
+          <ProjectCard {...convertFields(randoms[active])} />
         </Grid>
       )}
     </Grid>
   )
 }
 
-export default ProjectPreview
+export default { ProjectPreview }
