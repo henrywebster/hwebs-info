@@ -9,6 +9,7 @@ import {
   Box,
 } from "@material-ui/core"
 import { Link, useStaticQuery, graphql } from "gatsby"
+import Emoji from "./emoji"
 import theme from "../../theme"
 
 const sections = ["home", "projects", "about"]
@@ -69,7 +70,7 @@ const Footer = withStyles(styles)(({ classes, version, copyright }) => (
       href="https://github.com/henrywebster/hwebs-info"
       target="_blank"
     >
-      🖥️ Source on GitHub
+      <Emoji emoji="🖥" /> Source on GitHub
     </LinkTypography>
     |
     <LinkTypography
@@ -77,7 +78,7 @@ const Footer = withStyles(styles)(({ classes, version, copyright }) => (
       href="https://github.com/henrywebster/hwebs-info/issues"
       target="_blank"
     >
-      ⚠️ Report an Issue
+      <Emoji emoji="⚠️" /> Report an Issue
     </LinkTypography>
   </Box>
 ))

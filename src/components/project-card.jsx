@@ -10,7 +10,7 @@ import {
   withStyles,
 } from "@material-ui/core"
 import IconHelper from "./IconHelper"
-import { GatsbyImage } from "gatsby-plugin-image"
+// import { GatsbyImage } from "gatsby-plugin-image"
 
 const styles = theme => ({
   root: {
