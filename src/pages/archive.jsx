@@ -3,6 +3,7 @@ import { Container, Grid, Typography, withStyles } from "@material-ui/core"
 import { useStaticQuery, graphql } from "gatsby"
 import Section from "../components/section"
 import ProjectCard from "../components/project-card"
+import SEO from "../components/seo"
 
 const styles = theme => ({
   top: {
@@ -41,6 +42,7 @@ const Archive = withStyles(styles)(({ classes }) => {
 
   return (
     <Container maxWidth="md">
+      <SEO title="Archive" />
       <Section id="archive">
         <div className={classes.top}>
           <Typography variant="h3" color="primary" gutterBottom>

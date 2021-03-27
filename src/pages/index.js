@@ -150,7 +150,7 @@ const Index = withStyles(styles)(({ classes }) => {
 
   return (
     <Container maxWidth="md">
-      <SEO title="Henry J. Webster" />
+      <SEO title="Home" />
       <Section id="home">
         <Grid
           container

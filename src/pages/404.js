@@ -12,7 +12,7 @@ const ErrorPage = () => (
     alignItems="center"
     minHeight="100vh"
   >
-    <SEO title="404 Not Found - Henry J. Webster" />
+    <SEO title="404 Not Found" />
     <div>
       <Typography variant="h3" component="h1" color="primary" gutterBottom>
         404: Not Found
