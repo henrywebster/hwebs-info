@@ -1,7 +1,12 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import ProjectPreview from "./project-preview"
+import {
+  ProjectPreview,
+  convertDate,
+  convertGatsbyImageToSrc,
+  convertFields,
+} from "./project-preview"
 
 describe("Project Preview", () => {
   test("renders a featured Project Card", () => {
@@ -115,4 +120,51 @@ describe("Project Preview", () => {
     expect(timeMachineProject).toBeTruthy()
     expect(danceProject).toBeTruthy()
   })
+})
+
+describe("Convert Date", () => {
+  test("creates date object from ISO date string", () => {
+    const date = convertDate("2021-03-26")
+    expect(date.getUTCFullYear()).toStrictEqual(2021)
+    expect(date.getUTCMonth()).toStrictEqual(3 - 1)
+    expect(date.getUTCDate()).toStrictEqual(26)
+  })
+})
+
+describe("Convert Gatsby Image to Src", () => {
+  test("returns the src of a Gatsby Image GraphQL query", () => {
+    const gatsbyImage = {
+      childImageSharp: {
+        gatsbyImageData: { images: { fallback: { src: "test.webp" } } },
+      },
+    }
+
+    expect(convertGatsbyImageToSrc(gatsbyImage)).toStrictEqual("test.webp")
+  })
+
+  test("returns undefined when given undefined", () => {
+    expect(convertGatsbyImageToSrc(undefined)).toBeUndefined()
+  })
+})
+
+describe("Convert Fields", () => {
+  test("converts startDate field to a Date object", () => {
+    expect(convertFields({ startDate: "2021-03-26" }).startDate).toBeInstanceOf(
+      Date
+    )
+  })
+
+  test("converts endDate field to a Date object", () => {
+    expect(convertFields({ endDate: "2021-03-26" }).endDate).toBeInstanceOf(
+      Date
+    )
+  })
+
+  // TODO: move to Project Card component?
+  // How should I switch between CardMedia and GatsbyImage?
+  // test("converts image based on input function", () => {
+  //   expect(convertFields({ endDate: "2021-03-26" }).endDate).toBeInstanceOf(
+  //     Date
+  //   )
+  // })
 })

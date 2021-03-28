@@ -11,6 +11,9 @@ describe("Archive", () => {
   test("has title", () => {
     useStaticQuery.mockImplementation(() => ({
       allProjectsJson: { nodes: [] },
+      site: {
+        siteMetadata: {},
+      },
     }))
 
     render(<Archive />)
@@ -25,6 +28,9 @@ describe("Archive", () => {
             title: "Time Machine",
           },
         ],
+      },
+      site: {
+        siteMetadata: {},
       },
     }))
     render(<Archive />)
