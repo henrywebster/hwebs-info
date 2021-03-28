@@ -1,0 +1,90 @@
+[
+  {
+    "title": "Personal Website",
+    "startDate": "2021-02-01",
+    "endDate": "2021-03-25",
+    "category": "Tech",
+    "description": "A portfolio, React practice project, and a home base for all my pursuits. Enabled by a pipeline from GitHub to AWS for consistent, automatic deployment.",
+    "image": "website-screen.webp",
+    "tags": ["React", "Gatsby", "GraphQL", "AWS"],
+    "links": [
+      {
+        "type": "github",
+        "href": "https://github.com/henrywebster/hwebs-info"
+      },
+      {
+        "type": "open",
+        "href": "https://hwebs.info"
+      }
+    ]
+  },
+  {
+    "title": "Lab Rat",
+    "startDate": "2020-08-14",
+    "endDate": "2020-08-23",
+    "category": "Game",
+    "description": "Web game made for MizJam 1. All contestants had to create a game based on the same art assets in 48 hours. I wrote the code and music while Julianne Waber did level design and art direction.",
+    "image": "lab-rat.webp",
+    "featured": true,
+    "tags": ["Godot", "Ardour"],
+    "links": [
+      {
+        "type": "github",
+        "href": "https://github.com/henrywebster/rat-race"
+      },
+      {
+        "type": "itchio",
+        "href": "https://hank29a.itch.io/lab-rat"
+      }
+    ]
+  },
+  {
+    "title": "Central Park Conservancy Itinerary Builder",
+    "startDate": "2018-11-01",
+    "endDate": "2019-05-01",
+    "category": "Tech",
+    "image": "central-park.webp",
+    "description": "Part of a volunteer team that built a prototype web application allowing visitors of Central Park to create personalized guided tours. I worked on the back-end with Python and AWS Lambda and DynamoDB.",
+    "tags": ["Python", "AWS"],
+    "links": [
+      {
+        "type": "open",
+        "href": "https://www.centralparknyc.org/locations"
+      }
+    ]
+  },
+  {
+    "title": "death ray of peace",
+    "startDate": "2013-12-17",
+    "endDate": "2019-07-09",
+    "category": "Music",
+    "description": "Wrote and recorded lo-fi music. I got to play lots of shows with friends. I'm honored when people put my music in their skate montages.",
+    "image": "drop.webp",
+    "tags": [],
+    "links": [
+      {
+        "type": "spotify",
+        "href": "https://open.spotify.com/artist/6NCc3M5sQEEbcCVjJtFKzO?si=fnTv6y9WS_mdkb6WnvTu6Q"
+      },
+      {
+        "type": "bandcamp",
+        "href": "https://deathrayop.bandcamp.com/"
+      }
+    ]
+  },
+  {
+    "title": "Cody's Ocean Cleanup",
+    "startDate": "2020-11-01",
+    "endDate": "2020-12-05",
+    "category": "Game",
+    "description": "Programmed a mobile game for Cody Simpson promoting his mission to stop ocean pollution. Play as Cody to pick up as much trash as possible without wiping out! Julianne Waber made the art while Cody Simpson and NAIROBI made the music.",
+    "image": "cody.webp",
+    "tags": ["Godot", "AWS"],
+    "links": [
+      {
+        "type": "open",
+        "href": "https://highforevergame.com"
+      }
+    ]
+  }
+]

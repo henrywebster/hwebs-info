@@ -1,147 +1,230 @@
 import React from "react"
-import { Helmet } from "react-helmet"
+import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
+import { useStaticQuery, graphql, Link } from "gatsby"
+import computer from "../images/computer.webp"
+import SEO from "../components/seo"
+import Emoji from "../components/emoji"
+import ProjectPreview from "../components/project-preview"
+import Section from "../components/section"
 import {
-  Typography,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  withStyles,
-  Grid,
-  Box,
-  Paper,
-} from "@material-ui/core"
-import { DiJava } from "@react-icons/all-files/di/DiJava"
-import { SiJavascript } from "@react-icons/all-files/si/SiJavascript"
-import { SiReact } from "@react-icons/all-files/si/SiReact"
-import { SiSpring } from "@react-icons/all-files/si/SiSpring"
-import { SiSpinnaker } from "@react-icons/all-files/si/SiSpinnaker"
-import { SiBlender } from "@react-icons/all-files/si/SiBlender"
-import { FaAws } from "@react-icons/all-files/fa/FaAws"
-import { SiGodotengine } from "@react-icons/all-files/si/SiGodotengine"
-import PageTitle from "../components/pageTitle"
+  LinkTypography,
+  HeadingTypography,
+  BodyTypography,
+} from "../components/typography-wrapper"
+
+const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
 
 const styles = theme => ({
-  techItem: {
-    // maxWidth: 100,
-    padding: 10,
+  social: {
     margin: 10,
-    backgroundColor: theme.palette.secondary.main,
   },
-  techIcon: {
-    fontSize: "3em",
-    lineHeight: 0.5,
+  img: {
+    maxWidth: "100%",
+    width: "400",
+    alignSelf: "center",
   },
 })
 
-const Blurb = () => {
+const SocialLink = withStyles(styles)(({ icon, text, href, classes }) => (
+  <LinkTypography
+    variant="body1"
+    color="primary"
+    href={href}
+    target="_blank"
+    className={classes.social}
+  >
+    <Emoji emoji={icon} /> {text}
+  </LinkTypography>
+))
+
+const Welcome = () => (
+  <div>
+    <HeadingTypography>
+      Welcome <Emoji emoji="👋" />
+    </HeadingTypography>
+    <BodyTypography component="div">
+      I'm Henry J. Webster, a programmer in Brooklyn, NY. <br />
+      <br />
+      <Emoji emoji="☀️" /> At work I'm building loan web services @
+      <LinkTypography
+        variant="inherit"
+        href="https://www.jpmorgan.com/commercial-banking"
+        target="_blank"
+      >
+        JPMorgan Chase
+      </LinkTypography>
+      . <br />
+      <Emoji emoji="🌔" /> At night I experiment with game development, music,
+      and 3D art.
+    </BodyTypography>
+    <br /> <br />
+    <Highlights />
+  </div>
+)
+
+const Highlights = () => (
+  <div>
+    <BodyTypography gutterBottom>What I work with:</BodyTypography>
+    {Object.entries(highlights).map(([k, v], index) => (
+      <Typography variant="body2" gutterBottom key={index}>
+        <b>{capitalize(k)}</b> — {v.join(", ")}
+      </Typography>
+    ))}
+  </div>
+)
+
+const socials = [
+  {
+    icon: "✉️",
+    text: "Email",
+    href: "mailto:hwebs@hwebs.info",
+  },
+  {
+    icon: "🐙",
+    text: "GitHub",
+    href: "https://github.com/henrywebster",
+  },
+  {
+    icon: "🐦",
+    text: "Twitter",
+    href: "https://twitter.com/hank29a",
+  },
+  {
+    icon: "🕹️",
+    text: "itch.io",
+    href: "https://hank29a.itch.io/",
+  },
+]
+
+const highlights = {
+  languages: ["Java", "JavaScript", "Python"],
+  frameworks: ["Spring", "React"],
+  platforms: ["AWS", "Pivotal Cloud Foundry"],
+  programs: ["Godot", "Ardour", "Blender"],
+}
+
+// Fisher-Yates shuffle from https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+function shuffle(a) {
+  var j, x, i
+  for (i = a.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1))
+    x = a[i]
+    a[i] = a[j]
+    a[j] = x
+  }
+  return a
+}
+
+const Index = withStyles(styles)(({ classes }) => {
+  const {
+    allProjectsJson: { nodes },
+  } = useStaticQuery(graphql`
+    query {
+      allProjectsJson {
+        nodes {
+          description
+          links {
+            href
+            type
+          }
+          startDate
+          endDate
+          title
+          featured
+          tags
+          image {
+            childImageSharp {
+              gatsbyImageData(
+                width: 425
+                formats: WEBP
+                webpOptions: { quality: 100 }
+              )
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  const randoms = shuffle(nodes.filter(project => !project.featured))
+  const featured = nodes.find(project => project.featured)
+
   return (
-    <Card>
-      <CardHeader title="Welcome" titleTypographyProps={{ color: "primary" }} />
-      <CardContent>
-        <Typography
-          variant="body1"
-          component="span"
-          color="textPrimary"
-          gutterBottom
+    <Container maxWidth="md">
+      <SEO title="Home" />
+      <Section id="home">
+        <Grid
+          container
+          component="section"
+          id="home"
+          justify="space-between"
+          alignItems="center"
+          spacing={3}
         >
-          My name is Henry J. Webster, a programmer in Brooklyn, NY. <br />
+          <Grid container item sm={12} md={4} justify="center">
+            <img src={computer} alt="" className={classes.img} />
+          </Grid>
+          <Grid container item sm={12} md={8} justify="center">
+            <Welcome />
+          </Grid>
+          <Grid item xs={12}>
+            <Box display="flex" justifyContent="center">
+              {socials.map((social, index) => (
+                <SocialLink {...social} key={index} />
+              ))}
+            </Box>
+          </Grid>
+        </Grid>
+      </Section>
+      <Section id="projects">
+        <Box>
+          <HeadingTypography>
+            Projects <Emoji emoji="🏗️" />
+          </HeadingTypography>
+          <Box marginBottom={5}>
+            <BodyTypography gutterBottom>
+              I enjoy creating in my free time, whether it be art or technology.
+            </BodyTypography>
+            <br />
+            <BodyTypography>
+              {"See all my projects in "}
+              <LinkTypography variant="inherit" component={Link} to="/archive">
+                the archive
+              </LinkTypography>
+              .
+            </BodyTypography>
+          </Box>
+          <ProjectPreview featured={featured} randoms={randoms} />
+        </Box>
+      </Section>
+      <Section id="about">
+        <Container maxWidth="sm">
+          <HeadingTypography>
+            About <Emoji emoji="👷🏻" />
+          </HeadingTypography>
+
           <br />
-          🌞 During daylight I build financial web services. <br />
-          🌜 At night I experiment with game development, music, and 3D art.
-        </Typography>
-      </CardContent>
-    </Card>
+          <BodyTypography>
+            I have 3 years of professional experience in software. My curiosity
+            takes me all over the place and I love learning new technologies and
+            approaches while building interesting projects. <br /> <br />
+            I'm an avid cyclist, reader, coffee-lover, and productivity nerd. I
+            enjoy home audio production and playing guitar. <br /> <br />
+            Thanks for checking out my website! <br />
+            Henry J. Webster
+          </BodyTypography>
+          <LinkTypography
+            color="primary"
+            variant="body1"
+            component="a"
+            href="mailto:hwebs@hwebs.info"
+          >
+            hwebs@hwebs.info
+          </LinkTypography>
+        </Container>
+      </Section>
+    </Container>
   )
-}
+})
 
-const Rundown = () => {
-  return (
-    <Card>
-      <CardContent>
-        <Typography variant="h5" component="h5" color="primary">
-          Technlogies 👷
-        </Typography>
-        <TechCategory
-          category="Languages"
-          items={[
-            <TechItem name="Java" icon={<DiJava />} />,
-            <TechItem name="JavaScript" icon={<SiJavascript />} />,
-          ]}
-        />
-        <TechCategory
-          category="Frameworks"
-          items={[
-            <TechItem name="React" icon={<SiReact />} />,
-            <TechItem name="Spring" icon={<SiSpring />} />,
-          ]}
-        />
-        <TechCategory
-          category="Platforms"
-          items={[<TechItem name="AWS" icon={<FaAws />} />]}
-        />
-        <TechCategory
-          category="Tools"
-          items={[
-            <TechItem name="Spinnaker" icon={<SiSpinnaker />} />,
-            <TechItem name="Blender" icon={<SiBlender />} />,
-            <TechItem name="Godot Engine" icon={<SiGodotengine />} />,
-          ]}
-        />
-      </CardContent>
-    </Card>
-  )
-}
-
-const TechItem = withStyles(styles)(({ classes, name, icon }) => (
-  <Box className={classes.techItem} borderRadius={8}>
-    <Grid container alignItems="center" direction="column">
-      <Grid item className={classes.techIcon}>
-        {icon}
-      </Grid>
-      <Grid item>
-        <Typography variant="subtitle1" component="span">
-          {name}
-        </Typography>
-      </Grid>
-    </Grid>
-  </Box>
-))
-
-const TechCategory = withStyles(styles)(({ classes, category, items }) => (
-  <>
-    <Typography variant="subtitle1" component="span">
-      {category}
-    </Typography>
-    <Divider />
-    <Grid container>
-      {items.map(item => (
-        <Grid item>{item}</Grid>
-      ))}
-    </Grid>
-  </>
-))
-
-export default function Home({ data }) {
-  return (
-    <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Home - Henry J Webster</title>
-      </Helmet>
-      <PageTitle title="Home" />
-      {/* <Typography variant="h2" component="h2" color="primary">
-
-        I make technology that works.
-      </Typography> */}
-      <Grid container direction="column" spacing={4}>
-        <Grid item>
-          <Blurb />
-        </Grid>
-        <Grid item>
-          <Rundown />
-        </Grid>
-      </Grid>
-    </>
-  )
-}
+export default Index

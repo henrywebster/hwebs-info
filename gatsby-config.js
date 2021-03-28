@@ -1,28 +1,30 @@
 module.exports = {
+  siteMetadata: {
+    title: `Henry J. Webster`,
+    description: `My personal website.`,
+    author: `@henrywebster`,
+    url: `https://hwebs.info`,
+    released: false,
+    copyright: `2021 Henry J. Webster`,
+    version: `1.0.0`,
+  },
   plugins: [
-    "gatsby-transformer-json",
+    `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
-    `gatsby-transformer-sharp`,
+    `gatsby-transformer-sharp`, // Needed for dynamic images
+    "gatsby-transformer-json",
     `gatsby-plugin-material-ui`,
-    `gatsby-plugin-sass`,
-    // {
-    //   resolve: "gatsby-source-dynamodb",
-    //   options: {
-    //     typeName: "InformationItem",
-    //     accessKeyId: `${process.env.DB_ACCESS_ID}`,
-    //     secretAccessKey: `${process.env.DB_ACCESS_KEY}`,
-    //     region: `${process.env.DB_REGION}`,
-    //     params: {
-    //       TableName: "hwebs-info",
-    //     },
-    //   },
-    // },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `data`,
+        name: `projects`,
         path: `${__dirname}/src/data/`,
       },
+      // resolve: `gatsby-source-filesystem`,
+      // options: {
+      //   name: `images`,
+      //   path: `${__dirname}/src/images/`,
+      // },
     },
   ],
 }

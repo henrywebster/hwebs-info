@@ -1,15 +1,26 @@
 import React from "react"
-import { Helmet } from "react-helmet"
-import { Typography } from "@material-ui/core"
+import SEO from "../components/seo"
+import Section from "../components/section"
+import {
+  HeadingTypography,
+  BodyTypography,
+} from "../components/typography-wrapper"
 
-export default function errorPage(props) {
-  return (
-    <Typography variant="h2" component="h2" color="primary">
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>404 - Henry J Webster</title>
-      </Helmet>
-      Error 404 - Page Not Found
-    </Typography>
-  )
-}
+const ErrorPage = () => (
+  <Section
+    id="error"
+    component="section"
+    display="flex"
+    justifyContent="center"
+    alignItems="center"
+    minHeight="100vh"
+  >
+    <SEO title="404 Not Found" />
+    <div>
+      <HeadingTypography component="h1">404: Not Found</HeadingTypography>
+      <BodyTypography>This page does not exist.</BodyTypography>
+    </div>
+  </Section>
+)
+
+export default ErrorPage
