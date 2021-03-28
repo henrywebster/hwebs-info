@@ -1,5 +1,5 @@
 import React from "react"
-import { Container, Grid, Typography, withStyles } from "@material-ui/core"
+import { Container, Grid, withStyles } from "@material-ui/core"
 import { useStaticQuery, graphql } from "gatsby"
 import Section from "../components/section"
 import ProjectCard from "../components/project-card"

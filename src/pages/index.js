@@ -1,7 +1,7 @@
 import React from "react"
 import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
 import { useStaticQuery, graphql, Link } from "gatsby"
-import computer from "../images/computer-v3.webp"
+import computer from "../images/computer.webp"
 import SEO from "../components/seo"
 import Emoji from "../components/emoji"
 import ProjectPreview from "../components/project-preview"
