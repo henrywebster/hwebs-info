@@ -11,6 +11,7 @@ import {
 import { Link, useStaticQuery, graphql } from "gatsby"
 import Emoji from "./emoji"
 import theme from "../../theme"
+import { LinkTypography } from "./typography-wrapper"
 
 const sections = ["home", "projects", "about"]
 
@@ -38,22 +39,6 @@ const getLink = (section, pathname, props, text = undefined) =>
       {text ? text : section}
     </LinkTypography>
   )
-
-const LinkTypography = ({
-  children,
-  component = "a",
-  variant = "subtitle2",
-  ...props
-}) => (
-  <Typography
-    variant={variant}
-    color="primary"
-    component={component}
-    {...props}
-  >
-    {children}
-  </Typography>
-)
 
 const Footer = withStyles(styles)(({ classes, version, copyright }) => (
   <Box padding={2} textAlign="center" component="footer">

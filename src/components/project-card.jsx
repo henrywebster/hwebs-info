@@ -8,6 +8,7 @@ import {
   Typography,
   IconButton,
   withStyles,
+  Chip,
 } from "@material-ui/core"
 import IconHelper from "./IconHelper"
 // import { GatsbyImage } from "gatsby-plugin-image"
@@ -20,6 +21,9 @@ const styles = theme => ({
     height: 0,
     paddingTop: "56.25%",
   },
+  chip: {
+    margin: theme.spacing(0.5),
+  },
 })
 
 const extractYear = date =>
@@ -31,7 +35,7 @@ const convertDateText = (startDate, endDate) =>
     : extractYear(endDate)
 
 const ProjectCard = withStyles(styles)(
-  ({ title, description, links, image, startDate, endDate, classes }) => (
+  ({ title, description, links, image, startDate, endDate, tags, classes }) => (
     <>
       <Card className={classes.root}>
         {/* {image && <GatsbyImage image={getImage(image)} alt="" role="img" />} */}
@@ -50,6 +54,15 @@ const ProjectCard = withStyles(styles)(
         ></CardHeader>
         <CardContent>
           <Typography variant="body2">{description}</Typography>
+          {tags &&
+            tags.map((tag, index) => (
+              <Chip
+                label={tag}
+                size="small"
+                key={index}
+                className={classes.chip}
+              />
+            ))}
         </CardContent>
         <CardActions disableSpacing>
           {links &&
@@ -59,6 +72,7 @@ const ProjectCard = withStyles(styles)(
                 href={link.href}
                 target="_blank"
                 key={index}
+                aria-label={link.type}
               >
                 <IconHelper icon={link.type} />
               </IconButton>

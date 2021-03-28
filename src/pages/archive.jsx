@@ -1,9 +1,10 @@
 import React from "react"
-import { Container, Grid, Typography, withStyles } from "@material-ui/core"
+import { Container, Grid, withStyles } from "@material-ui/core"
 import { useStaticQuery, graphql } from "gatsby"
 import Section from "../components/section"
 import ProjectCard from "../components/project-card"
 import SEO from "../components/seo"
+import { HeadingTypography } from "../components/typography-wrapper"
 
 const styles = theme => ({
   top: {
@@ -22,6 +23,7 @@ const Archive = withStyles(styles)(({ classes }) => {
           startDate
           endDate
           description
+          tags
           links {
             href
             type
@@ -45,9 +47,7 @@ const Archive = withStyles(styles)(({ classes }) => {
       <SEO title="Archive" />
       <Section id="archive">
         <div className={classes.top}>
-          <Typography variant="h3" color="primary" gutterBottom>
-            Archive
-          </Typography>
+          <HeadingTypography>Archive</HeadingTypography>
           <Grid container spacing={3} justify="center">
             {nodes.map(({ image, startDate, endDate, ...project }, index) => (
               <Grid item key={index}>

@@ -10,20 +10,40 @@ import { MdBrokenImage } from "@react-icons/all-files/md/MdBrokenImage"
 export default function IconHelper({ icon }) {
   switch (icon) {
     case "bandcamp":
-      return <SiBandcamp />
+      return (
+        <SvgIcon titleAccess="Listen on Bandcamp">
+          <SiBandcamp />
+        </SvgIcon>
+      )
     case "github":
-      return <SiGithub />
+      return (
+        <SvgIcon alt="GitHub" titleAccess="View on GitHub">
+          <SiGithub alt="GitHub" />
+        </SvgIcon>
+      )
     case "itchio":
       return (
-        <SvgIcon>
+        <SvgIcon titleAccess="Play on Itch.io">
           <FaItchIo />
         </SvgIcon>
       )
     case "open":
-      return <MdOpenInNew />
+      return (
+        <SvgIcon titleAccess="Open website">
+          <MdOpenInNew />
+        </SvgIcon>
+      )
     case "spotify":
-      return <SiSpotify />
+      return (
+        <SvgIcon titleAccess="Listen on Spotify">
+          <SiSpotify />
+        </SvgIcon>
+      )
     default:
-      return <MdBrokenImage />
+      return (
+        <SvgIcon titleAccess="">
+          <MdBrokenImage />
+        </SvgIcon>
+      )
   }
 }

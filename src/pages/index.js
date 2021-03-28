@@ -1,11 +1,16 @@
 import React from "react"
 import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
 import { useStaticQuery, graphql, Link } from "gatsby"
-import computer from "../images/computer-v3.webp"
+import computer from "../images/computer.webp"
 import SEO from "../components/seo"
 import Emoji from "../components/emoji"
 import ProjectPreview from "../components/project-preview"
 import Section from "../components/section"
+import {
+  LinkTypography,
+  HeadingTypography,
+  BodyTypography,
+} from "../components/typography-wrapper"
 
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
 
@@ -21,40 +26,37 @@ const styles = theme => ({
 })
 
 const SocialLink = withStyles(styles)(({ icon, text, href, classes }) => (
-  <Typography
+  <LinkTypography
     variant="body1"
     color="primary"
-    component="a"
     href={href}
     target="_blank"
     className={classes.social}
   >
     <Emoji emoji={icon} /> {text}
-  </Typography>
+  </LinkTypography>
 ))
 
 const Welcome = () => (
   <div>
-    <Typography variant="h4">
+    <HeadingTypography>
       Welcome <Emoji emoji="👋" />
-    </Typography>
-    <Typography variant="body1" component="div">
+    </HeadingTypography>
+    <BodyTypography component="div">
       I'm Henry J. Webster, a programmer in Brooklyn, NY. <br />
       <br />
       <Emoji emoji="☀️" /> At work I'm building loan web services @
-      <Typography
-        variant="body1"
-        color="primary"
-        component="a"
+      <LinkTypography
+        variant="inherit"
         href="https://www.jpmorgan.com/commercial-banking"
         target="_blank"
       >
         JPMorgan Chase
-      </Typography>
+      </LinkTypography>
       . <br />
       <Emoji emoji="🌔" /> At night I experiment with game development, music,
       and 3D art.
-    </Typography>
+    </BodyTypography>
     <br /> <br />
     <Highlights />
   </div>
@@ -62,9 +64,7 @@ const Welcome = () => (
 
 const Highlights = () => (
   <div>
-    <Typography variant="body1" gutterBottom>
-      <u>What I work with:</u>
-    </Typography>
+    <BodyTypography gutterBottom>What I work with:</BodyTypography>
     {Object.entries(highlights).map(([k, v], index) => (
       <Typography variant="body2" gutterBottom key={index}>
         <b>{capitalize(k)}</b> — {v.join(", ")}
@@ -131,6 +131,7 @@ const Index = withStyles(styles)(({ classes }) => {
           endDate
           title
           featured
+          tags
           image {
             childImageSharp {
               gatsbyImageData(
@@ -177,33 +178,33 @@ const Index = withStyles(styles)(({ classes }) => {
       </Section>
       <Section id="projects">
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <HeadingTypography>
             Projects <Emoji emoji="🏗️" />
-          </Typography>
+          </HeadingTypography>
           <Box marginBottom={5}>
-            <Typography variant="body1" gutterBottom>
+            <BodyTypography gutterBottom>
               I enjoy creating in my free time, whether it be art or technology.
-            </Typography>
+            </BodyTypography>
             <br />
-            <Typography variant="body1">
+            <BodyTypography>
               {"See all my projects in "}
-              <Typography color="primary" component={Link} to="/archive">
+              <LinkTypography variant="inherit" component={Link} to="/archive">
                 the archive
-              </Typography>
+              </LinkTypography>
               .
-            </Typography>
+            </BodyTypography>
           </Box>
           <ProjectPreview featured={featured} randoms={randoms} />
         </Box>
       </Section>
       <Section id="about">
         <Container maxWidth="sm">
-          <Typography variant="h4" gutterBottom>
+          <HeadingTypography>
             About <Emoji emoji="👷🏻" />
-          </Typography>
+          </HeadingTypography>
 
           <br />
-          <Typography variant="body1">
+          <BodyTypography>
             I have 3 years of professional experience in software. My curiosity
             takes me all over the place and I love learning new technologies and
             approaches while building interesting projects. <br /> <br />
@@ -211,14 +212,15 @@ const Index = withStyles(styles)(({ classes }) => {
             enjoy home audio production and playing guitar. <br /> <br />
             Thanks for checking out my website! <br />
             Henry J. Webster
-          </Typography>
-          <Typography
+          </BodyTypography>
+          <LinkTypography
             color="primary"
+            variant="body1"
             component="a"
             href="mailto:hwebs@hwebs.info"
           >
             hwebs@hwebs.info
-          </Typography>
+          </LinkTypography>
         </Container>
       </Section>
     </Container>

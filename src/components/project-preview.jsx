@@ -52,7 +52,7 @@ export const ProjectPreview = ({ featured, randoms = [] }) => {
       {featured && (
         <Grid item>
           <Title>
-            <Typography variant="h5">
+            <Typography variant="h5" component="h2">
               Featured <Emoji emoji="🌟" />
             </Typography>
           </Title>
@@ -62,7 +62,6 @@ export const ProjectPreview = ({ featured, randoms = [] }) => {
       {randoms.length && (
         <Grid item>
           <Title>
-            {/* Move into Title component*/}
             <Typography variant="h5" component="span">
               Random <Emoji emoji="🎲" />
             </Typography>
