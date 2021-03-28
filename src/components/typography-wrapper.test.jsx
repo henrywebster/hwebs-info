@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import { LinkTypography } from "./typography-wrapper"
+import { LinkTypography, HeadingTypography } from "./typography-wrapper"
 
 describe("Link Wrapper", () => {
   test("displays text", () => {
@@ -19,5 +19,17 @@ describe("Link Wrapper", () => {
       "href",
       "http://test.local"
     )
+  })
+})
+
+describe("Heading Wrapper", () => {
+  test("displays text", () => {
+    render(<HeadingTypography>My Section</HeadingTypography>)
+    expect(screen.getByText(/My Section/)).toHaveTextContent(/My Section/)
+  })
+
+  test("has heading role", () => {
+    render(<HeadingTypography>My Section</HeadingTypography>)
+    expect(screen.getByRole("heading")).toBeVisible()
   })
 })

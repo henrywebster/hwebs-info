@@ -12,4 +12,10 @@ const LinkTypography = ({ component = "a", children, ...props }) => (
   </Typography>
 )
 
-export { LinkTypography }
+const HeadingTypography = ({ children, ...props }) => (
+  <Typography variant="h4" gutterBottom {...props}>
+    {children}
+  </Typography>
+)
+
+export { LinkTypography, HeadingTypography }

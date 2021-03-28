@@ -4,6 +4,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import Section from "../components/section"
 import ProjectCard from "../components/project-card"
 import SEO from "../components/seo"
+import { HeadingTypography } from "../components/typography-wrapper"
 
 const styles = theme => ({
   top: {
@@ -45,9 +46,7 @@ const Archive = withStyles(styles)(({ classes }) => {
       <SEO title="Archive" />
       <Section id="archive">
         <div className={classes.top}>
-          <Typography variant="h4" gutterBottom>
-            Archive
-          </Typography>
+          <HeadingTypography>Archive</HeadingTypography>
           <Grid container spacing={3} justify="center">
             {nodes.map(({ image, startDate, endDate, ...project }, index) => (
               <Grid item key={index}>

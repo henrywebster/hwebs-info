@@ -6,7 +6,10 @@ import SEO from "../components/seo"
 import Emoji from "../components/emoji"
 import ProjectPreview from "../components/project-preview"
 import Section from "../components/section"
-import { LinkTypography } from "../components/typography-wrapper"
+import {
+  LinkTypography,
+  HeadingTypography,
+} from "../components/typography-wrapper"
 
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
 
@@ -36,9 +39,9 @@ const SocialLink = withStyles(styles)(({ icon, text, href, classes }) => (
 
 const Welcome = () => (
   <div>
-    <Typography variant="h4">
+    <HeadingTypography>
       Welcome <Emoji emoji="👋" />
-    </Typography>
+    </HeadingTypography>
     <Typography variant="body1" component="div">
       I'm Henry J. Webster, a programmer in Brooklyn, NY. <br />
       <br />
@@ -176,9 +179,9 @@ const Index = withStyles(styles)(({ classes }) => {
       </Section>
       <Section id="projects">
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <HeadingTypography>
             Projects <Emoji emoji="🏗️" />
-          </Typography>
+          </HeadingTypography>
           <Box marginBottom={5}>
             <Typography variant="body1" gutterBottom>
               I enjoy creating in my free time, whether it be art or technology.
@@ -197,9 +200,9 @@ const Index = withStyles(styles)(({ classes }) => {
       </Section>
       <Section id="about">
         <Container maxWidth="sm">
-          <Typography variant="h4" gutterBottom>
+          <HeadingTypography>
             About <Emoji emoji="👷🏻" />
-          </Typography>
+          </HeadingTypography>
 
           <br />
           <Typography variant="body1">

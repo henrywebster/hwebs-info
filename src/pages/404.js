@@ -2,6 +2,7 @@ import React from "react"
 import { Typography } from "@material-ui/core"
 import SEO from "../components/seo"
 import Section from "../components/section"
+import { HeadingTypography } from "../components/typography-wrapper"
 
 const ErrorPage = () => (
   <Section
@@ -14,9 +15,7 @@ const ErrorPage = () => (
   >
     <SEO title="404 Not Found" />
     <div>
-      <Typography variant="h3" component="h1" color="primary" gutterBottom>
-        404: Not Found
-      </Typography>
+      <HeadingTypography component="h1">404: Not Found</HeadingTypography>
       <Typography variant="body1">This page does not exist.</Typography>
     </div>
   </Section>
