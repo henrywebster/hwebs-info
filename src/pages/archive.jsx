@@ -23,6 +23,7 @@ const Archive = withStyles(styles)(({ classes }) => {
           startDate
           endDate
           description
+          tags
           links {
             href
             type

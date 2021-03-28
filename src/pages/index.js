@@ -131,6 +131,7 @@ const Index = withStyles(styles)(({ classes }) => {
           endDate
           title
           featured
+          tags
           image {
             childImageSharp {
               gatsbyImageData(

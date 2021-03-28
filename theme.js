@@ -41,7 +41,7 @@ const theme = {
       },
       body2: {
         [breakpoints.down("xs")]: {
-          fontSize: ".70rem",
+          fontSize: ".75rem",
         },
       },
       button: {
