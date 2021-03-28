@@ -1,8 +1,9 @@
 import { createMuiTheme } from "@material-ui/core/styles"
+import "typeface-roboto"
 
 const defaultTheme = createMuiTheme({
   typography: {
-    fontFamily: "sans-serif",
+    fontFamily: ["Roboto", "sans-serif"].join(","),
   },
   palette: {
     type: "dark",
@@ -40,7 +41,7 @@ const theme = {
       },
       body2: {
         [breakpoints.down("xs")]: {
-          fontSize: ".65rem",
+          fontSize: ".70rem",
         },
       },
       button: {
