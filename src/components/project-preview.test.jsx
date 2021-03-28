@@ -125,9 +125,9 @@ describe("Project Preview", () => {
 describe("Convert Date", () => {
   test("creates date object from ISO date string", () => {
     const date = convertDate("2021-03-26")
-    expect(date.getFullYear()).toStrictEqual(2021)
-    expect(date.getMonth()).toStrictEqual(3 - 1)
-    expect(date.getDate()).toStrictEqual(26 - 1)
+    expect(date.getUTCFullYear()).toStrictEqual(2021)
+    expect(date.getUTCMonth()).toStrictEqual(3 - 1)
+    expect(date.getUTCDate()).toStrictEqual(26)
   })
 })
 
