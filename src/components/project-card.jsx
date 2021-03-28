@@ -59,6 +59,7 @@ const ProjectCard = withStyles(styles)(
                 href={link.href}
                 target="_blank"
                 key={index}
+                aria-label={link.type}
               >
                 <IconHelper icon={link.type} />
               </IconButton>

@@ -64,9 +64,7 @@ const Welcome = () => (
 
 const Highlights = () => (
   <div>
-    <BodyTypography gutterBottom>
-      <u>What I work with:</u>
-    </BodyTypography>
+    <BodyTypography gutterBottom>What I work with:</BodyTypography>
     {Object.entries(highlights).map(([k, v], index) => (
       <Typography variant="body2" gutterBottom key={index}>
         <b>{capitalize(k)}</b> — {v.join(", ")}

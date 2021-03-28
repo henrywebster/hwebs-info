@@ -13,7 +13,7 @@ const LinkTypography = ({ component = "a", children, ...props }) => (
 )
 
 const HeadingTypography = ({ children, ...props }) => (
-  <Typography variant="h4" gutterBottom {...props}>
+  <Typography variant="h4" component="h1" gutterBottom {...props}>
     {children}
   </Typography>
 )
