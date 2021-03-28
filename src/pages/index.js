@@ -9,6 +9,7 @@ import Section from "../components/section"
 import {
   LinkTypography,
   HeadingTypography,
+  BodyTypography,
 } from "../components/typography-wrapper"
 
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
@@ -25,16 +26,15 @@ const styles = theme => ({
 })
 
 const SocialLink = withStyles(styles)(({ icon, text, href, classes }) => (
-  <Typography
+  <LinkTypography
     variant="body1"
     color="primary"
-    component="a"
     href={href}
     target="_blank"
     className={classes.social}
   >
     <Emoji emoji={icon} /> {text}
-  </Typography>
+  </LinkTypography>
 ))
 
 const Welcome = () => (
@@ -42,7 +42,7 @@ const Welcome = () => (
     <HeadingTypography>
       Welcome <Emoji emoji="👋" />
     </HeadingTypography>
-    <Typography variant="body1" component="div">
+    <BodyTypography component="div">
       I'm Henry J. Webster, a programmer in Brooklyn, NY. <br />
       <br />
       <Emoji emoji="☀️" /> At work I'm building loan web services @
@@ -56,7 +56,7 @@ const Welcome = () => (
       . <br />
       <Emoji emoji="🌔" /> At night I experiment with game development, music,
       and 3D art.
-    </Typography>
+    </BodyTypography>
     <br /> <br />
     <Highlights />
   </div>
@@ -64,9 +64,9 @@ const Welcome = () => (
 
 const Highlights = () => (
   <div>
-    <Typography variant="body1" gutterBottom>
+    <BodyTypography gutterBottom>
       <u>What I work with:</u>
-    </Typography>
+    </BodyTypography>
     {Object.entries(highlights).map(([k, v], index) => (
       <Typography variant="body2" gutterBottom key={index}>
         <b>{capitalize(k)}</b> — {v.join(", ")}
@@ -183,17 +183,17 @@ const Index = withStyles(styles)(({ classes }) => {
             Projects <Emoji emoji="🏗️" />
           </HeadingTypography>
           <Box marginBottom={5}>
-            <Typography variant="body1" gutterBottom>
+            <BodyTypography gutterBottom>
               I enjoy creating in my free time, whether it be art or technology.
-            </Typography>
+            </BodyTypography>
             <br />
-            <Typography variant="body1">
+            <BodyTypography>
               {"See all my projects in "}
               <LinkTypography variant="inherit" component={Link} to="/archive">
                 the archive
               </LinkTypography>
               .
-            </Typography>
+            </BodyTypography>
           </Box>
           <ProjectPreview featured={featured} randoms={randoms} />
         </Box>
@@ -205,7 +205,7 @@ const Index = withStyles(styles)(({ classes }) => {
           </HeadingTypography>
 
           <br />
-          <Typography variant="body1">
+          <BodyTypography>
             I have 3 years of professional experience in software. My curiosity
             takes me all over the place and I love learning new technologies and
             approaches while building interesting projects. <br /> <br />
@@ -213,7 +213,7 @@ const Index = withStyles(styles)(({ classes }) => {
             enjoy home audio production and playing guitar. <br /> <br />
             Thanks for checking out my website! <br />
             Henry J. Webster
-          </Typography>
+          </BodyTypography>
           <LinkTypography
             color="primary"
             variant="body1"

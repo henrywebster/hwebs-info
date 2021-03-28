@@ -1,6 +1,10 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import { LinkTypography, HeadingTypography } from "./typography-wrapper"
+import {
+  LinkTypography,
+  HeadingTypography,
+  BodyTypography,
+} from "./typography-wrapper"
 
 describe("Link Wrapper", () => {
   test("displays text", () => {
@@ -31,5 +35,12 @@ describe("Heading Wrapper", () => {
   test("has heading role", () => {
     render(<HeadingTypography>My Section</HeadingTypography>)
     expect(screen.getByRole("heading")).toBeVisible()
+  })
+})
+
+describe("Body Wrapper", () => {
+  test("displays text", () => {
+    render(<BodyTypography>My Body</BodyTypography>)
+    expect(screen.getByText(/My Body/)).toHaveTextContent(/My Body/)
   })
 })

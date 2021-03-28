@@ -18,4 +18,10 @@ const HeadingTypography = ({ children, ...props }) => (
   </Typography>
 )
 
-export { LinkTypography, HeadingTypography }
+const BodyTypography = ({ children, ...props }) => (
+  <Typography variant="body1" {...props}>
+    {children}
+  </Typography>
+)
+
+export { LinkTypography, HeadingTypography, BodyTypography }
