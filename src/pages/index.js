@@ -6,6 +6,7 @@ import SEO from "../components/seo"
 import Emoji from "../components/emoji"
 import ProjectPreview from "../components/project-preview"
 import Section from "../components/section"
+import { LinkTypography } from "../components/typography-wrapper"
 
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
 
@@ -42,15 +43,13 @@ const Welcome = () => (
       I'm Henry J. Webster, a programmer in Brooklyn, NY. <br />
       <br />
       <Emoji emoji="☀️" /> At work I'm building loan web services @
-      <Typography
-        variant="body1"
-        color="primary"
-        component="a"
+      <LinkTypography
+        variant="inherit"
         href="https://www.jpmorgan.com/commercial-banking"
         target="_blank"
       >
         JPMorgan Chase
-      </Typography>
+      </LinkTypography>
       . <br />
       <Emoji emoji="🌔" /> At night I experiment with game development, music,
       and 3D art.
@@ -187,9 +186,9 @@ const Index = withStyles(styles)(({ classes }) => {
             <br />
             <Typography variant="body1">
               {"See all my projects in "}
-              <Typography color="primary" component={Link} to="/archive">
+              <LinkTypography variant="inherit" component={Link} to="/archive">
                 the archive
-              </Typography>
+              </LinkTypography>
               .
             </Typography>
           </Box>
@@ -212,13 +211,14 @@ const Index = withStyles(styles)(({ classes }) => {
             Thanks for checking out my website! <br />
             Henry J. Webster
           </Typography>
-          <Typography
+          <LinkTypography
             color="primary"
+            variant="body1"
             component="a"
             href="mailto:hwebs@hwebs.info"
           >
             hwebs@hwebs.info
-          </Typography>
+          </LinkTypography>
         </Container>
       </Section>
     </Container>

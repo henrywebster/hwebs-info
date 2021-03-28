@@ -45,7 +45,7 @@ const Archive = withStyles(styles)(({ classes }) => {
       <SEO title="Archive" />
       <Section id="archive">
         <div className={classes.top}>
-          <Typography variant="h3" color="primary" gutterBottom>
+          <Typography variant="h4" gutterBottom>
             Archive
           </Typography>
           <Grid container spacing={3} justify="center">
