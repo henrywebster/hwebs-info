@@ -1,6 +1,7 @@
 import React from "react"
 import { SvgIcon } from "@material-ui/core"
 import { FaItchIo } from "@react-icons/all-files/fa/FaItchIo"
+import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter"
 import { SiGithub } from "@react-icons/all-files/si/SiGithub"
 import { SiSpotify } from "@react-icons/all-files/si/SiSpotify"
 import { SiBandcamp } from "@react-icons/all-files/si/SiBandcamp"
@@ -37,6 +38,12 @@ export default function IconHelper({ icon }) {
       return (
         <SvgIcon titleAccess="Listen on Spotify">
           <SiSpotify />
+        </SvgIcon>
+      )
+    case "twitter":
+      return (
+        <SvgIcon titleAccess="Open on Twitter">
+          <FaTwitter />
         </SvgIcon>
       )
     default:
