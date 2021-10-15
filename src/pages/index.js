@@ -2,6 +2,7 @@ import React from "react"
 import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import computer from "../images/computer.webp"
+import portrait from "../images/portrait.webp"
 import SEO from "../components/seo"
 import Emoji from "../components/emoji"
 import ProjectPreview from "../components/project-preview"
@@ -22,6 +23,12 @@ const styles = theme => ({
     maxWidth: "100%",
     width: "400",
     alignSelf: "center",
+  },
+  portrait: {
+    maxWidth: "80%",
+    width: "200",
+    alignSelf: "center",
+    borderRadius: "3%",
   },
 })
 
@@ -198,30 +205,51 @@ const Index = withStyles(styles)(({ classes }) => {
         </Box>
       </Section>
       <Section id="about">
-        <Container maxWidth="sm">
-          <HeadingTypography>
-            About <Emoji emoji="👷🏻" />
-          </HeadingTypography>
-
-          <br />
-          <BodyTypography>
-            I have 3 years of professional experience in software. My curiosity
-            takes me all over the place and I love learning new technologies and
-            approaches while building interesting projects. <br /> <br />
-            I'm an avid cyclist, reader, coffee-lover, and productivity nerd. I
-            enjoy home audio production and playing guitar. <br /> <br />
-            Thanks for checking out my website! <br />
-            Henry J. Webster
-          </BodyTypography>
-          <LinkTypography
-            color="primary"
-            variant="body1"
-            component="a"
-            href="mailto:hwebs@hwebs.info"
-          >
-            hwebs@hwebs.info
-          </LinkTypography>
-        </Container>
+        <Grid
+          container
+          component="section"
+          id="about"
+          justify="space-between"
+          alignItems="center"
+          spacing={6}
+        >
+          <Grid container item sm={12} md={6} justify="center">
+            <img
+              src={portrait}
+              alt="Henry J Webster in green crocs"
+              className={classes.portrait}
+            />
+          </Grid>
+          <Grid container item sm={12} md={6} justify="left">
+            <HeadingTypography>
+              About <Emoji emoji="👷🏻" />
+            </HeadingTypography>
+            <Box justifyContent="left">
+              <BodyTypography>
+                I have 3 years of professional experience in software. My
+                curiosity takes me all over the place and I love learning new
+                technologies and approaches while building interesting projects.{" "}
+                <br /> <br />
+                I'm an avid cyclist, reader, coffee-lover, and productivity
+                nerd. I enjoy home audio production and playing guitar. Recently
+                I have taken up woodworking (I made the side table in the
+                photo!) If you want to send me something you've made or have any
+                questions, don't hesitate to reach out.
+                <br /> <br />
+                Thanks for checking out my website! <br />
+                Henry J. Webster
+              </BodyTypography>
+              <LinkTypography
+                color="primary"
+                variant="body1"
+                component="a"
+                href="mailto:hwebs@hwebs.info"
+              >
+                hwebs@hwebs.info
+              </LinkTypography>
+            </Box>
+          </Grid>
+        </Grid>
       </Section>
     </Container>
   )
