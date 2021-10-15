@@ -2,7 +2,7 @@ import React from "react"
 import { Typography, Grid, Box, Container, withStyles } from "@material-ui/core"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import computer from "../images/computer.webp"
-import henry from "../images/henry.webp"
+import portrait from "../images/portrait.webp"
 import SEO from "../components/seo"
 import Emoji from "../components/emoji"
 import ProjectPreview from "../components/project-preview"
@@ -205,8 +205,6 @@ const Index = withStyles(styles)(({ classes }) => {
         </Box>
       </Section>
       <Section id="about">
-        {/* <Container maxWidth="sm"> */}
-
         <Grid
           container
           component="section"
@@ -217,8 +215,8 @@ const Index = withStyles(styles)(({ classes }) => {
         >
           <Grid container item sm={12} md={6} justify="center">
             <img
-              src={henry}
-              alt="Photo of myself"
+              src={portrait}
+              alt="Henry J Webster in green crocs"
               className={classes.portrait}
             />
           </Grid>
@@ -233,8 +231,11 @@ const Index = withStyles(styles)(({ classes }) => {
                 technologies and approaches while building interesting projects.{" "}
                 <br /> <br />
                 I'm an avid cyclist, reader, coffee-lover, and productivity
-                nerd. I enjoy home audio production and playing guitar. <br />{" "}
-                <br />
+                nerd. I enjoy home audio production and playing guitar. Recently
+                I have taken up woodworking (I made the side table in the
+                photo!) If you want to send me something you've made or have any
+                questions, don't hesitate to reach out.
+                <br /> <br />
                 Thanks for checking out my website! <br />
                 Henry J. Webster
               </BodyTypography>
@@ -249,10 +250,6 @@ const Index = withStyles(styles)(({ classes }) => {
             </Box>
           </Grid>
         </Grid>
-
-        <br />
-
-        {/* </Container> */}
       </Section>
     </Container>
   )
