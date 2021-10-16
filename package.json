@@ -2,7 +2,7 @@
   "name": "hwebs.info",
   "private": true,
   "description": "Personal webpage",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",

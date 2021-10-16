@@ -6,7 +6,7 @@ module.exports = {
     url: `https://hwebs.info`,
     released: false,
     copyright: `2021 Henry J. Webster`,
-    version: `1.0.0`,
+    version: `1.0.1`,
   },
   plugins: [
     `gatsby-plugin-image`,
