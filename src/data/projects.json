@@ -1,5 +1,24 @@
 [
   {
+    "title": "2x2 Twitter Bot",
+    "startDate": "2021-10-06",
+    "endDate": "2021-10-09",
+    "category": "Tech",
+    "description": "A Twitter bot created on AWS to periodically post the tiny 2 inch by 2 inch paintings that I make.",
+    "image": "pyramid.webp",
+    "tags": ["Python", "AWS"],
+    "links": [
+      {
+        "type": "github",
+        "href": "https://github.com/henrywebster/2x2-bot"
+      },
+      {
+        "type": "twitter",
+        "href": "https://twitter.com/2x2Bot"
+      }
+    ]
+  },
+  {
     "title": "Personal Website",
     "startDate": "2021-02-01",
     "endDate": "2021-03-25",
