@@ -106,7 +106,7 @@ const socials = [
 const highlights = {
   languages: ["Java", "JavaScript", "Python"],
   frameworks: ["Spring", "React"],
-  platforms: ["AWS", "Pivotal Cloud Foundry"],
+  platforms: ["AWS", "VMWare Tanzu"],
   programs: ["Godot", "Ardour", "Blender"],
 }
 
