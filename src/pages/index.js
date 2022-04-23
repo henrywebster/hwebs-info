@@ -52,13 +52,13 @@ const Welcome = () => (
     <BodyTypography component="div">
       I'm Henry J. Webster, a programmer in Brooklyn, NY. <br />
       <br />
-      <Emoji emoji="☀️" /> At work I'm building loan web services @
+      <Emoji emoji="☀️" /> At work I'm building open banking services @
       <LinkTypography
         variant="inherit"
-        href="https://www.jpmorgan.com/commercial-banking"
+        href="https://www.prismdata.com/"
         target="_blank"
       >
-        JPMorgan Chase
+        Prism Data
       </LinkTypography>
       . <br />
       <Emoji emoji="🌔" /> At night I experiment with game development, music,
