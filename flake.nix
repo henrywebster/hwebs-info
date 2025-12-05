@@ -15,6 +15,7 @@
           pandoc
           darkhttpd
           jq
+          flyctl
         ];
       };
     };

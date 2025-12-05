@@ -283,4 +283,8 @@ h4,
   h1, .full-width {
 	grid-column: span 2;
   }
+
+  .centered-grid {
+	grid-column: 1;
+  }
 }

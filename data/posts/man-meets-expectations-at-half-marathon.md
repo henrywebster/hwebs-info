@@ -1,4 +1,4 @@
-![runner](/static/running.webp)
+![The author](/static/running.webp)
 
 If failure is the key to learning, this man is locked out, politely buzzing the neighbors in the hopes they’ll let him back into their apartment building.
 

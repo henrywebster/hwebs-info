@@ -3,17 +3,19 @@ CACHE_DIR ?= .cache
 DIST_DIR ?= dist
 TEMPLATES_DIR ?= templates
 
-# TODO 
-# * add templates in appropriate places
-# * use .env
+-include .env
+export USER_AGENT
 
 serve:
 	darkhttpd $(DIST_DIR)
 
 STATIC_SOURCES := $(shell find $(DATA_DIR)/static -type f)
 
+hwebs-info: web.go
+	go build
+
 $(DIST_DIR)/static: $(STATIC_SOURCES)
-	@mkdir -p $(DIST_DIR)
+	@mkdir -p $(DIST_DIR)/static/
 	cp -ru $(DATA_DIR)/static/* $@
 
 # home page
@@ -21,8 +23,8 @@ $(CACHE_DIR)/%.html: $(DATA_DIR)/%.md
 	@mkdir -p $(CACHE_DIR)
 	pandoc $< -o $@
 
-$(CACHE_DIR)/index.html: $(CACHE_DIR)/hello.html $(CACHE_DIR)/why.html
-	go run web.go > $@ || (rm -f $@; exit 1)
+$(CACHE_DIR)/index.html: $(CACHE_DIR)/hello.html $(CACHE_DIR)/why.html hwebs-info
+	./hwebs-info > $@ || (rm -f $@; exit 1)
 
 $(DIST_DIR)/index.html: $(CACHE_DIR)/index.html
 	@mkdir -p $(DIST_DIR)
@@ -31,12 +33,12 @@ $(DIST_DIR)/index.html: $(CACHE_DIR)/index.html
 # etc page
 $(DIST_DIR)/etc/index.html: $(TEMPLATES_DIR)/layout.tmpl
 	@mkdir -p $(DIST_DIR)/etc/
-	go run web.go -page=etc > $@
+	./hwebs-info -page=etc > $@
 
 # blog page
-$(DIST_DIR)/blog/index.html: $(DATA_DIR)/posts.csv web.go $(TEMPLATES_DIR)/blog.tmpl
+$(DIST_DIR)/blog/index.html: $(DATA_DIR)/posts.csv hwebs-info $(TEMPLATES_DIR)/blog.tmpl
 	@mkdir -p $(DIST_DIR)/blog/
-	go run web.go -page=blog > $@
+	./hwebs-info -page=blog > $@
 
 # post pages 
 POSTS := $(wildcard $(DATA_DIR)/posts/*.md)
@@ -47,9 +49,9 @@ $(CACHE_DIR)/posts/%.html: $(DATA_DIR)/posts/%.md
 	@mkdir -p $(CACHE_DIR)/posts/
 	pandoc $< -o $@
 
-$(DIST_DIR)/blog/post/%.html: $(CACHE_DIR)/posts/%.html web.go $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/post.tmpl
+$(DIST_DIR)/blog/post/%.html: $(CACHE_DIR)/posts/%.html hwebs-info $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/post.tmpl
 	@mkdir -p $(DIST_DIR)/blog/post/
-	go run web.go -page=post -slug=$* > $@
+	./hwebs-info -page=post -slug=$* > $@
 
 # now page
 $(CACHE_DIR)/github_response.json:
@@ -64,31 +66,47 @@ $(CACHE_DIR)/status.json:
 	# TODO err
 	curl -s https://status.cafe/users/henz/status.json > $@
 
-$(CACHE_DIR)/commits.html: $(CACHE_DIR)/code.csv web.go $(TEMPLATES_DIR)/commits.tmpl
-	go run web.go -page=commits > $@
+$(CACHE_DIR)/commits.html: $(CACHE_DIR)/code.csv hwebs-info $(TEMPLATES_DIR)/commits.tmpl
+	./hwebs-info -page=commits > $@
 
 $(CACHE_DIR)/status.html: $(CACHE_DIR)/status.json
-	go run web.go -page=status > $@
+	./hwebs-info -page=status > $@
 
 $(CACHE_DIR)/reading.xml:
 	@mkdir -p $(CACHE_DIR)
-	# TODO make user-agent a variable
-	curl -sL -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" "https://www.goodreads.com/review/list_rss/159263337?key=qDjiqflyhso0h4tUk8bW2USB19csqQ3NW32j7SBIIf6FFVG8&shelf=currently-reading" > $@
+	curl -sL -A "$$USER_AGENT" "https://www.goodreads.com/review/list_rss/159263337?key=qDjiqflyhso0h4tUk8bW2USB19csqQ3NW32j7SBIIf6FFVG8&shelf=currently-reading" > $@
 	
 $(CACHE_DIR)/reading.html: $(CACHE_DIR)/reading.xml
-	go run web.go -page=reading > $@
+	./hwebs-info -page=reading > $@
 
 $(CACHE_DIR)/watched.xml:
 	@mkdir -p $(CACHE_DIR)
 	curl -s "https://letterboxd.com/hwebs/rss/" > $@
 
-$(CACHE_DIR)/watched.html: $(CACHE_DIR)/watched.xml web.go $(TEMPLATES_DIR)/watched.tmpl
-	go run web.go -page=watched > $@
+$(CACHE_DIR)/watched.html: $(CACHE_DIR)/watched.xml hwebs-info $(TEMPLATES_DIR)/watched.tmpl
+	./hwebs-info -page=watched > $@
 
 # TODO send in the dependencies as args
 $(DIST_DIR)/now/index.html: $(CACHE_DIR)/commits.html $(CACHE_DIR)/status.html $(CACHE_DIR)/reading.html $(CACHE_DIR)/watched.html
 	@mkdir -p $(DIST_DIR)/now/
-	go run web.go -page=now > $@
+	./hwebs-info -page=now > $@
+
+docker-build:
+	docker build -t hwebs-info .
+
+docker-run:
+	docker run -p 8080:8080 --env-file .env hwebs-info
+
+clean:
+	rm -rf $(DIST_DIR)
+	rm -rf $(CACHE_DIR)
+	rm -f hwebs-info
+
+clean-for-update:
+	rm -f $(CACHE_DIR)/reading.xml
+	rm -f $(CACHE_DIR)/watched.xml
+	rm -f $(CACHE_DIR)/status.html
+	rm -f $(CACHE_DIR)/commits.html
 
 PAGES := $(DIST_DIR)/index.html \
 	 $(DIST_DIR)/now/index.html \
@@ -97,4 +115,4 @@ PAGES := $(DIST_DIR)/index.html \
 
 all: $(PAGES) $(DIST_DIR)/static $(POST_DIST_HTML_FILES)
 
-.PHONY: serve all
+.PHONY: serve all clean clean-for-update docker-build docker-run
