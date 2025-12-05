@@ -14,7 +14,7 @@ STATIC_SOURCES := $(shell find $(DATA_DIR)/static -type f)
 
 $(DIST_DIR)/static: $(STATIC_SOURCES)
 	@mkdir -p $(DIST_DIR)
-	cp -r $(DATA_DIR)/static $@
+	cp -ru $(DATA_DIR)/static/* $@
 
 # home page
 $(CACHE_DIR)/%.html: $(DATA_DIR)/%.md

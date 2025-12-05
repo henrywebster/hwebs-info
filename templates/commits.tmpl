@@ -2,18 +2,23 @@
     <header>
         <h2>Personal Code</h2>
     </header>
-    <table class="full-width collapsed">
+    <table class="collapsed">
+		<colgroup>
+	        <col style="width: 100%">
+			<col class="hide-mobile" style="width: auto">
+			<col style="width: auto">
+		</colgroup>
         <tr>
             <th>Message</th>
-            <th>Repo</th>
+            <th class="hide-mobile">Repo</th>
             <th>Datetime</th>
             {{ range . }}
         </tr>
         <tr>
-            <td class="full-width">
+            <td>
                 <a href="{{.CommitURL}}">{{.Message}}</a>
             </td>
-            <td class="hide-mobile right-aligned">
+            <td class="hide-mobile right-aligned no-wrap">
                 <a href="{{.RepoURL}}">{{.RepoName}}</a>
             </td>
             <td class="right-aligned">

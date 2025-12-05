@@ -77,20 +77,6 @@ nav > ul {
   font-family: var(--monospace);
 }
 
-@media (max-width: 600px) {
-  main {
-    grid-template-columns: 1fr;
-  }
-
-  nav > ul {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .hide-mobile {
-	  display: none;
-  }
-
-}
 
 a,
 a:visited,
@@ -162,16 +148,13 @@ table td {
 	vertical-align: bottom;
 }
 
+.no-wrap,
 table time {
 	white-space: nowrap;
 }
 
 .right-aligned {
 	text-align: right;
-}
-
-.full-width {
-	width: 100%;
 }
 
 h1 {
@@ -282,4 +265,22 @@ h3,
 h4,
 .error {
 	font-family: var(--monospace);
+}
+
+@media (max-width: 600px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  nav > ul {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hide-mobile {
+	  display: none;
+  }
+
+  h1, .full-width {
+	grid-column: span 2;
+  }
 }
