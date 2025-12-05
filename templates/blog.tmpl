@@ -11,7 +11,7 @@
             <a href="/blog/post/{{.Slug}}.html">{{.Title}}</a>
         </td>
         <td class="right-aligned">
-            <time datetime= "{{.CreatedAt }}">{{ .CreatedAt}}</time>
+            <time datetime= "{{ formatHtmlDate .CreatedAt }}">{{ formatDate .CreatedAt }}</time>
         </td>
     </tr>
     {{ end }}

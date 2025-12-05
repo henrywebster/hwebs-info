@@ -13,7 +13,7 @@
                 <a href="{{.URL}}"><em>{{.Title}}</em> ({{.Year}})</a>
             </td>
             <td>
-                <time datetime= "{{ .WatchedAt }}">{{.WatchedAt}}</time>
+                <time datetime= "{{ formatHtmlDate .WatchedAt }}">{{ formatDate .WatchedAt }}</time>
             </td>
         </tr>
         {{ end }}

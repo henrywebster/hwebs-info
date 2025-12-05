@@ -17,7 +17,7 @@
                 <a href="{{.RepoURL}}">{{.RepoName}}</a>
             </td>
             <td class="right-aligned">
-                <time datetime= "{{ .CommittedAt }}">{{ .CommittedAt }}</time>
+                <time datetime= "{{ formatHtmlDatetime .CommittedAt }}">{{ formatDatetime .CommittedAt }}</time>
             </td>
         </tr>
         {{ end }}

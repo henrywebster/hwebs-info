@@ -34,7 +34,7 @@ $(DIST_DIR)/etc/index.html: $(TEMPLATES_DIR)/layout.tmpl
 	go run web.go -page=etc > $@
 
 # blog page
-$(DIST_DIR)/blog/index.html: $(DATA_DIR)/posts.csv
+$(DIST_DIR)/blog/index.html: $(DATA_DIR)/posts.csv web.go $(TEMPLATES_DIR)/blog.tmpl
 	@mkdir -p $(DIST_DIR)/blog/
 	go run web.go -page=blog > $@
 
@@ -47,14 +47,13 @@ $(CACHE_DIR)/posts/%.html: $(DATA_DIR)/posts/%.md
 	@mkdir -p $(CACHE_DIR)/posts/
 	pandoc $< -o $@
 
-$(DIST_DIR)/blog/post/%.html: $(CACHE_DIR)/posts/%.html $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/post.tmpl
+$(DIST_DIR)/blog/post/%.html: $(CACHE_DIR)/posts/%.html web.go $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/post.tmpl
 	@mkdir -p $(DIST_DIR)/blog/post/
 	go run web.go -page=post -slug=$* > $@
 
 # now page
 $(CACHE_DIR)/github_response.json:
-	# TODO error
-	./commits.sh > $@
+	./commits.sh > $@ || (rm -f $@; exit 1)
 
 $(CACHE_DIR)/code.csv: $(CACHE_DIR)/github_response.json commits.jq
 	# TODO error
@@ -65,7 +64,7 @@ $(CACHE_DIR)/status.json:
 	# TODO err
 	curl -s https://status.cafe/users/henz/status.json > $@
 
-$(CACHE_DIR)/commits.html: $(CACHE_DIR)/code.csv
+$(CACHE_DIR)/commits.html: $(CACHE_DIR)/code.csv web.go $(TEMPLATES_DIR)/commits.tmpl
 	go run web.go -page=commits > $@
 
 $(CACHE_DIR)/status.html: $(CACHE_DIR)/status.json
@@ -83,7 +82,7 @@ $(CACHE_DIR)/watched.xml:
 	@mkdir -p $(CACHE_DIR)
 	curl -s "https://letterboxd.com/hwebs/rss/" > $@
 
-$(CACHE_DIR)/watched.html: $(CACHE_DIR)/watched.xml
+$(CACHE_DIR)/watched.html: $(CACHE_DIR)/watched.xml web.go $(TEMPLATES_DIR)/watched.tmpl
 	go run web.go -page=watched > $@
 
 # TODO send in the dependencies as args

@@ -2,7 +2,7 @@
 <article class="centered-grid">
     <heading>
     <h1>{{ .Content.Info.Title }}</h1>
-    <time datetime="{{ .Content.Info.CreatedAt }}">{{ .Content.Info.CreatedAt }}</time>
+    <time datetime="{{ formatHtmlDate .Content.Info.CreatedAt }}">{{ formatDate .Content.Info.CreatedAt }}</time>
     </heading>
     <div>{{ .Content.Content }}</div>
 <footer>

@@ -15,6 +15,24 @@ import (
 	"time"
 )
 
+func createTemplateFuncMap() template.FuncMap {
+	return template.FuncMap{
+		"formatDate": func(t time.Time) string {
+			return t.Format("Jan 02, 2006")
+		},
+		"formatDatetime": func(t time.Time) string {
+			return t.Format("Jan 02, 2006 15:04")
+		},
+		// for the nerds
+		"formatHtmlDate": func(t time.Time) string {
+			return t.Format("2006-01-02")
+		},
+		"formatHtmlDatetime": func(t time.Time) string {
+			return t.Format("2006-01-02 15:04")
+		},
+	}
+}
+
 type PageData struct {
 	Content any
 }
@@ -86,7 +104,7 @@ func renderBlogPage() error {
 		return err
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/layout.tmpl", "templates/blog.tmpl"))
+	tmpl := template.Must(template.New("").Funcs(createTemplateFuncMap()).ParseFiles("templates/layout.tmpl", "templates/blog.tmpl"))
 	pageData := PageData{posts}
 	err = tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
@@ -126,7 +144,7 @@ func renderPostPage(slug string) error {
 	}
 	post := Post{Info: p, Content: template.HTML(content)}
 
-	tmpl := template.Must(template.ParseFiles("templates/layout.tmpl", "templates/post.tmpl"))
+	tmpl := template.Must(template.New("").Funcs(createTemplateFuncMap()).ParseFiles("templates/layout.tmpl", "templates/post.tmpl"))
 	pageData := PageData{post}
 	err = tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
@@ -224,7 +242,7 @@ func renderCommits() error {
 		return err
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/commits.tmpl"))
+	tmpl := template.Must(template.New("commits.tmpl").Funcs(createTemplateFuncMap()).ParseFiles("templates/commits.tmpl"))
 	err = tmpl.Execute(os.Stdout, commits)
 	if err != nil {
 		return err
@@ -384,7 +402,7 @@ func renderWatched() error {
 		return err
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/watched.tmpl"))
+	tmpl := template.Must(template.New("watched.tmpl").Funcs(createTemplateFuncMap()).ParseFiles("templates/watched.tmpl"))
 	err = tmpl.Execute(os.Stdout, movies)
 	if err != nil {
 		return err
