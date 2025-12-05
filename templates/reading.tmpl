@@ -1,0 +1,19 @@
+<section class="half-width boxed">
+    <header>
+        <h2>Currently Reading</h2>
+    </header>
+    <table class="collapsed">
+        <tr>
+            <th>Book</th>
+            <th>Author</th>
+        </tr>
+        {{ range . }}
+        <tr>
+            <td>
+                <a href="{{.URL}}"><em>{{.Title}}</em></a>
+            </td>
+            <td>{{.Author}}</td>
+        </tr>
+        {{ end }}
+    </table>
+</section>

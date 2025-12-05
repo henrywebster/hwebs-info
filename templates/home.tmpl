@@ -1,0 +1,22 @@
+{{define "content"}}
+<h1>Home</h1>
+<div class="half-width">{{ index .Content 0 }}</div>
+<aside class="half-width">
+    <div class="boxed">
+        <header>
+            <h2>Contact</h2>
+        </header>
+        <address>
+            <a href= "mailto:henz.world.qv1ok@dralias.com">Email</a>
+            <a href= "https://www.linkedin.com/in/hwebs/">LinkedIn</a>
+        </address>
+    </div>
+</aside>
+<div class="half-width">{{ index .Content 1 }}</div>
+<aside class="half-width">
+    <figure class="boxed">
+        <img src="/static/cat.avif" alt="Cat loafing on a Japanese street.">
+        <figcaption>Cat in Tamba-Sasayama, Japan</figcaption>
+    </figure>
+</aside>
+{{end}}

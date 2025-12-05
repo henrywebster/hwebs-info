@@ -1,0 +1,42 @@
+{{ define "layout" }}
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content= "width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="icon"
+              href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;🌎&lt;/text&gt;&lt;/svg&gt;">
+        <title>hwebs.info</title>
+    </head>
+    <body>
+        <header>
+		<div id="masthead">
+            <a id="site-name" href="/">hwebs</a>
+		</div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/">/home</a>
+                    </li>
+                    <li>
+                        <a href="/now/">/now</a>
+                    </li>
+                    <li>
+                        <a href="/blog/">/blog</a>
+                    </li>
+		    <li>
+			    <a href="/etc/">/etc</a>
+		    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            {{ template "content" . }}
+        </main>
+        <footer>
+		<div>© 2025 Henry J. Webster</div>
+        </footer>
+    </body>
+</html>
+{{ end }}

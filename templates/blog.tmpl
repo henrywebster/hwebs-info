@@ -1,0 +1,20 @@
+{{ define "content" }}
+<h1>Blog</h1>
+<table class="full-width">
+    <tr>
+        <th>Title</th>
+        <th>Published Date</th>
+    </tr>
+    {{ range .Content }}
+    <tr>
+        <td>
+            <a href="/blog/post/{{.Slug}}.html">{{.Title}}</a>
+        </td>
+        <td class="right-aligned">
+            <time datetime= "{{.CreatedAt }}">{{ .CreatedAt}}</time>
+        </td>
+    </tr>
+    {{ end }}
+</table>
+<span><a href="/blog/feed">Subscribe via Atom</a></span>
+{{ end }}

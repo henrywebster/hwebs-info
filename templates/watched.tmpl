@@ -1,0 +1,21 @@
+<section class="half-width boxed">
+    <header>
+        <h2>Recently Watched</h2>
+    </header>
+    <table class="collapsed">
+        <tr>
+            <th>Movie</th>
+            <th>Date</th>
+        </tr>
+        {{ range . }}
+        <tr>
+            <td>
+                <a href="{{.URL}}"><em>{{.Title}}</em> ({{.Year}})</a>
+            </td>
+            <td>
+                <time datetime= "{{ .WatchedAt }}">{{.WatchedAt}}</time>
+            </td>
+        </tr>
+        {{ end }}
+    </table>
+</section>
