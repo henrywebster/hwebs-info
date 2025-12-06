@@ -166,6 +166,10 @@ h2 {
 	margin-top: 0;
 }
 
+p {
+	line-height: 1.875;
+}
+
 #masthead {
 	display: flex;
 	justify-content: space-between;
