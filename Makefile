@@ -5,9 +5,14 @@ TEMPLATES_DIR ?= templates
 
 -include .env
 export USER_AGENT
+export GITHUB_TOKEN
+export GITHUB_EMAIL
 
 serve:
-	darkhttpd $(DIST_DIR)
+	darkhttpd $(DIST_DIR) \
+		--no-listing \
+		--header "X-Frame-Options: DENY" \
+		--header "Content-Security-Policy: frame-ancestors 'none';"
 
 STATIC_SOURCES := $(shell find $(DATA_DIR)/static -type f)
 
@@ -95,7 +100,7 @@ docker-build:
 	docker build -t hwebs-info .
 
 docker-run:
-	docker run -p 8080:8080 --env-file .env hwebs-info
+	docker run -p 8080:80 --env-file .env hwebs-info
 
 clean:
 	rm -rf $(DIST_DIR)
