@@ -167,7 +167,7 @@ h2 {
 }
 
 p {
-	line-height: 1.875;
+	line-height: 1.5rem;
 }
 
 #masthead {
@@ -269,6 +269,19 @@ h3,
 h4,
 .error {
 	font-family: var(--monospace);
+}
+
+pre {
+	white-space: pre-wrap;
+	background-color: var(--bg-color-2);
+}
+
+p > code {
+	background-color: var(--bg-color-2);
+}
+
+sup {
+	line-height: 0;
 }
 
 @media (max-width: 600px) {
