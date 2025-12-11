@@ -18,5 +18,6 @@ I'm opting for a combination of both. If I expect the reader to come back, it's 
 For listing references, my approach is to mostly follow the _Chicago Manual of Style_ because it's the most succinct. Using an academic style instead of only a link is stuffy, but the extra info helps the reader filter through the list.
 
 In the future, I hope more people come to love references the way I do. It's an acknowledgement of the networked world we inhabit and makes exploring together easier.
+
 ### References
 [^1]: hbomberguy. "Plagiarism And You(Tube).” December 2, 2023. [https://www.youtube.com/watch?v=yDp3cB5fHXQ](https://www.youtube.com/watch?v=yDp3cB5fHXQ).
