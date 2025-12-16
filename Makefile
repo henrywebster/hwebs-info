@@ -110,7 +110,7 @@ clean:
 clean-for-update:
 	rm -f $(CACHE_DIR)/reading.xml
 	rm -f $(CACHE_DIR)/watched.xml
-	rm -f $(CACHE_DIR)/status.html
+	rm -f $(CACHE_DIR)/status.json
 	rm -f $(CACHE_DIR)/commits.html
 
 PAGES := $(DIST_DIR)/index.html \
