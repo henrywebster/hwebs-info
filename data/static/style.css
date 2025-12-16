@@ -237,10 +237,6 @@ article h1 {
 	display: block;
 }
 
-article h2 {
-	margin-bottom: 12px;
-}
-
 article {
 	padding-bottom: 20px;
 }
@@ -266,9 +262,9 @@ time {
 h1,
 h2,
 h3,
-h4,
-.error {
+h4 {
 	font-family: var(--monospace);
+	margin-bottom: 0;
 }
 
 pre {
