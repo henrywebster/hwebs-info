@@ -34,6 +34,7 @@ func createTemplateFuncMap() template.FuncMap {
 }
 
 type PageData struct {
+	PageName string
 	Content any
 }
 
@@ -48,7 +49,7 @@ func renderHomePage(htmlFiles []string) error {
 	}
 
 	tmpl := template.Must(template.ParseFiles("templates/layout.tmpl", "templates/home.tmpl"))
-	pageData := PageData{templates}
+	pageData := PageData{"home", templates}
 	err := tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
 		return err
@@ -105,7 +106,7 @@ func renderBlogPage() error {
 	}
 
 	tmpl := template.Must(template.New("").Funcs(createTemplateFuncMap()).ParseFiles("templates/layout.tmpl", "templates/blog.tmpl"))
-	pageData := PageData{posts}
+	pageData := PageData{"blog", posts}
 	err = tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
 		return err
@@ -145,7 +146,7 @@ func renderPostPage(slug string) error {
 	post := Post{Info: p, Content: template.HTML(content)}
 
 	tmpl := template.Must(template.New("").Funcs(createTemplateFuncMap()).ParseFiles("templates/layout.tmpl", "templates/post.tmpl"))
-	pageData := PageData{post}
+	pageData := PageData{post.Info.Title, post}
 	err = tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
 		return err
@@ -161,9 +162,16 @@ func renderEtcPage() error {
 	<div class="half-width error">Work in progress.</div>
 	{{end}}
 	`
-	tmpl := template.Must(template.ParseFiles("templates/layout.tmpl"))
-	tmpl = template.Must(tmpl.Parse(content))
-	err := tmpl.ExecuteTemplate(os.Stdout, "layout", nil)
+	
+	tmpl := template.Must(template.New("").ParseFiles("templates/layout.tmpl"))
+
+	_, err := tmpl.Parse(content)
+    if err != nil {
+        return err
+    }
+
+	pageData := PageData{"etc", nil}
+	err = tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
 		return err
 	}
@@ -228,7 +236,7 @@ func renderNowPage(htmlFiles []string) error {
 	}
 
 	tmpl := template.Must(template.ParseFiles("templates/layout.tmpl", "templates/now.tmpl"))
-	pageData := PageData{templates}
+	pageData := PageData{"now", templates}
 	err := tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
 		return err
@@ -412,7 +420,7 @@ func renderWatched() error {
 
 func main() {
 
-	page := flag.String("page", "home", "page to render")
+	page := flag.String("page", "", "page to render")
 	slug := flag.String("slug", "", "slug to render")
 	flag.Parse()
 

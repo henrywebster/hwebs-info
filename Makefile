@@ -29,14 +29,14 @@ $(CACHE_DIR)/%.html: $(DATA_DIR)/%.md
 	pandoc $< -o $@
 
 $(CACHE_DIR)/index.html: $(CACHE_DIR)/hello.html $(CACHE_DIR)/why.html hwebs-info
-	./hwebs-info > $@ || (rm -f $@; exit 1)
+	./hwebs-info -page=home > $@ || (rm -f $@; exit 1)
 
 $(DIST_DIR)/index.html: $(CACHE_DIR)/index.html
-	@mkdir -p $(DIST_DIR)
-	ln $< $@
+	@mkdir --parents $(DIST_DIR)
+	ln --force $< $@ 
 
 # etc page
-$(DIST_DIR)/etc/index.html: $(TEMPLATES_DIR)/layout.tmpl
+$(DIST_DIR)/etc/index.html: hwebs-info $(TEMPLATES_DIR)/layout.tmpl
 	@mkdir -p $(DIST_DIR)/etc/
 	./hwebs-info -page=etc > $@
 
