@@ -2,20 +2,12 @@
     <header>
         <h2>Recently Watched</h2>
     </header>
-    <table class="collapsed">
-        <tr>
-            <th>Movie</th>
-            <th>Date</th>
-        </tr>
+	<ul class="media-list">
         {{ range . }}
-        <tr>
-            <td>
-                <a href="{{.URL}}"><em>{{.Title}}</em> ({{.Year}})</a>
-            </td>
-            <td>
-                <time datetime= "{{ formatHtmlDate .WatchedAt }}">{{ formatDate .WatchedAt }}</time>
-            </td>
-        </tr>
+		<li>
+			<a href="{{.URL}}"><em>{{.Title}}</em> ({{.Year}})</a>
+			<time datetime= "{{ formatHtmlDate .WatchedAt }}">{{ formatDate .WatchedAt }}</time>
+		</li>
         {{ end }}
-    </table>
+	</ul>
 </section>

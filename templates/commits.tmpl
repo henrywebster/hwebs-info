@@ -2,31 +2,17 @@
     <header>
         <h2>Personal Code</h2>
     </header>
-    <table class="collapsed">
-		<colgroup>
-	        <col style="width: 100%">
-			<col class="hide-mobile" style="width: auto">
-			<col style="width: auto">
-		</colgroup>
-        <tr>
-            <th>Message</th>
-            <th class="hide-mobile">Repo</th>
-            <th>Datetime</th>
-            {{ range . }}
-        </tr>
-        <tr>
-            <td>
-                <a href="{{.CommitURL}}">{{.Message}}</a>
-            </td>
-            <td class="hide-mobile right-aligned no-wrap">
-                <a href="{{.RepoURL}}">{{.RepoName}}</a>
-            </td>
-            <td class="right-aligned">
+	<ul class="media-list">
+        {{ range . }}
+        <li>
+            <a href="{{.CommitURL}}">{{.Message}}</a>
+			<div class="meta-cluster">
+                <a href="{{.RepoURL}}" class="repo-link">{{.RepoName}}</a>
                 <time datetime= "{{ formatHtmlDatetime .CommittedAt }}">{{ formatDatetime .CommittedAt }}</time>
-            </td>
-        </tr>
+			</div>
+        </li>
         {{ end }}
-    </table>
+    </ul>
     <footer>
         <a href="https://github.com/henrywebster" target="_blank" rel="noopener">GitHub</a>
     </footer>

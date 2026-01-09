@@ -2,18 +2,12 @@
     <header>
         <h2>Currently Reading</h2>
     </header>
-    <table class="collapsed">
-        <tr>
-            <th>Book</th>
-            <th>Author</th>
-        </tr>
+	<ul class="media-list">
         {{ range . }}
-        <tr>
-            <td>
-                <a href="{{.URL}}"><em>{{.Title}}</em></a>
-            </td>
-            <td>{{.Author}}</td>
-        </tr>
+        <li>
+            <a href="{{.URL}}"><em>{{.Title}}</em></a>
+            <span>by {{.Author}}</span>
+        </li>
         {{ end }}
-    </table>
+    </ul>
 </section>

@@ -1,21 +1,19 @@
 {{ define "content" }}
 <h1>Blog</h1>
-<table class="full-width">
-    <tr>
-        <th>Title</th>
-        <th>Published Date</th>
-    </tr>
-    {{ range .Content }}
-    <tr>
-        <td>
-            <a href="/blog/post/{{.Slug}}.html">{{.Title}}</a>
-        </td>
-        <td class="right-aligned">
-            <time datetime= "{{ formatHtmlDate .CreatedAt }}">{{ formatDate .CreatedAt }}</time>
-        </td>
-    </tr>
-    {{ end }}
-</table>
+<section class="full-width">
+	<ul class="unstyled-list">
+		{{ range .Content }}
+		<li>
+			<article>
+				<header>
+					<h2><a href="/blog/post/{{.Slug}}.html">{{.Title}}</a></h2>
+					<time datetime= "{{ formatHtmlDate .CreatedAt }}">{{ formatDate .CreatedAt }}</time>
+				</header>
+			</article>
+		</li>
+		{{ end }}
+	</ul>
+</section>
 <!-- TODO add feed
 <span><a href="/blog/feed">Subscribe via Atom</a></span>
 -->

@@ -128,10 +128,6 @@ h1, .full-width {
 	grid-column: 2 / 4;
 }
 
-#status {
-
-}
-
 table {
 	width: 100%;
 	border-spacing: 0;
@@ -205,7 +201,7 @@ p {
 .boxed header,
 .boxed footer,
  figcaption,
-.boxed div,
+.boxed > div,
 .boxed address,
 .boxed table td,
 .boxed table th {
@@ -278,6 +274,43 @@ p > code {
 
 sup {
 	line-height: 0;
+}
+
+.unstyled-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.media-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.media-list li {
+  display: flex;
+  justify-content: space-between; 
+  align-items: baseline;          
+  flex-wrap: wrap;                
+  padding: 6px 10px;
+}
+
+.media-list time {
+  color: var(--fg-color-2);
+  font-size: 0.9em;
+}
+
+.meta-cluster {
+  display: flex;
+  gap: 2.5rem;      
+  margin-left: auto; 
+}
+
+.repo-link { 
+	font-family: monospace; 
+	font-size: 0.9em; 
 }
 
 @media (max-width: 600px) {

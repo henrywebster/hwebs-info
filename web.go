@@ -38,6 +38,11 @@ type PageData struct {
 	Content any
 }
 
+func parseTemplate(name string, filePaths ...string) *template.Template {
+	return template.Must(template.New(name).Funcs(createTemplateFuncMap()).ParseFiles(filePaths...))
+}
+
+
 func renderHomePage(htmlFiles []string) error {
 	templates := make([]template.HTML, len(htmlFiles))
 	for i, filename := range htmlFiles {
@@ -48,7 +53,7 @@ func renderHomePage(htmlFiles []string) error {
 		templates[i] = template.HTML(content)
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/layout.tmpl", "templates/home.tmpl"))
+	tmpl := parseTemplate("", "templates/layout.tmpl", "templates/home.tmpl")
 	pageData := PageData{"home", templates}
 	err := tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
@@ -105,7 +110,7 @@ func renderBlogPage() error {
 		return err
 	}
 
-	tmpl := template.Must(template.New("").Funcs(createTemplateFuncMap()).ParseFiles("templates/layout.tmpl", "templates/blog.tmpl"))
+	tmpl := parseTemplate("", "templates/layout.tmpl", "templates/blog.tmpl")
 	pageData := PageData{"blog", posts}
 	err = tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
@@ -145,7 +150,7 @@ func renderPostPage(slug string) error {
 	}
 	post := Post{Info: p, Content: template.HTML(content)}
 
-	tmpl := template.Must(template.New("").Funcs(createTemplateFuncMap()).ParseFiles("templates/layout.tmpl", "templates/post.tmpl"))
+	tmpl := parseTemplate("", "templates/layout.tmpl", "templates/post.tmpl")
 	pageData := PageData{post.Info.Title, post}
 	err = tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
@@ -163,7 +168,7 @@ func renderEtcPage() error {
 	{{end}}
 	`
 	
-	tmpl := template.Must(template.New("").ParseFiles("templates/layout.tmpl"))
+	tmpl := parseTemplate("", "templates/layout.tmpl")
 
 	_, err := tmpl.Parse(content)
     if err != nil {
@@ -235,7 +240,7 @@ func renderNowPage(htmlFiles []string) error {
 		templates[i] = template.HTML(content)
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/layout.tmpl", "templates/now.tmpl"))
+	tmpl := parseTemplate("", "templates/layout.tmpl", "templates/now.tmpl")
 	pageData := PageData{"now", templates}
 	err := tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
@@ -250,7 +255,7 @@ func renderCommits() error {
 		return err
 	}
 
-	tmpl := template.Must(template.New("commits.tmpl").Funcs(createTemplateFuncMap()).ParseFiles("templates/commits.tmpl"))
+	tmpl := parseTemplate("commits.tmpl", "templates/commits.tmpl")
 	err = tmpl.Execute(os.Stdout, commits)
 	if err != nil {
 		return err
@@ -289,7 +294,7 @@ func renderStatus() error {
 		return err
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/status.tmpl"))
+	tmpl := parseTemplate("", "templates/status.tmpl")
 	err = tmpl.Execute(os.Stdout, status)
 	if err != nil {
 		return err
@@ -328,7 +333,7 @@ func renderReading() error {
 		return err
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/reading.tmpl"))
+	tmpl := parseTemplate("reading.tmpl", "templates/reading.tmpl")
 	err = tmpl.Execute(os.Stdout, books)
 	if err != nil {
 		return err
@@ -410,7 +415,7 @@ func renderWatched() error {
 		return err
 	}
 
-	tmpl := template.Must(template.New("watched.tmpl").Funcs(createTemplateFuncMap()).ParseFiles("templates/watched.tmpl"))
+	tmpl := parseTemplate("watched.tmpl", "templates/watched.tmpl")
 	err = tmpl.Execute(os.Stdout, movies)
 	if err != nil {
 		return err
