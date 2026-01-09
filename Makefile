@@ -32,8 +32,8 @@ $(CACHE_DIR)/index.html: $(CACHE_DIR)/hello.html $(CACHE_DIR)/why.html hwebs-inf
 	./hwebs-info -page=home > $@ || (rm -f $@; exit 1)
 
 $(DIST_DIR)/index.html: $(CACHE_DIR)/index.html
-	@mkdir --parents $(DIST_DIR)
-	ln --force $< $@ 
+	@mkdir -p $(DIST_DIR)
+	ln -f $< $@ 
 
 # etc page
 $(DIST_DIR)/etc/index.html: hwebs-info $(TEMPLATES_DIR)/layout.tmpl
