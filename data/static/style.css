@@ -3,11 +3,11 @@
 	--fg-color: #000;
 	--link-color: #00f;
 
-		--fg-color-2: #1e1e1e;
-		--bg-color-2: #dcdcdc;
+	--fg-color-2: #1e1e1e;
+	--bg-color-2: #dcdcdc;
 
-		--monospace: monospace;
-		--font-family: serif, system-ui;
+	--monospace: ui-monospace, monospace;
+	--font-family: ui-serif, serif;
 	--font-size-small: 16px;
 }
 
@@ -24,8 +24,6 @@
 	.icon {
 		filter: invert(1);
 	}
-
-
 }
 
 html {
@@ -167,6 +165,7 @@ h2 {
 }
 
 p {
+	font-family: var(--font-family);
 	line-height: 1.5rem;
 }
 
