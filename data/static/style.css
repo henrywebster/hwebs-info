@@ -6,8 +6,9 @@
 	--fg-color-2: #1e1e1e;
 	--bg-color-2: #dcdcdc;
 
+	--serif: ui-serif, serif;
 	--monospace: ui-monospace, monospace;
-	--font-family: ui-serif, serif;
+
 	--font-size-small: 16px;
 }
 
@@ -30,7 +31,7 @@ html {
 	background-color: var(--bg-color);
 	color: var(--fg-color);
 	scrollbar-gutter: stable;
-	font-family: var(--font-family);
+	font-family: var(--serif);
 }
 
 body {
@@ -165,7 +166,7 @@ h2 {
 }
 
 p {
-	font-family: var(--font-family);
+	font-family: var(--serif);
 	line-height: 1.5rem;
 }
 
@@ -262,7 +263,7 @@ h1,
 h2,
 h3,
 h4 {
-	font-family: var(--monospace);
+	font-family: var(monospace);
 	margin-bottom: 0;
 }
 
