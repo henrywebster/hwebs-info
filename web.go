@@ -347,7 +347,7 @@ func renderStatus() error {
 		return err
 	}
 
-	tmpl := parseTemplate("", "templates/status.tmpl")
+	tmpl := parseTemplate("status.tmpl", "templates/status.tmpl")
 	err = tmpl.Execute(os.Stdout, status)
 	if err != nil {
 		return err
