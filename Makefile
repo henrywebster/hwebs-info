@@ -91,6 +91,9 @@ $(CACHE_DIR)/watched.xml:
 $(CACHE_DIR)/watched.html: $(CACHE_DIR)/watched.xml hwebs-info $(TEMPLATES_DIR)/watched.tmpl
 	./hwebs-info -page=watched > $@
 
+#$(CACHE_DIR)/updates.html: $(DATA_DIR)/updates.csv hwebs-info $(TEMPLATES_DIR)/updates.tmpl
+#	./hwebs-info -page=updates > $@
+
 # TODO send in the dependencies as args
 $(DIST_DIR)/now/index.html: $(CACHE_DIR)/commits.html $(CACHE_DIR)/status.html $(CACHE_DIR)/reading.html $(CACHE_DIR)/watched.html
 	@mkdir -p $(DIST_DIR)/now/

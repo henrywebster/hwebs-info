@@ -62,6 +62,61 @@ func renderHomePage(htmlFiles []string) error {
 	return nil
 }
 
+type Update struct {
+	Message string
+	PublishedAt time.Time
+}
+
+func loadUpdates(filename string) ([]Update, error) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+
+	var updates []Update
+	for {
+		row, err := reader.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return nil, err
+		}
+		timestamp, err := time.Parse("2006-01-02 15:04:05", row[1])
+		if err != nil {
+			return nil, err
+		}
+
+		update := Update{
+			Message:     row[0],
+			PublishedAt: timestamp,
+		}
+		update.Message = html.UnescapeString(update.Message)
+		updates = append(updates, update)
+	}
+	sort.Slice(updates, func(i, j int) bool {
+		return updates[i].PublishedAt.After(updates[j].PublishedAt)
+	})
+	return updates, nil
+}
+
+func renderUpdates() error {
+	updates, err := loadUpdates("data/updates.csv")
+	if err != nil {
+		return err
+	}
+
+	tmpl := parseTemplate("updates.tmpl", "templates/updates.tmpl")
+	err = tmpl.Execute(os.Stdout, updates)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 type PostInfo struct {
 	Title     string
 	Slug      string
@@ -452,8 +507,10 @@ func main() {
 		err = renderReading()
 	case "watched":
 		err = renderWatched()
+	case "updates":
+		err = renderUpdates()
 	default:
-		err = fmt.Errorf("Unknown page: %s", page)
+		err = fmt.Errorf("Unknown page: %s", *page)
 	}
 
 	if err != nil {

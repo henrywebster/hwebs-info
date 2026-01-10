@@ -313,6 +313,34 @@ sup {
 	font-size: 0.9em; 
 }
 
+.update-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.update-list li {
+  display: flex;
+  justify-content: space-between; 
+  align-items: baseline;
+  flex-direction: column;
+  flex-wrap: wrap;                
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--fg-color);
+}
+
+.update-list li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.update-list time {
+  color: var(--fg-color-2);
+  font-size: 0.9em;
+  margin-top: 4px;
+}
+
 @media (max-width: 600px) {
   main {
     grid-template-columns: 1fr;
