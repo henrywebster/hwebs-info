@@ -36,7 +36,11 @@ $(DIST_DIR)/index.html: $(CACHE_DIR)/index.html
 	ln -f $< $@ 
 
 # etc page
-$(DIST_DIR)/etc/index.html: hwebs-info $(TEMPLATES_DIR)/layout.tmpl
+$(CACHE_DIR)/music.html: hwebs-info $(TEMPLATES_DIR)/music.tmpl $(DATA_DIR)/music.txt
+	@mkdir -p $(CACHE_DIR)
+	./hwebs-info -page=music > $@
+
+$(DIST_DIR)/etc/index.html: hwebs-info $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/now.tmpl $(CACHE_DIR)/music.html
 	@mkdir -p $(DIST_DIR)/etc/
 	./hwebs-info -page=etc > $@
 

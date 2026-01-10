@@ -1,0 +1,34 @@
+<section class="full-width">
+    <header>
+        <h2>Music</h2>
+    </header>
+	<ul class="unstyled-list">
+        {{ range . }}
+        <li>
+            <h3>{{ .Name }}</h3>
+			<ul class="unstyled-list album-list">
+				{{ range .Albums }}
+				<li>
+					<img src="/static/{{ .Cover }}" alt="{{ .Name }} album cover">
+					<div>
+						<h4>{{ .Name }}</h4>
+						<div>
+							<div>Released</div>
+							<time datetime= "{{ formatHtmlDate .ReleaseDate }}">{{ formatDate .ReleaseDate }}</time>
+						</div>
+						<div>
+						<span>Listen on</span>
+						<ul class="unstyled-list">
+							{{ range .Links }}
+							<li><a href="{{ .URL }}">{{.Service}}</a>
+							{{ end}}
+						</ul>
+						</div>
+					</div>
+				</li>
+				{{ end }}
+			</ul>
+        </li>
+        {{ end }}
+    </ul>
+</section>

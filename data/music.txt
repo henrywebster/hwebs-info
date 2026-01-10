@@ -1,0 +1,42 @@
+Artist: Sturdy Plastics
+
+Album: 3P
+Date: 2024-08-01
+Cover: 3p_cover.webp
+Link: Bandcamp https://thinktankrec.bandcamp.com/album/3p
+Link: Apple https://music.apple.com/us/album/3p/1763055847
+Link: Spotify https://open.spotify.com/album/05S87McIGu2rVBhhg9tp43
+
+Artist: death ray of peace
+
+Album: Urbane Living
+Date: 2018-08-23
+Cover: urbane-living.webp
+Link: Bandcamp https://deathrayop.bandcamp.com/album/urbane-living
+Link: Apple https://music.apple.com/us/album/urbane-living/1494487519
+Link: Spotify https://open.spotify.com/album/7DMV0QPQ4jqHbAgKnaCqqc
+
+Album: music for strangers
+Date: 2015-12-23
+Cover: music-for-strangers.webp
+Link: Bandcamp https://deathrayop.bandcamp.com/album/music-for-strangers
+Link: Apple https://music.apple.com/us/album/music-for-strangers/1510448153
+Link: Spotify https://open.spotify.com/album/7LFvsewaAbSdaJYpAp0Red
+
+Album: 20/14 Visions
+Date: 2014-06-14
+Cover: 2014-visions.webp
+Link: Bandcamp https://deathrayop.bandcamp.com/album/20-14-visions
+Link: Apple https://music.apple.com/us/album/20-14-visions/1514449551
+Link: Spotify https://open.spotify.com/album/5YuJxjucdoIJgycqJByLPF
+
+Album: the mountains became valleys, the clouds became lakes
+Date: 2014-01-31
+Cover: clouds-became.webp
+Link: Bandcamp https://deathrayop.bandcamp.com/album/the-mountains-became-valleys-the-clouds-became-lakes
+
+Album: steady diet of pizza
+Date: 2013-12-13
+Cover: steady-diet.webp
+Link: Bandcamp https://deathrayop.bandcamp.com/album/steady-diet-of-pizza
+

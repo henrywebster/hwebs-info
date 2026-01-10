@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"encoding/csv"
 	"encoding/json"
 	"encoding/xml"
@@ -12,6 +13,7 @@ import (
 	"log"
 	"os"
 	"sort"
+	"strings"
 	"time"
 )
 
@@ -213,24 +215,20 @@ func renderPostPage(slug string) error {
 	return nil
 }
 
-func renderEtcPage() error {
-	content := `
-	{{define "content"}}
-	<h1>Etc</h1>
-	<img class="half-width" src="/static/building.webp" alt="Building under construction">
-	<div class="half-width error">Work in progress.</div>
-	{{end}}
-	`
+func renderEtcPage(htmlFiles []string) error {
 
-	tmpl := parseTemplate("", "templates/layout.tmpl")
-
-	_, err := tmpl.Parse(content)
-	if err != nil {
-		return err
+	templates := make([]template.HTML, len(htmlFiles))
+	for i, filename := range htmlFiles {
+		content, err := os.ReadFile(filename)
+		if err != nil {
+			return err
+		}
+		templates[i] = template.HTML(content)
 	}
 
-	pageData := PageData{"etc", nil}
-	err = tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
+	tmpl := parseTemplate("", "templates/layout.tmpl", "templates/now.tmpl")
+	pageData := PageData{"etc", templates}
+	err := tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
 		return err
 	}
@@ -476,6 +474,94 @@ func renderWatched() error {
 	return nil
 }
 
+type Link struct {
+	Service string
+	URL     string
+}
+
+type Album struct {
+	Name        string
+	Cover       string
+	ReleaseDate time.Time
+	Links       []Link
+}
+
+type Artist struct {
+	Name   string
+	Albums []Album
+}
+
+func parseMusic(filename string) ([]Artist, error) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	var artists []Artist
+
+	scanner := bufio.NewScanner(file)
+	currentArtist := Artist{}
+	currentAlbum := Album{}
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+
+		if line == "" {
+			continue
+		}
+
+		parts := strings.SplitN(line, ":", 2)
+		key := strings.TrimSpace(parts[0])
+		value := strings.TrimSpace(parts[1])
+
+		switch key {
+		case "Artist":
+			if currentArtist.Name != "" {
+				currentArtist.Albums = append(currentArtist.Albums, currentAlbum)
+				currentAlbum = Album{}
+				artists = append(artists, currentArtist)
+				currentArtist = Artist{}
+			}
+			currentArtist.Name = value
+		case "Album":
+			if currentAlbum.Name != "" {
+				currentArtist.Albums = append(currentArtist.Albums, currentAlbum)
+				currentAlbum = Album{}
+			}
+			currentAlbum.Name = value
+		case "Date":
+			// TODO handle err
+			releaseDate, _ := time.Parse("2006-01-02", value)
+			currentAlbum.ReleaseDate = releaseDate
+		case "Link":
+			parts := strings.SplitN(value, " ", 2)
+			currentAlbum.Links = append(currentAlbum.Links, Link{Service: parts[0], URL: parts[1]})
+		case "Cover":
+			currentAlbum.Cover = value
+		}
+
+	}
+
+	currentArtist.Albums = append(currentArtist.Albums, currentAlbum)
+	artists = append(artists, currentArtist)
+
+	return artists, nil
+}
+
+func renderMusic(filename string) error {
+	artists, err := parseMusic(filename)
+	if err != nil {
+		return err
+	}
+
+	tmpl := parseTemplate("music.tmpl", "templates/music.tmpl")
+	err = tmpl.Execute(os.Stdout, artists)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func main() {
 
 	page := flag.String("page", "", "page to render")
@@ -488,7 +574,8 @@ func main() {
 		files := []string{".cache/hello.html", ".cache/why.html"}
 		err = renderHomePage(files)
 	case "etc":
-		err = renderEtcPage()
+		files := []string{".cache/music.html"}
+		err = renderEtcPage(files)
 	case "blog":
 		err = renderBlogPage()
 	case "post":
@@ -507,6 +594,8 @@ func main() {
 		err = renderWatched()
 	case "updates":
 		err = renderUpdates()
+	case "music":
+		err = renderMusic("data/music.txt")
 	default:
 		err = fmt.Errorf("Unknown page: %s", *page)
 	}
