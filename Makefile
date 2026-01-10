@@ -123,4 +123,7 @@ PAGES := $(DIST_DIR)/index.html \
 
 all: $(PAGES) $(DIST_DIR)/static $(POST_DIST_HTML_FILES)
 
-.PHONY: serve all clean clean-for-update docker-build docker-run
+format:
+	gofmt -w web.go
+
+.PHONY: serve all clean clean-for-update docker-build docker-run format

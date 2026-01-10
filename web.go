@@ -4,9 +4,9 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"encoding/xml"
-	"html"
 	"flag"
 	"fmt"
+	"html"
 	"html/template"
 	"io"
 	"log"
@@ -35,13 +35,12 @@ func createTemplateFuncMap() template.FuncMap {
 
 type PageData struct {
 	PageName string
-	Content any
+	Content  any
 }
 
 func parseTemplate(name string, filePaths ...string) *template.Template {
 	return template.Must(template.New(name).Funcs(createTemplateFuncMap()).ParseFiles(filePaths...))
 }
-
 
 func renderHomePage(htmlFiles []string) error {
 	templates := make([]template.HTML, len(htmlFiles))
@@ -63,7 +62,7 @@ func renderHomePage(htmlFiles []string) error {
 }
 
 type Update struct {
-	Message string
+	Message     string
 	PublishedAt time.Time
 }
 
@@ -222,13 +221,13 @@ func renderEtcPage() error {
 	<div class="half-width error">Work in progress.</div>
 	{{end}}
 	`
-	
+
 	tmpl := parseTemplate("", "templates/layout.tmpl")
 
 	_, err := tmpl.Parse(content)
-    if err != nil {
-        return err
-    }
+	if err != nil {
+		return err
+	}
 
 	pageData := PageData{"etc", nil}
 	err = tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
@@ -319,12 +318,11 @@ func renderCommits() error {
 }
 
 type Status struct {
-	Author string `json:"author"`
+	Author  string `json:"author"`
 	Content string `json:"content"`
-	Face string `json:"face"`
+	Face    string `json:"face"`
 	TimeAgo string `json:"timeAgo"`
 }
-
 
 func parseStatus(filename string) (*Status, error) {
 	data, err := os.ReadFile(filename)
@@ -362,8 +360,8 @@ type BookFeed struct {
 }
 
 type Book struct {
-	Title string `xml:"title"`
-	URL string `xml:"link"`
+	Title  string `xml:"title"`
+	URL    string `xml:"link"`
 	Author string `xml:"author_name"`
 }
 
@@ -397,9 +395,9 @@ func renderReading() error {
 }
 
 type Movie struct {
-	Title string 
-	URL string 
-	Year string 
+	Title     string
+	URL       string
+	Year      string
 	WatchedAt time.Time
 }
 
