@@ -2,12 +2,12 @@
     <header>
         <h2>Recently Watched</h2>
     </header>
-	<ul class="media-list">
+    <ul class="media-list">
         {{ range . }}
-		<li>
-			<a href="{{.URL}}"><em>{{.Title}}</em> ({{.Year}})</a>
-			<time datetime= "{{ formatHtmlDate .WatchedAt }}">{{ formatDate .WatchedAt }}</time>
-		</li>
+        <li>
+            <a href="{{.URL}}"><em>{{.Title}}</em> ({{.Year}})</a>
+            <time datetime= "{{ formatHtmlDate .WatchedAt }}">{{ formatDate .WatchedAt }}</time>
+        </li>
         {{ end }}
-	</ul>
+    </ul>
 </section>

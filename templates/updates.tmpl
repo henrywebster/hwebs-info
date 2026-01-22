@@ -2,12 +2,12 @@
     <header>
         <h2>Updates</h2>
     </header>
-	<ul class="update-list">
+    <ul class="update-list">
         {{ range . }}
-		<li>
-			<span>{{.Message}}</span>
-			<time datetime= "{{ formatHtmlDatetime .PublishedAt }}">{{ formatDatetime .PublishedAt }}</time>
-		</li>
+        <li>
+            <span>{{.Message}}</span>
+            <time datetime= "{{ formatHtmlDatetime .PublishedAt }}">{{ formatDatetime .PublishedAt }}</time>
+        </li>
         {{ end }}
-	</ul>
+    </ul>
 </section>

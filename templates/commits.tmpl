@@ -2,14 +2,14 @@
     <header>
         <h2>Personal Code</h2>
     </header>
-	<ul class="media-list">
+    <ul class="media-list">
         {{ range . }}
         <li>
             <a href="{{.CommitURL}}">{{.Message}}</a>
-			<div class="meta-cluster">
+            <div class="meta-cluster">
                 <a href="{{.RepoURL}}" class="repo-link">{{.RepoName}}</a>
                 <time datetime= "{{ formatHtmlDatetime .CommittedAt }}">{{ formatDatetime .CommittedAt }}</time>
-			</div>
+            </div>
         </li>
         {{ end }}
     </ul>

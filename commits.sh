@@ -32,7 +32,6 @@ ESCAPED_QUERY=$(echo "$QUERY" | jq -Rs .)
 VARIABLES='{"authorEmails": ["'"$GITHUB_EMAIL"'"]}'
 
 curl -s -X POST "$API_URL" \
-  -H "Authorization: bearer $GITHUB_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d "$(jq -n --arg query "$QUERY" --argjson variables "$VARIABLES" '{query: $query, variables: $variables}')" 
-
+	-H "Authorization: bearer $GITHUB_TOKEN" \
+	-H "Content-Type: application/json" \
+	-d "$(jq -n --arg query "$QUERY" --argjson variables "$VARIABLES" '{query: $query, variables: $variables}')"

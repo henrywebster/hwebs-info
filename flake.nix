@@ -16,6 +16,10 @@
           darkhttpd
           jq
           flyctl
+
+          nodePackages.prettier
+          shfmt
+          djlint
         ];
       };
     };
