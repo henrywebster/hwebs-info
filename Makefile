@@ -45,18 +45,21 @@ $(DIST_DIR)/etc/index.html: hwebs-info $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_
 	./hwebs-info -page=etc > $@
 
 # blog page
-$(DIST_DIR)/blog/index.html: $(DATA_DIR)/posts.csv hwebs-info $(TEMPLATES_DIR)/blog.tmpl
-	@mkdir -p $(DIST_DIR)/blog/
-	./hwebs-info -page=blog > $@
-
-# post pages 
 POSTS := $(wildcard $(DATA_DIR)/posts/*.md)
 POST_CACHE_HTML_FILES := $(patsubst $(DATA_DIR)/posts/%.md,$(CACHE_DIR)/posts/%.html,$(POSTS))
 POST_DIST_HTML_FILES := $(patsubst $(DATA_DIR)/posts/%.md,$(DIST_DIR)/blog/post/%.html,$(POSTS))
 
+$(DIST_DIR)/blog/index.html: $(DATA_DIR)/posts.csv hwebs-info $(TEMPLATES_DIR)/blog.tmpl
+	@mkdir -p $(DIST_DIR)/blog/
+	./hwebs-info -page=blog > $@
+
 $(CACHE_DIR)/posts/%.html: $(DATA_DIR)/posts/%.md
 	@mkdir -p $(CACHE_DIR)/posts/
 	pandoc $< -o $@
+
+$(DIST_DIR)/blog/feed.xml: $(DATA_DIR)/posts.csv hwebs-info $(POST_CACHE_HTML_FILES)
+	@mkdir -p $(DIST_DIR)/blog/
+	./hwebs-info -page=feed > $@
 
 $(DIST_DIR)/blog/post/%.html: $(CACHE_DIR)/posts/%.html hwebs-info $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/post.tmpl
 	@mkdir -p $(DIST_DIR)/blog/post/
@@ -125,7 +128,7 @@ PAGES := $(DIST_DIR)/index.html \
 	 $(DIST_DIR)/blog/index.html \
 	 $(DIST_DIR)/etc/index.html
 
-all: $(PAGES) $(DIST_DIR)/static $(POST_DIST_HTML_FILES)
+all: $(PAGES) $(DIST_DIR)/static $(POST_DIST_HTML_FILES) $(DIST_DIR)/blog/feed.xml
 
 format:
 	gofmt -w web.go

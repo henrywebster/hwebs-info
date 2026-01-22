@@ -215,6 +215,83 @@ func renderPostPage(slug string) error {
 	return nil
 }
 
+type AtomFeed struct {
+	XMLName xml.Name  `xml:"feed"`
+	Xmlns   string    `xml:"xmlns,attr"`
+	Title   string    `xml:"title"`
+	ID      string    `xml:"id"`
+	Updated string    `xml:"updated"`
+	Link    []WebLink `xml:"link"`
+	Author  *Author   `xml:"author,omitempty"`
+	Entries []Entry   `xml:"entry"`
+}
+
+type Entry struct {
+	Title   string        `xml:"title"`
+	ID      string        `xml:"id"`
+	Updated string        `xml:"updated"`
+	Link    WebLink       `xml:"link"`
+	Content template.HTML `xml:"content"`
+}
+
+type WebLink struct {
+	Rel  string `xml:"rel,attr,omitempty"`
+	Href string `xml:"href,attr"`
+}
+
+type Author struct {
+	Name  string `xml:"name"`
+	Email string `xml:"email,omitempty"`
+}
+
+func renderAtomFeed() error {
+	posts, err := loadPosts("data/posts.csv")
+	if err != nil {
+		return err
+	}
+
+	// TODO put this data elsewhere
+	author := Author{Name: "Henry J. Webster", Email: "henz.world.qv1ok@dralias.com"}
+	links := []WebLink{{Href: "https://hwebs.info/blog/"}}
+	var entries []Entry
+	for _, post := range posts {
+		content, err := os.ReadFile(fmt.Sprintf(".cache/posts/%s.html", post.Slug))
+		if err != nil {
+			return err
+		}
+		url := fmt.Sprintf("https://hwebs.info/blog/%s.html", post.Slug)
+
+		var entry Entry
+		entry.Title = post.Title
+		entry.ID = url
+		entry.Updated = post.CreatedAt.Format(time.RFC3339)
+		entry.Link = WebLink{Href: url}
+		entry.Content = template.HTML(content)
+
+		entries = append(entries, entry)
+	}
+
+	feed := AtomFeed{
+		Xmlns:   "http://www.w3.org/2005/Atom",
+		Title:   "hwebs.info blog",
+		ID:      "https://hwebs.info/blog",
+		Updated: posts[0].CreatedAt.Format(time.RFC3339),
+		Link:    links,
+		Author:  &author,
+		Entries: entries,
+	}
+
+	os.Stdout.WriteString(xml.Header)
+
+	encoder := xml.NewEncoder(os.Stdout)
+
+	if err := encoder.Encode(feed); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func renderEtcPage(htmlFiles []string) error {
 
 	templates := make([]template.HTML, len(htmlFiles))
@@ -596,6 +673,8 @@ func main() {
 		err = renderUpdates()
 	case "music":
 		err = renderMusic("data/music.txt")
+	case "feed":
+		err = renderAtomFeed()
 	default:
 		err = fmt.Errorf("Unknown page: %s", *page)
 	}
