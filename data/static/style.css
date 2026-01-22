@@ -6,7 +6,7 @@
   --fg-color-2: #1e1e1e;
   --bg-color-2: #dcdcdc;
 
-  --serif: ui-serif, serif;
+  --serif: "Sitka Text", ui-serif, serif;
   --monospace: ui-monospace, monospace;
 
   --font-size-small: 16px;
