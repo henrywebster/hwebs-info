@@ -37,8 +37,9 @@ func createTemplateFuncMap() template.FuncMap {
 }
 
 type PageData struct {
-	PageName string
-	Content  any
+	PageName   string
+	Content    any
+	HideMilton bool
 }
 
 func parseTemplate(name string, filePaths ...string) *template.Template {
@@ -56,7 +57,7 @@ func renderHomePage(htmlFiles []string) error {
 	}
 
 	tmpl := parseTemplate("", "templates/layout.tmpl", "templates/home.tmpl")
-	pageData := PageData{"home", templates}
+	pageData := PageData{"home", templates, false}
 	err := tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
 		return err
@@ -168,7 +169,7 @@ func renderBlogPage() error {
 	}
 
 	tmpl := parseTemplate("", "templates/layout.tmpl", "templates/blog.tmpl")
-	pageData := PageData{"blog", posts}
+	pageData := PageData{"blog", posts, false}
 	err = tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
 		return err
@@ -208,7 +209,7 @@ func renderPostPage(slug string) error {
 	post := Post{Info: p, Content: template.HTML(content)}
 
 	tmpl := parseTemplate("", "templates/layout.tmpl", "templates/post.tmpl")
-	pageData := PageData{post.Info.Title, post}
+	pageData := PageData{post.Info.Title, post, false}
 	err = tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
 		return err
@@ -284,7 +285,7 @@ func renderEtcPage(htmlFiles []string) error {
 	}
 
 	tmpl := parseTemplate("", "templates/layout.tmpl", "templates/now.tmpl")
-	pageData := PageData{"etc", templates}
+	pageData := PageData{"etc", templates, true}
 	err := tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
 		return err
@@ -350,7 +351,7 @@ func renderNowPage(htmlFiles []string) error {
 	}
 
 	tmpl := parseTemplate("", "templates/layout.tmpl", "templates/now.tmpl")
-	pageData := PageData{"now", templates}
+	pageData := PageData{"now", templates, false}
 	err := tmpl.ExecuteTemplate(os.Stdout, "layout", pageData)
 	if err != nil {
 		return err
@@ -631,7 +632,7 @@ func main() {
 		files := []string{".cache/hello.html", ".cache/why.html"}
 		err = renderHomePage(files)
 	case "etc":
-		files := []string{".cache/music.html"}
+		files := []string{"data/milton.html", ".cache/music.html"}
 		err = renderEtcPage(files)
 	case "blog":
 		err = renderBlogPage()

@@ -40,7 +40,7 @@ $(CACHE_DIR)/music.html: hwebs-info $(TEMPLATES_DIR)/music.tmpl $(DATA_DIR)/musi
 	@mkdir -p $(CACHE_DIR)
 	./hwebs-info -page=music > $@
 
-$(DIST_DIR)/etc/index.html: hwebs-info $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/now.tmpl $(CACHE_DIR)/music.html
+$(DIST_DIR)/etc/index.html: hwebs-info $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/now.tmpl $(CACHE_DIR)/music.html $(DATA_DIR)/milton.html
 	@mkdir -p $(DIST_DIR)/etc/
 	./hwebs-info -page=etc > $@
 

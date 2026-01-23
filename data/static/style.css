@@ -25,6 +25,10 @@
   .icon {
     filter: invert(1);
   }
+
+  #milton img {
+    filter: invert(1);
+  }
 }
 
 html {
@@ -368,6 +372,21 @@ sup {
   height: 100%;
 }
 
+#milton {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+#milton img {
+  image-rendering: pixelated;
+}
+
+#milton figure {
+  padding: 32px;
+}
+
 @media (max-width: 600px) {
   main {
     grid-template-columns: 1fr;
@@ -391,6 +410,10 @@ sup {
   }
 
   .album-list {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #milton {
     grid-template-columns: 1fr 1fr;
   }
 }
