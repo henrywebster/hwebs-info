@@ -133,7 +133,7 @@ all: $(PAGES) $(DIST_DIR)/static $(POST_DIST_HTML_FILES) $(DIST_DIR)/blog/feed.x
 format:
 	gofmt -w web.go
 	prettier --write "**/*.css"
-	djlint --reformat --profile=golang $(TEMPLATES_DIR)/*.tmpl
+	-djlint --reformat --profile=golang $(TEMPLATES_DIR)/*.tmpl
 	shfmt -w *.sh
 
 .PHONY: serve all clean clean-for-update docker-build docker-run format
