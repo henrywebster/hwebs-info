@@ -234,6 +234,15 @@ article {
   padding-bottom: 20px;
 }
 
+article > div > h2 {
+	padding-top: 30px;
+}
+
+article > div > h3, 
+article > div > h4 {
+	padding-top: 25px
+}
+
 small {
   font-size: var(--font-size-small);
   color: var(--fg-color-2);
