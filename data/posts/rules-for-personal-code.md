@@ -34,14 +34,15 @@ The goal is to bring it to life, not to make its implementation understandable t
 
 ### 2. Assume no one else will ever use the code
 Some common dangers:
-- Supporting multiple
-    - operating systems
-    - databases
-    - cloud providers
-- Environment variables
-- Command line arguments
-- UI customization
-- Nitpicking functionality
+
+* Supporting multiple
+    * operating systems
+    * databases
+    * cloud providers
+* Environment variables
+* Command line arguments
+* UI customization
+* Nitpicking functionality
 
 These can enable great usability, but they're often overkill for personal code.
 Hardcode, hardcode, hardcode until there's no choice but to add that command line argument.
