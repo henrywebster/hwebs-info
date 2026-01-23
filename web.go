@@ -534,7 +534,7 @@ func parseWatched(filename string) ([]Movie, error) {
 	})
 
 	// TODO add to config
-	return movies[:5], nil
+	return movies[:6], nil
 }
 
 func renderWatched() error {
@@ -659,7 +659,7 @@ func main() {
 		// TODO error on empty string
 		err = renderPostPage(*slug)
 	case "now":
-		files := []string{".cache/commits.html", ".cache/reading.html", ".cache/status.html", ".cache/watched.html"}
+		files := []string{".cache/commits.html", ".cache/watched.html", ".cache/reading.html", ".cache/status.html"}
 		err = renderNowPage(files)
 	case "commits":
 		err = renderCommits()

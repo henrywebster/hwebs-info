@@ -1,4 +1,4 @@
-<section class="full-width boxed">
+<section class="half-width boxed">
     <header>
         <h2>Personal Code</h2>
     </header>
@@ -6,9 +6,9 @@
         {{ range . }}
         <li>
             <a href="{{.CommitURL}}">{{.Message}}</a>
-            <div class="meta-cluster">
-                <a href="{{.RepoURL}}" class="repo-link">{{.RepoName}}</a>
+            <div>
                 <time datetime= "{{ formatHtmlDatetime .CommittedAt }}">{{ formatDatetime .CommittedAt }}</time>
+                <span>(<a href="{{.RepoURL}}">{{.RepoName}}</a>)</span>
             </div>
         </li>
         {{ end }}

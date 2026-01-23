@@ -300,22 +300,12 @@ sup {
   justify-content: space-between;
   align-items: baseline;
   flex-wrap: wrap;
+  flex-direction: column;
   padding: 6px 10px;
 }
 
 .media-list time {
   color: var(--fg-color-2);
-  font-size: 0.9em;
-}
-
-.meta-cluster {
-  display: flex;
-  gap: 2.5rem;
-  margin-left: auto;
-}
-
-.repo-link {
-  font-family: monospace;
   font-size: 0.9em;
 }
 
