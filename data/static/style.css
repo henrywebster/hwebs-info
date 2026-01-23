@@ -235,12 +235,12 @@ article {
 }
 
 article > div > h2 {
-	padding-top: 30px;
+  padding-top: 30px;
 }
 
-article > div > h3, 
+article > div > h3,
 article > div > h4 {
-	padding-top: 25px
+  padding-top: 25px;
 }
 
 small {
