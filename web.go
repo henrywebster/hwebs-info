@@ -14,6 +14,7 @@ import (
 	"os"
 	"sort"
 	"strings"
+	textTmpl "text/template"
 	"time"
 )
 
@@ -216,32 +217,18 @@ func renderPostPage(slug string) error {
 }
 
 type AtomFeed struct {
-	XMLName xml.Name  `xml:"feed"`
-	Xmlns   string    `xml:"xmlns,attr"`
-	Title   string    `xml:"title"`
-	ID      string    `xml:"id"`
-	Updated string    `xml:"updated"`
-	Link    []WebLink `xml:"link"`
-	Author  *Author   `xml:"author,omitempty"`
-	Entries []Entry   `xml:"entry"`
+	Title     string
+	ID        string
+	UpdatedAt string
+	Entries   []Entry
 }
 
 type Entry struct {
-	Title   string        `xml:"title"`
-	ID      string        `xml:"id"`
-	Updated string        `xml:"updated"`
-	Link    WebLink       `xml:"link"`
-	Content template.HTML `xml:"content"`
-}
-
-type WebLink struct {
-	Rel  string `xml:"rel,attr,omitempty"`
-	Href string `xml:"href,attr"`
-}
-
-type Author struct {
-	Name  string `xml:"name"`
-	Email string `xml:"email,omitempty"`
+	Title     string
+	ID        string
+	UpdatedAt string
+	URL       string
+	Content   string
 }
 
 func renderAtomFeed() error {
@@ -251,43 +238,36 @@ func renderAtomFeed() error {
 	}
 
 	// TODO put this data elsewhere
-	author := Author{Name: "Henry J. Webster", Email: "henz.world.qv1ok@dralias.com"}
-	links := []WebLink{{Href: "https://hwebs.info/blog/"}}
 	var entries []Entry
 	for _, post := range posts {
 		content, err := os.ReadFile(fmt.Sprintf(".cache/posts/%s.html", post.Slug))
 		if err != nil {
 			return err
 		}
-		url := fmt.Sprintf("https://hwebs.info/blog/%s.html", post.Slug)
+		url := fmt.Sprintf("https://hwebs.info/blog/post/%s.html", post.Slug)
 
 		var entry Entry
 		entry.Title = post.Title
 		entry.ID = url
-		entry.Updated = post.CreatedAt.Format(time.RFC3339)
-		entry.Link = WebLink{Href: url}
-		entry.Content = template.HTML(content)
+		entry.UpdatedAt = post.CreatedAt.Format(time.RFC3339)
+		entry.URL = url
+		entry.Content = html.EscapeString(string(content))
 
 		entries = append(entries, entry)
 	}
 
 	feed := AtomFeed{
-		Xmlns:   "http://www.w3.org/2005/Atom",
-		Title:   "hwebs.info blog",
-		ID:      "https://hwebs.info/blog",
-		Updated: posts[0].CreatedAt.Format(time.RFC3339),
-		Link:    links,
-		Author:  &author,
-		Entries: entries,
+		Title:     "hwebs.info blog",
+		ID:        "https://hwebs.info/blog",
+		UpdatedAt: posts[0].CreatedAt.Format(time.RFC3339),
+		Entries:   entries,
 	}
 
-	os.Stdout.WriteString(xml.Header)
-
-	encoder := xml.NewEncoder(os.Stdout)
-
-	if err := encoder.Encode(feed); err != nil {
+	tmpl, err := textTmpl.New("xml").ParseFiles("templates/feed.tmpl")
+	if err != nil {
 		return err
 	}
+	tmpl.ExecuteTemplate(os.Stdout, "feed.tmpl", feed)
 
 	return nil
 }

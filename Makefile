@@ -57,7 +57,7 @@ $(CACHE_DIR)/posts/%.html: $(DATA_DIR)/posts/%.md
 	@mkdir -p $(CACHE_DIR)/posts/
 	pandoc $< -o $@
 
-$(DIST_DIR)/blog/feed.xml: $(DATA_DIR)/posts.csv hwebs-info $(POST_CACHE_HTML_FILES)
+$(DIST_DIR)/blog/feed.xml: $(DATA_DIR)/posts.csv hwebs-info $(POST_CACHE_HTML_FILES) $(TEMPLATES_DIR)/feed.tmpl
 	@mkdir -p $(DIST_DIR)/blog/
 	./hwebs-info -page=feed > $@
 
