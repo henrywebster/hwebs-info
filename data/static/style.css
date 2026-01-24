@@ -419,7 +419,8 @@ sup {
 }
 
 @media (max-width: 400px) {
-  .album-list {
+  .album-list,
+  #milton {
     grid-template-columns: 1fr;
   }
 }
