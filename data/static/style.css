@@ -372,7 +372,7 @@ sup {
   height: 100%;
 }
 
-#milton {
+#milton > div {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 20px;
@@ -413,14 +413,14 @@ sup {
     grid-template-columns: 1fr 1fr;
   }
 
-  #milton {
+  #milton > div {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (max-width: 400px) {
   .album-list,
-  #milton {
+  #milton > div {
     grid-template-columns: 1fr;
   }
 }

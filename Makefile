@@ -28,7 +28,7 @@ $(CACHE_DIR)/%.html: $(DATA_DIR)/%.md
 	@mkdir -p $(CACHE_DIR)
 	pandoc $< -o $@
 
-$(CACHE_DIR)/index.html: $(CACHE_DIR)/hello.html $(CACHE_DIR)/why.html hwebs-info
+$(CACHE_DIR)/index.html: $(CACHE_DIR)/hello.html $(CACHE_DIR)/why.html hwebs-info $(TEMPLATES_DIR)/layout.tmpl
 	./hwebs-info -page=home > $@ || (rm -f $@; exit 1)
 
 $(DIST_DIR)/index.html: $(CACHE_DIR)/index.html
@@ -40,7 +40,7 @@ $(CACHE_DIR)/music.html: hwebs-info $(TEMPLATES_DIR)/music.tmpl $(DATA_DIR)/musi
 	@mkdir -p $(CACHE_DIR)
 	./hwebs-info -page=music > $@
 
-$(DIST_DIR)/etc/index.html: hwebs-info $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/now.tmpl $(CACHE_DIR)/music.html $(DATA_DIR)/milton.html
+$(DIST_DIR)/etc/index.html: hwebs-info $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/now.tmpl $(CACHE_DIR)/music.html $(DATA_DIR)/milton.html $(TEMPLATES_DIR)/layout.tmpl
 	@mkdir -p $(DIST_DIR)/etc/
 	./hwebs-info -page=etc > $@
 
@@ -49,7 +49,7 @@ POSTS := $(wildcard $(DATA_DIR)/posts/*.md)
 POST_CACHE_HTML_FILES := $(patsubst $(DATA_DIR)/posts/%.md,$(CACHE_DIR)/posts/%.html,$(POSTS))
 POST_DIST_HTML_FILES := $(patsubst $(DATA_DIR)/posts/%.md,$(DIST_DIR)/blog/post/%.html,$(POSTS))
 
-$(DIST_DIR)/blog/index.html: $(DATA_DIR)/posts.csv hwebs-info $(TEMPLATES_DIR)/blog.tmpl
+$(DIST_DIR)/blog/index.html: $(DATA_DIR)/posts.csv hwebs-info $(TEMPLATES_DIR)/blog.tmpl $(TEMPLATES_DIR)/layout.tmpl
 	@mkdir -p $(DIST_DIR)/blog/
 	./hwebs-info -page=blog > $@
 
@@ -78,7 +78,7 @@ $(CACHE_DIR)/status.json:
 	# TODO err
 	curl -s https://status.cafe/users/henz/status.json > $@
 
-$(CACHE_DIR)/commits.html: $(CACHE_DIR)/code.csv hwebs-info $(TEMPLATES_DIR)/commits.tmpl
+$(CACHE_DIR)/commits.html: $(CACHE_DIR)/code.csv hwebs-info $(TEMPLATES_DIR)/commits.tmpl $(TEMPLATES_DIR)/layout.tmpl
 	./hwebs-info -page=commits > $@
 
 $(CACHE_DIR)/status.html: $(CACHE_DIR)/status.json
