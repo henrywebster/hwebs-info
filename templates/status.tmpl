@@ -1,10 +1,11 @@
+{{ $d := (datasource "data") }}
 <section class="half-width boxed">
     <header>
         <h2>Latest Status</h2>
     </header>
-    <div>{{.Content}}</div>
+    <div>{{ $d.content }}</div>
     <footer>
-        <span>{{.Face}}</span>
-        <span>{{.TimeAgo}}</span>
+        <span>{{ $d.face}}</span>
+        <span>{{ $d.timeAgo}}</span>
     </footer>
 </section>

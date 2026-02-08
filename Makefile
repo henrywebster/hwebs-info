@@ -74,16 +74,16 @@ $(CACHE_DIR)/code.csv: $(CACHE_DIR)/github_response.json scripts/process_commits
 	# TODO error
 	./scripts/process_commits.nu < $< > $@
 
-$(CACHE_DIR)/status.json:
-	@mkdir -p $(CACHE_DIR)
-	# TODO err
-	curl -s https://status.cafe/users/henz/status.json > $@
-
 $(CACHE_DIR)/commits.html: $(CACHE_DIR)/code.csv hwebs-info $(TEMPLATES_DIR)/commits.tmpl $(TEMPLATES_DIR)/layout.tmpl
 	./hwebs-info -page=commits > $@
 
-$(CACHE_DIR)/status.html: $(CACHE_DIR)/status.json
-	./hwebs-info -page=status > $@
+$(CACHE_DIR)/status.json: scripts/get_status.nu
+	@mkdir -p $(CACHE_DIR)
+	# TODO err
+	./scripts/get_status.nu > $@
+
+$(CACHE_DIR)/status.html: $(CACHE_DIR)/status.json $(TEMPLATES_DIR)/status.tmpl
+	gomplate --datasource data=$< --file=$(TEMPLATES_DIR)/status.tmpl > $@
 
 $(CACHE_DIR)/reading.xml:
 	@mkdir -p $(CACHE_DIR)
@@ -96,8 +96,11 @@ $(CACHE_DIR)/watched.xml:
 	@mkdir -p $(CACHE_DIR)
 	curl -s "https://letterboxd.com/hwebs/rss/" > $@
 
-$(CACHE_DIR)/watched.html: $(CACHE_DIR)/watched.xml hwebs-info $(TEMPLATES_DIR)/watched.tmpl
-	./hwebs-info -page=watched > $@
+$(CACHE_DIR)/watched.json: $(CACHE_DIR)/watched.xml scripts/process_watched.nu
+	./scripts/process_watched.nu < $< > $@
+
+$(CACHE_DIR)/watched.html: $(CACHE_DIR)/watched.json $(TEMPLATES_DIR)/watched.tmpl
+	gomplate --datasource films=$< --file=$(TEMPLATES_DIR)/watched.tmpl > $@
 
 #$(CACHE_DIR)/updates.html: $(DATA_DIR)/updates.csv hwebs-info $(TEMPLATES_DIR)/updates.tmpl
 #	./hwebs-info -page=updates > $@

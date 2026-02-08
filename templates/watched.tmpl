@@ -3,10 +3,10 @@
         <h2>Recently Watched</h2>
     </header>
     <ul class="media-list">
-        {{ range . }}
+        {{ range (datasource "films") }}
         <li>
-            <a href="{{.URL}}"><em>{{.Title}}</em> ({{.Year}})</a>
-            <time datetime= "{{ formatHtmlDate .WatchedAt }}">{{ formatDate .WatchedAt }}</time>
+            <a href="{{ .link }}"><em>{{ .title }}</em> ({{ .yearReleased }})</a>
+            <time datetime="{{ .dateWatched }}">{{ (.dateWatched | time.Parse "2006-01-02").Format "Jan 02, 2006"  }}</time>
         </li>
         {{ end }}
     </ul>

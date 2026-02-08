@@ -15,6 +15,8 @@
           pandoc
           darkhttpd
           flyctl
+          gomplate
+          recode
 
           nodePackages.prettier
           shfmt

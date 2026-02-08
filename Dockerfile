@@ -17,7 +17,9 @@ RUN apk add --no-cache \
     pandoc \
 	darkhttpd \
 	curl \
-	nushell
+	nushell \
+	gomplate \
+	recode
 
 COPY --from=builder /app/hwebs-info ./
 
