@@ -1,4 +1,5 @@
 #!/usr/bin/env nu
+
 let query = '
   query($authorEmails: [String!]!) {
     viewer {
@@ -24,10 +25,13 @@ let query = '
       }
     }
   }
-'let variables = {authorEmails:[$"($env GITHUB_EMAIL)"]}(http post
-https://api.github.com/graphql
---headers
-{ Authorization: Bearer ($env GITHUB_TOKEN) }--content-type
-application/json
-{ query: $query, variables: $variables }
-)| to json
+'
+
+let variables = {authorEmails:[$"($env.GITHUB_EMAIL)"]}
+
+(http post https://api.github.com/graphql
+	--headers { Authorization: $"Bearer ($env.GITHUB_TOKEN)" }
+	--content-type application/json
+	{ query: $query, variables: $variables }
+)
+| to json
