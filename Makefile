@@ -66,12 +66,13 @@ $(DIST_DIR)/blog/post/%.html: $(CACHE_DIR)/posts/%.html hwebs-info $(TEMPLATES_D
 	./hwebs-info -page=post -slug=$* > $@
 
 # now page
-$(CACHE_DIR)/github_response.json:
-	./commits.sh > $@ || (rm -f $@; exit 1)
+$(CACHE_DIR)/github_response.json: scripts/get_commits.nu
+	./scripts/get_commits.nu > $@ || (rm -f $@; exit 1)
 
-$(CACHE_DIR)/code.csv: $(CACHE_DIR)/github_response.json commits.jq
+$(CACHE_DIR)/code.csv: $(CACHE_DIR)/github_response.json scripts/process_commits.nu
+	@mkdir -p $(CACHE_DIR)
 	# TODO error
-	jq -rf commits.jq $< > $@
+	./scripts/process_commits.nu < $< > $@
 
 $(CACHE_DIR)/status.json:
 	@mkdir -p $(CACHE_DIR)

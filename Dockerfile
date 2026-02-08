@@ -14,10 +14,10 @@ WORKDIR /app
 RUN apk add --no-cache \
     supercronic \
     make \
-    jq \
     pandoc \
 	darkhttpd \
-	curl
+	curl \
+	nushell
 
 COPY --from=builder /app/hwebs-info ./
 
@@ -25,8 +25,7 @@ COPY web.go ./
 COPY Makefile ./
 COPY templates/ ./templates/
 COPY data/ ./data/
-COPY commits.sh ./
-COPY commits.jq ./
+COPY scripts/ ./scripts/
 
 ENV DATA_DIR=/app/data \
 	CACHE_DIR=/app/.cache \
@@ -37,7 +36,7 @@ ENV DATA_DIR=/app/data \
 # Copy crontab and startup script
 COPY crontab /etc/crontabs/crontab
 COPY start.sh /start.sh
-RUN chmod +x /start.sh commits.sh hwebs-info
+RUN chmod +x /start.sh scripts/*.nu hwebs-info
 
 EXPOSE 80
 

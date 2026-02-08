@@ -14,7 +14,6 @@
           go
           pandoc
           darkhttpd
-          jq
           flyctl
 
           nodePackages.prettier
