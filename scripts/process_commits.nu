@@ -19,4 +19,5 @@ open --raw /dev/stdin
 | flatten
 | select message commit_url repo_url repo_name committed_date
 | sort-by committed_date --reverse
-| to csv --noheaders
+| first 5
+| to json

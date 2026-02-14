@@ -69,13 +69,13 @@ $(DIST_DIR)/blog/post/%.html: $(CACHE_DIR)/posts/%.html hwebs-info $(TEMPLATES_D
 $(CACHE_DIR)/github_response.json: scripts/get_commits.nu
 	./scripts/get_commits.nu > $@ || (rm -f $@; exit 1)
 
-$(CACHE_DIR)/code.csv: $(CACHE_DIR)/github_response.json scripts/process_commits.nu
+$(CACHE_DIR)/code.json: $(CACHE_DIR)/github_response.json scripts/process_commits.nu
 	@mkdir -p $(CACHE_DIR)
 	# TODO error
 	./scripts/process_commits.nu < $< > $@
 
-$(CACHE_DIR)/commits.html: $(CACHE_DIR)/code.csv hwebs-info $(TEMPLATES_DIR)/commits.tmpl $(TEMPLATES_DIR)/layout.tmpl
-	./hwebs-info -page=commits > $@
+$(CACHE_DIR)/commits.html: $(CACHE_DIR)/code.json hwebs-info $(TEMPLATES_DIR)/commits.tmpl $(TEMPLATES_DIR)/layout.tmpl
+	gomplate --datasource commits=$< --file=$(TEMPLATES_DIR)/commits.tmpl > $@
 
 $(CACHE_DIR)/status.json: scripts/get_status.nu
 	@mkdir -p $(CACHE_DIR)

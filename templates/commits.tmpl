@@ -3,12 +3,12 @@
         <h2>Personal Code</h2>
     </header>
     <ul class="media-list">
-        {{ range . }}
+        {{ range (datasource "commits") }}
         <li>
-            <a href="{{.CommitURL}}">{{.Message}}</a>
+            <a href="{{.commit_url}}">{{.message}}</a>
             <div>
-                <time datetime= "{{ formatHtmlDatetime .CommittedAt }}">{{ formatDatetime .CommittedAt }}</time>
-                <span>(<a href="{{.RepoURL}}">{{.RepoName}}</a>)</span>
+                <time datetime="{{ .committed_date }}">{{ (.committed_date | time.Parse "2006-01-02T15:04:05Z").Format "Jan 02, 2006"  }}</time>
+                <span>(<a href="{{.repo_url}}">{{.repo_name}}</a>)</span>
             </div>
         </li>
         {{ end }}
