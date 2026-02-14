@@ -1,0 +1,8 @@
+{{ define "content" }}
+<h1>Now</h1>
+{{ range .content }}
+{{ . }}
+{{end}}
+{{ end }}
+
+{{ template "layout" . }}

@@ -29,7 +29,9 @@ $(CACHE_DIR)/%.html: $(DATA_DIR)/%.md
 	pandoc $< -o $@
 
 $(CACHE_DIR)/home.json: $(CACHE_DIR)/hello.html $(CACHE_DIR)/why.html
-	./scripts/process_home.nu > $@
+	./scripts/layout.nu \
+		--page-name "home" \
+		$^ > $@
 
 $(CACHE_DIR)/index.html: $(CACHE_DIR)/home.json $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/home.tmpl
 	gomplate \
@@ -42,13 +44,23 @@ $(DIST_DIR)/index.html: $(CACHE_DIR)/index.html
 	ln -f $< $@ 
 
 # etc page
-$(CACHE_DIR)/music.html: hwebs-info $(TEMPLATES_DIR)/music.tmpl $(DATA_DIR)/music.txt
+$(CACHE_DIR)/music.html: $(DATA_DIR)/music.json $(TEMPLATES_DIR)/music.tmpl
 	@mkdir -p $(CACHE_DIR)
-	./hwebs-info -page=music > $@
+	# TODO order by date_released
+	gomplate -c .=$< --file=$(TEMPLATES_DIR)/music.tmpl > $@
 
-$(DIST_DIR)/etc/index.html: hwebs-info $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/now.tmpl $(CACHE_DIR)/music.html $(DATA_DIR)/milton.html $(TEMPLATES_DIR)/layout.tmpl
+$(CACHE_DIR)/etc.json: $(DATA_DIR)/milton.html $(CACHE_DIR)/music.html
+	./scripts/layout.nu \
+		--page-name "etc" \
+		--hide-milton \
+		$^ > $@
+
+$(DIST_DIR)/etc/index.html: $(CACHE_DIR)/etc.json $(TEMPLATES_DIR)/base.tmpl $(TEMPLATES_DIR)/content.tmpl 
 	@mkdir -p $(DIST_DIR)/etc/
-	./hwebs-info -page=etc > $@
+	gomplate \
+    	-c .=$< \
+    	--template layout=$(TEMPLATES_DIR)/base.tmpl \
+    	--file=$(TEMPLATES_DIR)/content.tmpl > $@
 
 # blog page
 POSTS := $(wildcard $(DATA_DIR)/posts/*.md)

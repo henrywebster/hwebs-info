@@ -1,0 +1,77 @@
+[
+    {
+        "name": "Sturdy Plastics",
+        "albums": [
+            {
+                "name": "3P",
+                "date_released": "2024-08-01",
+                "cover": "3p_cover.webp",
+                "links": [
+                    {
+                        "service": "Bandcamp",
+                        "link": "https://thinktankrec.bandcamp.com/album/3p"
+                    },
+                    {
+                        "service": "Apple Music",
+                        "link": "https://music.apple.com/us/album/3p/1763055847"
+                    },
+                    {
+                        "service": "Spotify",
+                        "link": "https://open.spotify.com/album/05S87McIGu2rVBhhg9tp43"
+                    }
+                ]
+            }
+        ]
+    },
+{
+    "name": "death ray of peace",
+    "albums": [
+        {
+            "name": "Urbane Living",
+            "date_released": "2018-08-23",
+            "cover": "urbane-living.webp",
+            "links": [
+                { "service": "Bandcamp", "link": "https://deathrayop.bandcamp.com/album/urbane-living" },
+                { "service": "Apple Music", "link": "https://music.apple.com/us/album/urbane-living/1494487519" },
+                { "service": "Spotify", "link": "https://open.spotify.com/album/7DMV0QPQ4jqHbAgKnaCqqc" }
+            ]
+        },
+        {
+            "name": "music for strangers",
+            "date_released": "2015-12-23",
+            "cover": "music-for-strangers.webp",
+            "links": [
+                { "service": "Bandcamp", "link": "https://deathrayop.bandcamp.com/album/music-for-strangers" },
+                { "service": "Apple Music", "link": "https://music.apple.com/us/album/music-for-strangers/1510448153" },
+                { "service": "Spotify", "link": "https://open.spotify.com/album/7LFvsewaAbSdaJYpAp0Red" }
+            ]
+        },
+        {
+            "name": "20/14 Visions",
+            "date_released": "2014-06-14",
+            "cover": "2014-visions.webp",
+            "links": [
+                { "service": "Bandcamp", "link": "https://deathrayop.bandcamp.com/album/20-14-visions" },
+                { "service": "Apple Music", "link": "https://music.apple.com/us/album/20-14-visions/1514449551" },
+                { "service": "Spotify", "link": "https://open.spotify.com/album/5YuJxjucdoIJgycqJByLPF" }
+            ]
+        },
+        {
+            "name": "the mountains became valleys, the clouds became lakes",
+            "date_released": "2014-01-31",
+            "cover": "clouds-became.webp",
+            "links": [
+                { "service": "Bandcamp", "link": "https://deathrayop.bandcamp.com/album/the-mountains-became-valleys-the-clouds-became-lakes" }
+            ]
+        },
+        {
+            "name": "steady diet of pizza",
+            "date_released": "2013-12-13",
+            "cover": "steady-diet.webp",
+            "links": [
+                { "service": "Bandcamp", "link": "https://deathrayop.bandcamp.com/album/steady-diet-of-pizza" }
+            ]
+        }
+    ]
+}
+]

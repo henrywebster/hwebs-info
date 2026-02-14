@@ -5,23 +5,23 @@
     <ul class="unstyled-list">
         {{ range . }}
         <li>
-            <h3>{{ .Name }}</h3>
+            <h3>{{ .name }}</h3>
             <ul class="unstyled-list album-list">
-                {{ range .Albums }}
+                {{ range .albums }}
                 <li>
-                    <img src="/static/{{ .Cover }}" alt="{{ .Name }} album cover">
+                    <img src="/static/{{ .cover }}" alt="{{ .name }} album cover">
                     <div>
-                        <h4>{{ .Name }}</h4>
+                        <h4>{{ .name }}</h4>
                         <div>
                             <div>Released</div>
-                            <time datetime= "{{ formatHtmlDate .ReleaseDate }}">{{ formatDate .ReleaseDate }}</time>
+                            <time datetime="{{ .date_released }}">{{ (.date_released | time.Parse "2006-01-02").Format "Jan 02, 2006"  }}</time>
                         </div>
                         <div>
                             <span>Listen on</span>
                             <ul class="unstyled-list">
-                                {{ range .Links }}
+                                {{ range .links }}
                                 <li>
-                                    <a href="{{ .URL }}">{{.Service}}</a>
+                                    <a href="{{ .link }}">{{.service}}</a>
                                     {{ end}}
                                 </ul>
                             </div>
