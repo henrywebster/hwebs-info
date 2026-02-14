@@ -74,7 +74,7 @@ $(CACHE_DIR)/code.json: $(CACHE_DIR)/github_response.json scripts/process_commit
 	# TODO error
 	./scripts/process_commits.nu < $< > $@
 
-$(CACHE_DIR)/commits.html: $(CACHE_DIR)/code.json hwebs-info $(TEMPLATES_DIR)/commits.tmpl $(TEMPLATES_DIR)/layout.tmpl
+$(CACHE_DIR)/commits.html: $(CACHE_DIR)/code.json $(TEMPLATES_DIR)/commits.tmpl 
 	gomplate --datasource commits=$< --file=$(TEMPLATES_DIR)/commits.tmpl > $@
 
 $(CACHE_DIR)/status.json: scripts/get_status.nu
