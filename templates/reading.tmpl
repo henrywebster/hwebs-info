@@ -3,10 +3,10 @@
         <h2>Currently Reading</h2>
     </header>
     <ul class="media-list">
-        {{ range . }}
+        {{ range (datasource "books") }}
         <li>
-            <a href="{{.URL}}"><em>{{.Title}}</em></a>
-            <span>by {{.Author}}</span>
+            <a href="{{.link}}"><em>{{.title}}</em></a>
+            <span>by {{.author}}</span>
         </li>
         {{ end }}
     </ul>

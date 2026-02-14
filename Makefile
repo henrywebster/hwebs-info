@@ -87,10 +87,13 @@ $(CACHE_DIR)/status.html: $(CACHE_DIR)/status.json $(TEMPLATES_DIR)/status.tmpl
 
 $(CACHE_DIR)/reading.xml:
 	@mkdir -p $(CACHE_DIR)
-	curl -sL -A "$$USER_AGENT" "https://www.goodreads.com/review/list_rss/159263337?key=qDjiqflyhso0h4tUk8bW2USB19csqQ3NW32j7SBIIf6FFVG8&shelf=currently-reading" > $@
+	./scripts/get_reading.nu > $@
+
+$(CACHE_DIR)/reading.json: $(CACHE_DIR)/reading.xml
+	./scripts/process_reading.nu < $< > $@
 	
-$(CACHE_DIR)/reading.html: $(CACHE_DIR)/reading.xml hwebs-info $(TEMPLATES_DIR)/reading.tmpl
-	./hwebs-info -page=reading > $@
+$(CACHE_DIR)/reading.html: $(CACHE_DIR)/reading.json $(TEMPLATES_DIR)/reading.tmpl
+	gomplate --datasource books=$< --file=$(TEMPLATES_DIR)/reading.tmpl > $@
 
 $(CACHE_DIR)/watched.xml:
 	@mkdir -p $(CACHE_DIR)
