@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content= "width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="icon"
+              href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;🌎&lt;/text&gt;&lt;/svg&gt;">
+        <title>hwebs | {{ .page_name }}</title>
+    </head>
+    <body>
+        <header>
+            <div id="masthead">
+                <a id="site-name" href="/">hwebs</a>
+                {{ if not .hide_milton }}
+                <a href="/etc#milton">
+                    <img class="icon" src="/static/cat.svg" alt= "Pixel art cat">
+                </a>
+                {{ end }}
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/">/home</a>
+                    </li>
+                    <li>
+                        <a href="/now/">/now</a>
+                    </li>
+                    <li>
+                        <a href="/blog/">/blog</a>
+                    </li>
+                    <li>
+                        <a href="/etc/">/etc</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            {{ block "content" . }}{{ end }}
+        </main>
+        <footer>
+            <div>© 2023–2026 Henry J. Webster</div>
+        </footer>
+    </body>
+</html>

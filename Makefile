@@ -28,8 +28,14 @@ $(CACHE_DIR)/%.html: $(DATA_DIR)/%.md
 	@mkdir -p $(CACHE_DIR)
 	pandoc $< -o $@
 
-$(CACHE_DIR)/index.html: $(CACHE_DIR)/hello.html $(CACHE_DIR)/why.html hwebs-info $(TEMPLATES_DIR)/layout.tmpl
-	./hwebs-info -page=home > $@ || (rm -f $@; exit 1)
+$(CACHE_DIR)/home.json: $(CACHE_DIR)/hello.html $(CACHE_DIR)/why.html
+	./scripts/process_home.nu > $@
+
+$(CACHE_DIR)/index.html: $(CACHE_DIR)/home.json $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/home.tmpl
+	gomplate \
+    	-c .=$< \
+    	--template layout=$(TEMPLATES_DIR)/base.tmpl \
+    	--file=$(TEMPLATES_DIR)/home.tmpl > $@
 
 $(DIST_DIR)/index.html: $(CACHE_DIR)/index.html
 	@mkdir -p $(DIST_DIR)
