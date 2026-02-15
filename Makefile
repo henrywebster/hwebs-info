@@ -133,7 +133,7 @@ $(CACHE_DIR)/reading.html: $(CACHE_DIR)/reading.json $(TEMPLATES_DIR)/reading.tm
 
 $(CACHE_DIR)/watched.xml:
 	@mkdir -p $(CACHE_DIR)
-	curl -s "https://letterboxd.com/hwebs/rss/" > $@
+	nu -c "http get https://letterboxd.com/hwebs/rss/" > $@
 
 $(CACHE_DIR)/watched.json: $(CACHE_DIR)/watched.xml scripts/process_watched.nu
 	./scripts/process_watched.nu < $< > $@

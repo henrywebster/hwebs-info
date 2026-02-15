@@ -7,7 +7,6 @@ RUN apk add --no-cache \
     make \
     pandoc \
 	darkhttpd \
-	curl \
 	nushell \
 	gomplate \
 	recode
