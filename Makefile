@@ -16,9 +16,6 @@ serve:
 
 STATIC_SOURCES := $(shell find $(DATA_DIR)/static -type f)
 
-hwebs-info: web.go
-	go build
-
 $(DIST_DIR)/static: $(STATIC_SOURCES)
 	@mkdir -p $(DIST_DIR)/static/
 	cp -ru $(DATA_DIR)/static/* $@
@@ -144,10 +141,17 @@ $(CACHE_DIR)/watched.json: $(CACHE_DIR)/watched.xml scripts/process_watched.nu
 $(CACHE_DIR)/watched.html: $(CACHE_DIR)/watched.json $(TEMPLATES_DIR)/watched.tmpl
 	gomplate --datasource films=$< --file=$(TEMPLATES_DIR)/watched.tmpl > $@
 
-# TODO send in the dependencies as args
-$(DIST_DIR)/now/index.html: $(CACHE_DIR)/commits.html $(CACHE_DIR)/status.html $(CACHE_DIR)/reading.html $(CACHE_DIR)/watched.html
+$(CACHE_DIR)/now.json: $(CACHE_DIR)/commits.html $(CACHE_DIR)/watched.html $(CACHE_DIR)/reading.html $(CACHE_DIR)/status.html 
+	./scripts/layout.nu \
+		--page-name "now" \
+		$^ > $@
+
+$(DIST_DIR)/now/index.html: $(CACHE_DIR)/now.json $(TEMPLATES_DIR)/base.tmpl $(TEMPLATES_DIR)/content.tmpl
 	@mkdir -p $(DIST_DIR)/now/
-	./hwebs-info -page=now > $@
+	gomplate \
+    	-c .=$< \
+    	--template layout=$(TEMPLATES_DIR)/base.tmpl \
+    	--file=$(TEMPLATES_DIR)/content.tmpl > $@
 
 docker-build:
 	docker build -t hwebs-info .
@@ -158,7 +162,6 @@ docker-run:
 clean:
 	rm -rf $(DIST_DIR)
 	rm -rf $(CACHE_DIR)
-	rm -f hwebs-info
 
 clean-for-update:
 	rm -f $(CACHE_DIR)/reading.xml
