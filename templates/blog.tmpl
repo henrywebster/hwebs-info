@@ -1,15 +1,14 @@
-{{ define "content" }}
 <h1>Blog</h1>
 <section class="full-width">
     <ul class="unstyled-list">
-        {{ range .Content }}
+        {{ range . }}
         <li>
             <article>
                 <header>
                     <h2>
-                        <a href="/blog/post/{{.Slug}}.html">{{.Title}}</a>
+                        <a href="/blog/post/{{.slug}}.html">{{.title}}</a>
                     </h2>
-                    <time datetime= "{{ formatHtmlDate .CreatedAt }}">{{ formatDate .CreatedAt }}</time>
+                    <time datetime="{{ .date_created }}">{{ (.date_created | time.Parse "2006-01-02 15:04").Format "Jan 02, 2006"  }}</time>
                 </header>
             </article>
         </li>
@@ -17,4 +16,3 @@
     </ul>
 </section>
 <a href="/blog/feed.xml">Atom Feed</a>
-{{ end }}

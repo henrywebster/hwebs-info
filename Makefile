@@ -67,9 +67,25 @@ POSTS := $(wildcard $(DATA_DIR)/posts/*.md)
 POST_CACHE_HTML_FILES := $(patsubst $(DATA_DIR)/posts/%.md,$(CACHE_DIR)/posts/%.html,$(POSTS))
 POST_DIST_HTML_FILES := $(patsubst $(DATA_DIR)/posts/%.md,$(DIST_DIR)/blog/post/%.html,$(POSTS))
 
-$(DIST_DIR)/blog/index.html: $(DATA_DIR)/posts.csv hwebs-info $(TEMPLATES_DIR)/blog.tmpl $(TEMPLATES_DIR)/layout.tmpl
+$(CACHE_DIR)/posts.json: $(DATA_DIR)/posts.csv
+	@mkdir -p $(CACHE_DIR)
+	./scripts/process_posts.nu < $< > $@
+
+$(CACHE_DIR)/blog.html: $(CACHE_DIR)/posts.json $(TEMPLATES_DIR)/blog.tmpl
+	@mkdir -p $(CACHE_DIR)
+	gomplate -c .=$< --file=$(TEMPLATES_DIR)/blog.tmpl > $@
+
+$(CACHE_DIR)/blog.json: $(CACHE_DIR)/blog.html
+	./scripts/layout.nu \
+		--page-name "blog" \
+		$^ > $@
+
+$(DIST_DIR)/blog/index.html: $(CACHE_DIR)/blog.json $(TEMPLATES_DIR)/base.tmpl $(TEMPLATES_DIR)/content.tmpl
 	@mkdir -p $(DIST_DIR)/blog/
-	./hwebs-info -page=blog > $@
+	gomplate \
+    	-c .=$< \
+    	--template layout=$(TEMPLATES_DIR)/base.tmpl \
+    	--file=$(TEMPLATES_DIR)/content.tmpl > $@
 
 $(CACHE_DIR)/posts/%.html: $(DATA_DIR)/posts/%.md
 	@mkdir -p $(CACHE_DIR)/posts/
