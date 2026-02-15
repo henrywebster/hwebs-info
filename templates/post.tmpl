@@ -1,10 +1,10 @@
 {{define "content"}}
 <article class="centered-grid">
     <heading>
-    <h1>{{ .Content.Info.Title }}</h1>
-    <time datetime="{{ formatHtmlDate .Content.Info.CreatedAt }}">{{ formatDate .Content.Info.CreatedAt }}</time>
+        <h1>{{ .content.title }}</h1>
+        <time datetime="{{ .content.date_created }}">{{ (.content.date_created | time.Parse "2006-01-02 15:04").Format "Jan 02, 2006"  }}</time>
     </heading>
-    <div>{{ .Content.Content }}</div>
+    <div>{{ .content.content }}</div>
     <footer>
         <div class="boxed">
             <header>
@@ -18,3 +18,5 @@
     </footer>
 </article>
 {{end}}
+
+{{ template "layout" . }}

@@ -67,8 +67,7 @@ POSTS := $(wildcard $(DATA_DIR)/posts/*.md)
 POST_CACHE_HTML_FILES := $(patsubst $(DATA_DIR)/posts/%.md,$(CACHE_DIR)/posts/%.html,$(POSTS))
 POST_DIST_HTML_FILES := $(patsubst $(DATA_DIR)/posts/%.md,$(DIST_DIR)/blog/post/%.html,$(POSTS))
 
-$(CACHE_DIR)/posts.json: $(DATA_DIR)/posts.csv
-	@mkdir -p $(CACHE_DIR)
+$(CACHE_DIR)/posts.json: $(DATA_DIR)/posts.csv $(POST_CACHE_HTML_FILES)
 	./scripts/process_posts.nu < $< > $@
 
 $(CACHE_DIR)/blog.html: $(CACHE_DIR)/posts.json $(TEMPLATES_DIR)/blog.tmpl
@@ -91,13 +90,19 @@ $(CACHE_DIR)/posts/%.html: $(DATA_DIR)/posts/%.md
 	@mkdir -p $(CACHE_DIR)/posts/
 	pandoc $< -o $@
 
-$(DIST_DIR)/blog/feed.xml: $(DATA_DIR)/posts.csv hwebs-info $(POST_CACHE_HTML_FILES) $(TEMPLATES_DIR)/feed.tmpl
+$(DIST_DIR)/blog/feed.xml: $(CACHE_DIR)/posts.json $(POST_CACHE_HTML_FILES)
 	@mkdir -p $(DIST_DIR)/blog/
-	./hwebs-info -page=feed > $@
+	./scripts/generate_feed.nu < $< > $@
 
-$(DIST_DIR)/blog/post/%.html: $(CACHE_DIR)/posts/%.html hwebs-info $(TEMPLATES_DIR)/layout.tmpl $(TEMPLATES_DIR)/post.tmpl
+$(CACHE_DIR)/posts/%.json: $(DATA_DIR)/posts.csv $(CACHE_DIR)/posts/%.html
+	./scripts/process_post_page.nu $* < $< > $@
+
+$(DIST_DIR)/blog/post/%.html: $(CACHE_DIR)/posts/%.json $(TEMPLATES_DIR)/base.tmpl $(TEMPLATES_DIR)/post.tmpl
 	@mkdir -p $(DIST_DIR)/blog/post/
-	./hwebs-info -page=post -slug=$* > $@
+	gomplate \
+    	-c .=$< \
+    	--template layout=$(TEMPLATES_DIR)/base.tmpl \
+    	--file=$(TEMPLATES_DIR)/post.tmpl > $@
 
 # now page
 $(CACHE_DIR)/github_response.json: scripts/get_commits.nu
@@ -138,9 +143,6 @@ $(CACHE_DIR)/watched.json: $(CACHE_DIR)/watched.xml scripts/process_watched.nu
 
 $(CACHE_DIR)/watched.html: $(CACHE_DIR)/watched.json $(TEMPLATES_DIR)/watched.tmpl
 	gomplate --datasource films=$< --file=$(TEMPLATES_DIR)/watched.tmpl > $@
-
-#$(CACHE_DIR)/updates.html: $(DATA_DIR)/updates.csv hwebs-info $(TEMPLATES_DIR)/updates.tmpl
-#	./hwebs-info -page=updates > $@
 
 # TODO send in the dependencies as args
 $(DIST_DIR)/now/index.html: $(CACHE_DIR)/commits.html $(CACHE_DIR)/status.html $(CACHE_DIR)/reading.html $(CACHE_DIR)/watched.html
