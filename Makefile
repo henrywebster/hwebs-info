@@ -168,6 +168,7 @@ clean-for-update:
 	rm -f $(CACHE_DIR)/watched.xml
 	rm -f $(CACHE_DIR)/status.json
 	rm -f $(CACHE_DIR)/github_response.json
+	rm -f $(CACHE_DIR)/code.json
 
 PAGES := $(DIST_DIR)/index.html \
 	 $(DIST_DIR)/now/index.html \
